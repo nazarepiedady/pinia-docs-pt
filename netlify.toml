@@ -1,0 +1,7 @@
+[build.environment]
+NPM_FLAGS="--version"
+
+[build]
+command = "npx pnpm@6 run docs:build"
+ignore = "./scripts/docs-check.sh"
+publish = ".vitepress/dist"
