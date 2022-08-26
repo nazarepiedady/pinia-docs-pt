@@ -3,5 +3,4 @@ NPM_FLAGS="--version"
 
 [build]
 command = "npm run docs:build"
-ignore = "./scripts/docs-check.sh"
 publish = ".vitepress/dist"
