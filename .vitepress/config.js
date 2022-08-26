@@ -3,7 +3,7 @@
 const META_URL = 'https://pinia.vuejs.org'
 const META_TITLE = 'Pinia 🍍'
 const META_DESCRIPTION =
-  'Intuitive, type safe, light and flexible Store for Vue'
+  'Memória intuitiva, flexível, leve, de tipo seguro para Vue'
 const META_IMAGE = 'https://pinia.vuejs.org/social.png'
 
 const isProduction = process.env.NODE_ENV
@@ -33,8 +33,8 @@ module.exports = {
     },
   },
   title: 'Pinia',
-  lang: 'en-US',
-  description: 'The Vue Store that you will enjoy using',
+  lang: 'pt-PT',
+  description: 'A Memória de Vue que gostarás de utilizar',
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
     ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
@@ -129,12 +129,12 @@ module.exports = {
   ],
 
   themeConfig: {
-    repo: 'vuejs/pinia',
+    repo: 'nazarepiedady/pinia-docs-pt',
     logo: '/logo.svg',
-    docsDir: 'packages/docs',
-    docsBranch: 'v2',
+    docsDir: '',
+    docsBranch: 'main',
     editLinks: true,
-    editLinkText: 'Suggest changes to this page',
+    editLinkText: 'Sugerir mudanças para esta página',
 
     algolia: {
       appId: '69Y3N7LHI2',
@@ -149,19 +149,19 @@ module.exports = {
     },
 
     nav: [
-      { text: 'Guide', link: '/introduction.html' },
+      { text: 'Guia', link: '/introduction.html' },
       { text: 'API', link: '/api/' },
       // { text: 'Config', link: '/config/' },
       // { text: 'Plugins', link: '/plugins/' },
       {
-        text: 'Links',
+        text: 'Ligações',
         items: [
           {
-            text: 'Discussions',
+            text: 'Discussões',
             link: 'https://github.com/vuejs/pinia/discussions',
           },
           {
-            text: 'Chat',
+            text: 'Conversas',
             link: 'https://chat.vuejs.org',
           },
           {
@@ -169,7 +169,7 @@ module.exports = {
             link: 'https://twitter.com/posva',
           },
           {
-            text: 'Changelog',
+            text: 'Relatório de Mudança',
             link: 'https://github.com/vuejs/pinia/blob/v2/packages/pinia/CHANGELOG.md',
           },
         ],
@@ -179,7 +179,7 @@ module.exports = {
     sidebar: {
       '/api/': [
         {
-          text: 'packages',
+          text: 'Pacotes',
           children: [
             { text: 'pinia', link: '/api/modules/pinia.html' },
             { text: '@pinia/nuxt', link: '/api/modules/pinia_nuxt.html' },
@@ -190,37 +190,37 @@ module.exports = {
       // catch-all fallback
       '/': [
         {
-          text: 'Introduction',
+          text: 'Introdução',
           children: [
             {
-              text: 'What is Pinia?',
+              text: 'O que é Pinia?',
               link: '/introduction.html',
             },
             {
-              text: 'Getting Started',
+              text: 'Começar',
               link: '/getting-started.html',
             },
           ],
         },
         {
-          text: 'Core Concepts',
+          text: 'Conceitos Principais',
           children: [
-            { text: 'Defining a Store', link: '/core-concepts/' },
-            { text: 'State', link: '/core-concepts/state.html' },
-            { text: 'Getters', link: '/core-concepts/getters.html' },
-            { text: 'Actions', link: '/core-concepts/actions.html' },
-            { text: 'Plugins', link: '/core-concepts/plugins.html' },
+            { text: 'Definição de uma Memória', link: '/core-concepts/' },
+            { text: 'Estado', link: '/core-concepts/state.html' },
+            { text: 'Recuperadores', link: '/core-concepts/getters.html' },
+            { text: 'Ações', link: '/core-concepts/actions.html' },
+            { text: 'Extensões', link: '/core-concepts/plugins.html' },
             {
-              text: 'Stores outside of components',
+              text: 'Memórias fora dos componentes',
               link: '/core-concepts/outside-component-usage.html',
             },
           ],
         },
         {
-          text: 'Server-Side Rendering (SSR)',
+          text: 'Interpretação no Lado do Servidor (SSR)',
           children: [
             {
-              text: 'Vue and Vite',
+              text: 'Vue e Vite',
               link: '/ssr/',
             },
             {
@@ -228,41 +228,41 @@ module.exports = {
               link: '/ssr/nuxt.html',
             },
             {
-              text: 'Dealing with composables',
+              text: 'Lidando com constituíveis',
               link: '/cookbook/composables.html#ssr',
             },
           ],
         },
         {
-          text: 'Cookbook',
+          text: 'Livro de Receitas',
           link: '/cookbook/',
           children: [
             {
-              text: 'Migration from Vuex ≤4',
+              text: 'Migrando da Vuex ≤4',
               link: '/cookbook/migration-vuex.html',
             },
             {
-              text: 'Hot Module Replacement',
+              text: 'Substituição de Módulo Instantânea',
               link: '/cookbook/hot-module-replacement.html',
             },
             {
-              text: 'Testing',
+              text: 'Testing Testagem',
               link: '/cookbook/testing.html',
             },
             {
-              text: 'Usage without setup()',
+              text: 'Utilização sem setup()',
               link: '/cookbook/options-api.html',
             },
             {
-              text: 'Composing Stores',
+              text: 'Composição de Memórias',
               link: '/cookbook/composing-stores.html',
             },
             {
-              text: 'Migration from v0/v1 to v2',
+              text: 'Migrando de v0/v1 para v2',
               link: '/cookbook/migration-v1-v2.html',
             },
             {
-              text: 'Dealing with composables',
+              text: 'Lidando com constituíveis',
               link: '/cookbook/composables.html',
             },
           ],
