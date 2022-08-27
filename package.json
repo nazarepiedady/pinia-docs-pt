@@ -10,7 +10,7 @@
   "dependencies": {
     "@chenfengyuan/vue-countdown": "^2.1.0",
     "@vueuse/core": "^8.9.4",
-    "pinia": "workspace:^2.0.18",
+    "pinia": "^2.0.18",
     "vitepress": "^0.22.4"
   }
 }
