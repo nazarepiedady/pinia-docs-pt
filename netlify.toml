@@ -1,0 +1,6 @@
+[build.environment]
+NPM_FLAGS="--install"
+
+[build]
+command = "npm run docs:build"
+publish = "packages/docs/.vitepress/dist"
