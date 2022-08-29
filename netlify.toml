@@ -3,4 +3,4 @@ NPM_FLAGS="--install"
 
 [build]
 command = "npm run docs:build"
-publish = "docs/.vitepress/dist"
+publish = ".vitepress/dist"
