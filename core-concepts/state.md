@@ -1,20 +1,15 @@
-# State
+# Estado (`state`)
 
-<VueSchoolLink
-  href="https://vueschool.io/lessons/access-state-from-a-pinia-store"
-  title="Learn all about state in Pinia"
-/>
-
-The state is, most of the time, the central part of your store. People often start by defining the state that represents their app. In Pinia the state is defined as a function that returns the initial state. This allows Pinia to work in both Server and Client Side.
+O estado é, na maioria das vezes, a parte fundamental da sua memória. As pessoas normalmente começam por definir o estado que representa suas aplicações. Na Pinia o estado é definido como uma função que retorna o estado inicial. Isto permite a Pinia funcionar em ambos lados de Servidor e Cliente.
 
 ```js
 import { defineStore } from 'pinia'
 
-export const useStore = defineStore('storeId', {
-  // arrow function recommended for full type inference
+const useStore = defineStore('storeId', {
+  // função flecha recomendada para inferência de tipo completa
   state: () => {
     return {
-      // all these properties will have their type inferred automatically
+      // todas estas propriedades terão seus tipos inferidos automaticamente
       count: 0,
       name: 'Eduardo',
       isAdmin: true,
@@ -24,20 +19,20 @@ export const useStore = defineStore('storeId', {
 ```
 
 :::tip
-If you are using Vue 2, the data you create in `state` follows the same rules as the `data` in a Vue instance, i.e. the state object must be plain and you need to call `Vue.set()` when **adding new** properties to it. **See also: [Vue#data](https://v2.vuejs.org/v2/api/#data)**.
+Se estiveres a utilizar a Vue 2, os dados que criares em `state` seguem as mesmas regras que daqueles criados no `data` de uma instância de Vue, por exemplo o objeto de estado deve ser plano e precisas chamar a `Vue.set()` quando estiveres **adicionando novas** propriedades a ela. **Consulte também: [Vue#data](https://v2.vuejs.org/v2/api/#data)**.
 :::
 
 ## TypeScript
 
-You don't need to do much in order to make your state compatible with TS: make sure [`strict`](https://www.typescriptlang.org/tsconfig#strict), or at the very least, [`noImplicitThis`](https://www.typescriptlang.org/tsconfig#noImplicitThis), are enabled and Pinia will infer the type of your state automatically! However, there are a few cases where you should give it a hand with some casting:
+Tu não precisas fazer muito para tornar o teu estado compatível com a TypeScript. A pinia inferirá o tipo do teu estado automaticamente mas existem alguns casos onde deves dar uma mãozinha com alguns moldes.
 
 ```ts
-export const useUserStore = defineStore('user', {
+const useStore = defineStore('storeId', {
   state: () => {
     return {
-      // for initially empty lists
+      // para listas inicialmente vazias
       userList: [] as UserInfo[],
-      // for data that is not yet loaded
+      // para dados que ainda não foram carregados
       user: null as UserInfo | null,
     }
   },
@@ -49,7 +44,7 @@ interface UserInfo {
 }
 ```
 
-If you prefer, you can define the state with an interface and type the return value of `state()`:
+Se preferires, podes definir o estado com uma interface e definir um tipo para o valor de retorno de `state()`:
 
 ```ts
 interface State {
@@ -57,7 +52,7 @@ interface State {
   user: UserInfo | null
 }
 
-export const useUserStore = defineStore('user', {
+const useStore = defineStore('storeId', {
   state: (): State => {
     return {
       userList: [],
@@ -72,19 +67,19 @@ interface UserInfo {
 }
 ```
 
-## Accessing the `state`
+## Acessando o `estado`
 
-By default, you can directly read and write to the state by accessing it through the `store` instance:
+Por padrão, podes ler e escrever diretamente no estado ao acessá-lo através da instância de `store`:
 
 ```js
 const store = useStore()
 
-store.count++
+store.counter++
 ```
 
-## Resetting the state
+## Reiniciando o estado
 
-You can _reset_ the state to its initial value by calling the `$reset()` method on the store:
+Tu podes _reiniciar_ o estado para o seu valor inicial ao chamar o método `$reset()` na `store`:
 
 ```js
 const store = useStore()
@@ -92,94 +87,89 @@ const store = useStore()
 store.$reset()
 ```
 
-### Usage with the Options API
+### Utilização com a API de Opções
 
-<VueSchoolLink
-  href="https://vueschool.io/lessons/access-pinia-state-in-the-options-api"
-  title="Access Pinia State via the Options API"
-/>
-
-For the following examples, you can assume the following store was created:
+Para os exemplos seguintes, podes assumir que a seguinte memória foi criada:
 
 ```js
-// Example File Path:
-// ./src/stores/counter.js
+// Caminho do Ficheiro de Exemplo:
+// ./src/stores/counterStore.js
 
 import { defineStore } from 'pinia'
 
-export const useCounterStore = defineStore('counter', {
+const useCounterStore = defineStore('counterStore', {
   state: () => ({
-    count: 0,
+    counter: 0,
   }),
 })
 ```
 
-If you are not using the Composition API, and you are using `computed`, `methods`, ..., you can use the `mapState()` helper to map state properties as readonly computed properties:
+Se não estiveres utilizando a API de Composição, e estás utilizando `computed`, `methods`, ..., tu podes utilizar a auxiliar `mapState()` para delinear as propriedades do estado como propriedades computadas de apenas leitura:
 
 ```js
 import { mapState } from 'pinia'
-import { useCounterStore } from '../stores/counter'
+import { useCounterStore } from '../stores/counterStore'
 
 export default {
   computed: {
-    // gives access to this.count inside the component
-    // same as reading from store.count
-    ...mapState(useCounterStore, ['count'])
-    // same as above but registers it as this.myOwnName
+    // dá acesso ao `this.counter` dentro do componente
+    // mesmo que ler de `store.counter`
+    ...mapState(useCounterStore, ['counter'])
+    // mesmo que o de acima exceto a regista como `this.myOwnName`
     ...mapState(useCounterStore, {
-      myOwnName: 'count',
-      // you can also write a function that gets access to the store
-      double: store => store.count * 2,
-      // it can have access to `this` but it won't be typed correctly...
+      myOwnName: 'counter',
+      // também podes escrever uma função que recebe a acesso à memória
+      double: store => store.counter * 2,
+      // ela pode ter acesso ao `this` mas não seria tipada corretamente...
       magicValue(store) {
-        return store.someGetter + this.count + this.double
+        return store.someGetter + this.counter + this.double
       },
     }),
   },
 }
 ```
 
-#### Modifiable state
+#### Estado Modificável
 
-If you want to be able to write to these state properties (e.g. if you have a form), you can use `mapWritableState()` instead. Note you cannot pass a function like with `mapState()`:
+Se quiseres ser capaz de escrever nestas propriedades de estado (por exemplo, se tiveres um formulário), podes usar a `mapWritableState()`. Nota que não podes passar uma função como a `mapState()`:
 
 ```js
 import { mapWritableState } from 'pinia'
-import { useCounterStore } from '../stores/counter'
+import { useCounterStore } from '../stores/counterStore'
 
 export default {
   computed: {
-    // gives access to this.count inside the component and allows setting it
-    // this.count++
-    // same as reading from store.count
-    ...mapWritableState(useCounterStore, ['count'])
-    // same as above but registers it as this.myOwnName
+    // dá acesso ao `this.counter` dentro do componente e permite defini-lo 
+    // `this.counter+++`
+    // o mesmo que ler a partir de `store.counter`
+    ...mapWritableState(useCounterStore, ['counter'])
+    // o mesmo que o de acima exceto que a regista como `this.myOwnName`
     ...mapWritableState(useCounterStore, {
-      myOwnName: 'count',
+      myOwnName: 'counter',
     }),
   },
 }
 ```
 
 :::tip
-You don't need `mapWritableState()` for collections like arrays unless you are replacing the whole array with `cartItems = []`, `mapState()` still allows you to call methods on your collections.
+Tu não precisas de `mapWritableState()` para coleções tipo arranjos (arrays, em Inglês) a menos que estejas substituindo o arranjo inteiro com `cartItems = []`, `mapState()` continua a permitir-te chamar os métodos nas suas coleções.
 :::
 
-## Mutating the state
+## Alterando o estado
 
 <!-- TODO: disable this with `strictMode` -->
 
-Apart from directly mutating the store with `store.count++`, you can also call the `$patch` method. It allows you to apply multiple changes at the same time with a partial `state` object:
+Para além de alterar diretamente a memória com `store.counter++`, também podes chamar o método `$path`. Isto permite-te aplicar várias mudanças ao mesmo tempo com um objeto parcial `state`:
 
 ```js
 store.$patch({
-  count: store.count + 1,
+  counter: store.counter + 1,
   age: 120,
   name: 'DIO',
 })
 ```
 
-However, some mutations are really hard or costly to apply with this syntax: any collection modification (e.g. pushing, removing, splicing an element from an array) requires you to create a new collection. Because of this, the `$patch` method also accepts a function to group this kind of mutations that are difficult to apply with a patch object:
+No entanto, algumas mutações são muito difíceis ou dispendiosas de aplicar com esta sintaxe: qualquer modificação da coleção (por exemplo, empurrar, remover, unir um elemento de um arranjo) requer que cries uma nova coleção. Por causa disto, o método `$patch` também aceita uma função para agrupar este tipo de mutações que são difíceis de aplicar com um objeto de remendo (patch, em Inglês):
 
 ```js
 cartStore.$patch((state) => {
@@ -191,50 +181,51 @@ cartStore.$patch((state) => {
 <!-- TODO: disable this with `strictMode`, `{ noDirectPatch: true }` -->
 
 The main difference here is that `$patch()` allows you to group multiple changes into one single entry in the devtools. Note **both, direct changes to `state` and `$patch()` appear in the devtools** and can be time traveled (not yet in Vue 3).
+A principal diferença aqui é que `$path()` permite-te agrupar várias mudanças dentro de uma única entrada na ferramenta do programador. Nota que **ambas, mudanças diretas no `state` e `$path()` aparecem na ferramenta do programador** e podem ser viajadas no no tempo (ainda não na Vue 3).
 
-## Replacing the `state`
+## Substituindo o `estado`
 
-You **cannot exactly replace** the state of a store as that would break reactivity. You can however _patch it_:
+Tu **não podes substituir exatamente** o estado de uma memória visto que isto quebraria a reatividade. Tu podes no entanto _remendá-lo_:
 
 ```js
-// this doesn't actually replace `$state`
-store.$state = { count: 24 }
-// it internally calls `$patch()`:
-store.$patch({ count: 24 })
+// isto na verdade não substitui o `$state`
+store.$state = { counter: 24 }
+// ele chama o `$patch()` internamente:
+store.$patch({ counter: 24 })
 ```
 
-You can also **set the initial state** of your whole application by changing the `state` of the `pinia` instance. This is used during [SSR for hydration](../ssr/#state-hydration).
+Tu também podes **definir o estado inicial** da tua aplicação inteira ao mudar o `state` da instância de `pinia`. Isto é utilizado durante [Interpretação no Lado do Servidor (SSR, sigla em Inglês) para hidratação](../ssr/#state-hydration).
 
 ```js
 pinia.state.value = {}
 ```
 
-## Subscribing to the state
+## Subscrevendo ao estado
 
-You can watch the state and its changes through the `$subscribe()` method of a store, similar to Vuex's [subscribe method](https://vuex.vuejs.org/api/#subscribe). The advantage of using `$subscribe()` over a regular `watch()` is that _subscriptions_ will trigger only once after _patches_ (e.g. when using the function version from above).
+Tu podes observar o estado e suas mudanças através do método `$subscribe()` de uma memória, similar ao [método `subscribe`](https://vuex.vuejs.org/api/#subscribe) da Vuex. A vantagem da utilização de `$subscribe()` sobre uma `watch()` regular é que as _subscrições_ acionarão apenas uma vez depois dos _remendos_ (por exemplo, quando estiver utilizando a versão da função de cima).
 
 ```js
 cartStore.$subscribe((mutation, state) => {
   // import { MutationType } from 'pinia'
   mutation.type // 'direct' | 'patch object' | 'patch function'
-  // same as cartStore.$id
+  // o mesmo que `cartStore.$id`
   mutation.storeId // 'cart'
-  // only available with mutation.type === 'patch object'
-  mutation.payload // patch object passed to cartStore.$patch()
+  // disponível apenas com `mutation.type` === 'patch object'
+  mutation.payload // objeto de remendo passado para `cartStore.$patch()`
 
-  // persist the whole state to the local storage whenever it changes
+  // persiste o estado inteiro no armazenamento local sempre ele mudar
   localStorage.setItem('cart', JSON.stringify(state))
 })
 ```
 
-By default, _state subscriptions_ are bound to the component where they are added (if the store is inside a component's `setup()`). Meaning, they will be automatically removed when the component is unmounted. If you also want to keep them after the component is unmounted, pass `{ detached: true }` as the second argument to _detach_ the _state subscription_ from the current component:
+Por padrão, _subscrições de estado_ estão presas ao componente onde elas são adicionadas (se a memória estiver dentro de uma `setup()` de componente). Querendo dizer que, elas serão removidas automaticamente quando o componente for desmontado. Se quiseres preservá-las depois do componente ser desmontado, passe `{ detached: true }` como segundo argumento para _separar_ a _subscrição de estado_ do componente atual:
 
 ```js
 export default {
   setup() {
     const someStore = useSomeStore()
 
-    // this subscription will be kept even after the component is unmounted
+    // esta subscrição será preservada depois do componente ser desmontado
     someStore.$subscribe(callback, { detached: true })
 
     // ...
@@ -243,13 +234,13 @@ export default {
 ```
 
 :::tip
-You can watch the whole state on the `pinia` instance:
+Tu podes observar o estado inteiro na instância de `pinia`:
 
 ```js
 watch(
   pinia.state,
   (state) => {
-    // persist the whole state to the local storage whenever it changes
+    // persiste o estado inteiro no armazenamento local sempre ele mudar
     localStorage.setItem('piniaState', JSON.stringify(state))
   },
   { deep: true }
