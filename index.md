@@ -1,32 +1,30 @@
 ---
 home: true
 heroImage: /logo.svg
-actionText: Get Started
+actionText: Começar
 actionLink: /introduction.html
 
-altActionText: Demo
+altActionText: Demonstração
 altActionLink: https://stackblitz.com/github/piniajs/example-vue-3-vite
 
 features:
-  - title: 💡 Intuitive
-    details: Stores are as familiar as components. API designed to let you write well organized stores.
-  - title: 🔑 Type Safe
-    details: Types are inferred, which means stores provide you with autocompletion even in JavaScript!
-  - title: ⚙️ Devtools support
-    details: Pinia hooks into Vue devtools to give you an enhanced development experience in both Vue 2 and Vue 3.
-  - title: 🔌 Extensible
-    details: React to store changes to extend Pinia with transactions, local storage synchronization, etc.
-  - title: 🏗 Modular by design
-    details: Build multiple stores and let your bundler code split them automatically.
-  - title: 📦 Extremely light
-    details: Pinia weighs around 1kb, you will forget it's even there!
+  - title: 💡 Intuitiva
+    details: As memorias são tão familiares quanto os componentes. API desenhada para deixar-te escrever memorias bem organizadas.
+  - title: 🔑 Tipo Seguro
+    details: Os tipos são inferidos, o que significa que a memoria fornece-te conclusão automática até mesmo na JavaScript.
+  - title: ⚙️ Suporte de Ferramenta do Programador
+    details: Gatilhos de Pinia dentro da ferramenta do programador de Vue para dar-te uma experiência de desenvolvimento aprimorada em ambos Vue 2 e Vue 3.
+  - title: 🔌 Extensível
+    details: Reage as mudanças na memória para estender a Pinia com transições, sincronização de armazenamento local, etc.
+  - title: 🏗 Modular por padrão
+    details: Construia várias memorias e deixe o teu empacotador separar o código delas automaticamente.
+  - title: 📦 Extremamente leve
+    details: Pinia pesa por volta de ~1.5kb, nem perceberás a presença dela!
 footer: MIT Licensed | Copyright © 2019-present Eduardo San Martin Morote
 ---
 
-<ClientOnly>
-  <ThemeToggle/>
-  <!-- <TestStore/> -->
-</ClientOnly>
+<ThemeToggle/>
+<!-- <TestStore/> -->
 
 <HomeSponsors />
 
