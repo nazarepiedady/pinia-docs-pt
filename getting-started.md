@@ -1,20 +1,20 @@
-## Installation
+## Instalação
 
-Install `pinia` with your favorite package manager:
+Instale a `pinia` com o teu gestor de pacotes favorito:
 
 ```bash
 yarn add pinia
-# or with npm
+# ou com npm
 npm install pinia
 ```
 
 :::tip
-If your app is using Vue <2.7, you also need to install the composition api: `@vue/composition-api`. If you are using Nuxt, you should follow [these instructions](/ssr/nuxt.md).
+Se a tua aplicação estiver utilizando a Vue 2, tu também precisas instalar a api de composição: `@vue/composition-api`. Se estiveres utilizando a Nuxt, deves seguir [estas instruções](/ssr/nuxt.md).
 :::
 
-If you are using the Vue CLI, you can instead give this [**unofficial plugin**](https://github.com/wobsoriano/vue-cli-plugin-pinia) a try.
+Se estiveres utilizando a CLI da Vue, tu podes experimentar esta [**extensão não oficial**](https://github.com/wobsoriano/vue-cli-plugin-pinia).
 
-Create a pinia instance (the root store) and pass it to the app as a plugin:
+Crie uma instância de pinia (a memória de raiz) e passe-a para aplicação como uma extensão:
 
 ```js {2,5-6,8}
 import { createApp } from 'vue'
@@ -28,7 +28,7 @@ app.use(pinia)
 app.mount('#app')
 ```
 
-If you are using Vue 2, you also need to install a plugin and inject the created `pinia` at the root of the app:
+Se estiveres utilizando a Vue 2, também precisas instalar uma extensão e injetar a `pinia` criada na raiz da aplicação:
 
 ```js {1,3-4,12}
 import { createPinia, PiniaVuePlugin } from 'pinia'
@@ -38,24 +38,23 @@ const pinia = createPinia()
 
 new Vue({
   el: '#app',
-  // other options...
+  // outras opções...
   // ...
-  // note the same `pinia` instance can be used across multiple Vue apps on
-  // the same page
+  // nota que a mesma instância de `pinia` pode ser usando ao longo de várias aplicações de Vue na mesma página
   pinia,
 })
 ```
 
-This will also add devtools support. In Vue 3, some features like time traveling and editing are still not supported because vue-devtools doesn't expose the necessary APIs yet but the devtools have way more features and the developer experience as a whole is far superior. In Vue 2, Pinia uses the existing interface for Vuex (and can therefore not be used alongside it).
+Isto também adicionará o suporte a ferramenta do programador. Na Vue 3, algumas funcionalidades tais como viagem no tempo e edição ainda não são suportadas porque a `vue-devtools` ainda não expôs as APIs necessárias porém a ferramenta do programador tem mais funcionalidades e a experiência de programação como um todo está muito superior. Na Vue 2, a Pinia utiliza a interface existente para Vuex (e portanto não pode ser utilizada junto dela).
 
-## What is a Store?
+## O que é uma Memória?
 
-A Store (like Pinia) is an entity holding state and business logic that isn't bound to your Component tree. In other words, **it hosts global state**. It's a bit like a component that is always there and that everybody can read off and write to. It has **three concepts**, the [state](./core-concepts/state.md), [getters](./core-concepts/getters.md) and [actions](./core-concepts/actions.md) and it's safe to assume these concepts are the equivalent of `data`, `computed` and `methods` in components.
+Uma Memória (Store) (como a Pinia) é uma entidade segurando o estado e a lógica de negócio que não está atada a sua árvore de Componente. Em outras palavras, **ela recebe o estado global**. É um pouco parecido com um componente que está sempre lá e em que todos podem ler e escrever. Tem **três conceitos**, o [estado (`state`)](./core-concepts/state.md), os [recuperadores (`getters`)](./core-concepts/getters.md) e as [ações (`actions`)](./core-concepts/actions.md) e é seguro assumir que estes conceitos são os equivalentes de `data` (dados), `computed` (computados) e `methods` (métodos) em componentes.
 
-## When should I use a Store
+## Quando é que eu deveria utilizar uma Memória
 
-A store should contain data that can be accessed throughout your application. This includes data that is used in many places, e.g. User information that is displayed in the navbar, as well as data that needs to be preserved through pages, e.g. a very complicated multi-step form.
+Uma memória deve conter dados que podem ser acessados em toda sua aplicação. Isto inclui os dados que são utilizados em várias lugares, por exemplo, informação do Utilizador que é exibida na barra de navegação, como também os dados que precisam ser preservados em todas as páginas, por exemplo, um muito complicado formulário de várias etapas.
 
-On the other hand, you should avoid including in the store local data that could be hosted in a component instead, e.g. the visibility of an element local to a page.
+Por outro lado, deves evitar de preferência incluir na memória de dados local aquilo que poderia ser hospedado em um componente, por exemplo a visibilidade de um elemento local para uma página.
 
-Not all applications need access to a global state, but if yours need one, Pinia will make your life easier.
+Nem todas aplicações precisam de acessar a um estado global, mas se as tuas precisarem de uma, a Pinia tornará a sua vida muito mais fácil.
