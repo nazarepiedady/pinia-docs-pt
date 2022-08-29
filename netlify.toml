@@ -1,5 +1,5 @@
 [build.environment]
-NPM_FLAGS="--install"
+NPM_FLAGS="--install --force"
 
 [build]
 command = "npm run docs:build"
