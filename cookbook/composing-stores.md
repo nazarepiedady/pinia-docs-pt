@@ -1,18 +1,18 @@
-# Composing Stores
+# Compondo Memórias
 
-Composing stores is about having stores that use each other, and this is supported in Pinia. There is one rule to follow:
+A composição de memórias tem haver com memórias que se utilizam umas as outras, e isto é suportado na Pinia. Há uma regra à seguir:
 
-If **two or more stores use each other**, they cannot create an infinite loop through _getters_ or _actions_. They cannot **both** directly read each other state in their setup function:
+Se **duas ou mais memórias se utilizarem uma à outra**, elas não podem criar um desvio infinito por meio dos _recuperadores (`getters`)_ ou _ações (`actions`)_. Elas não podem **ambas** diretamente ler o estado de uma da outra em suas funções de configuração:
 
 ```js
 const useX = defineStore('x', () => {
   const y = useY()
 
-  // ❌ This is not possible because y also tries to read x.name
+  // ❌ Isto não é possível porque `y` também tenta ler `x.name`
   y.name
 
   function doSomething() {
-    // ✅ Read y properties in computed or actions
+    // ✅ Leia as propriedades de `y` em computadas (`computed`) ou ações (`actions`)
     const yName = y.name
     // ...
   }
@@ -25,11 +25,11 @@ const useX = defineStore('x', () => {
 const useY = defineStore('y', () => {
   const x = useX()
 
-  // ❌ This is not possible because x also tries to read y.name
+  // ❌ Isto não é possível porque `x` também tenta ler `y.name`
   x.name
 
   function doSomething() {
-    // ✅ Read x properties in computed or actions
+    // ✅ Leia as propriedades de `x` em computadas (`computed`) ou ações (`actions`)
     const xName = x.name
     // ...
   }
@@ -40,11 +40,11 @@ const useY = defineStore('y', () => {
 })
 ```
 
-## Nested Stores
+## Memórias Encaixadas
 
-Note that if one store uses another store, you can directly import and call the `useStore()` function within _actions_ and _getters_. Then you can interact with the store just like you would from within a Vue component. See [Shared Getters](#shared-getters) and [Shared Actions](#shared-actions).
+Nota que se uma memória utilizar uma outra memória, podes importar e chamar a função `useStore()` diretamente de dentro das _ações_ e _recuperadores_. A seguir podes interagir com a memória tal como farias de dentro de um componente de Vue. Consulte [Recuperadores Partilhados](#recuperadores-partilhados) e [Ações Partilhadas](#ações-partilhadas).
 
-When it comes to _setup stores_, you can simply use one of the stores **at the top** of the store function:
+Quando isto vem para _memórias baseadas em composição_, podes simplesmente utilizar uma das memórias **no inicio** da função de memória: 
 
 ```ts
 import { useUserStore } from './user'
@@ -64,9 +64,9 @@ export const useCartStore = defineStore('cart', () => {
 })
 ```
 
-## Shared Getters
+## Recuperadores Partilhados
 
-You can simply call `useOtherStore()` inside a _getter_:
+Tu podes chamar simplesmente `useOtherStore()` dentro de um _recuperador_:
 
 ```js
 import { defineStore } from 'pinia'
@@ -83,9 +83,9 @@ export const useCartStore = defineStore('cart', {
 })
 ```
 
-## Shared Actions
+## Ações Partilhadas
 
-The same applies to _actions_:
+O mesmo se aplica às _ações_:
 
 ```js
 import { defineStore } from 'pinia'
@@ -98,7 +98,7 @@ export const useCartStore = defineStore('cart', {
 
       try {
         await apiOrderCart(user.token, this.items)
-        // another action
+        // um outra ação
         this.emptyCart()
       } catch (err) {
         displayError(err)
@@ -107,3 +107,4 @@ export const useCartStore = defineStore('cart', {
   },
 })
 ```
+
