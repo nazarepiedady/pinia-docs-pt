@@ -126,7 +126,7 @@ const useCounterStore = defineStore('counterStore', {
 
 ### Com `setup()`
 
-Apesar de a API de Composição não ser para todos, o gatilho `setup()` pode tornar a utilização da Pinia mais fácil de se trabalhar dentro da API de Opções. Não são necessárias funções auxiliares de delineadores adicionais!
+Apesar de a API de Composição não ser para todos, o gatilho `setup()` pode tornar a utilização da Pinia mais fácil de se trabalhar dentro da API de Opções. Sem a necessidade de funções auxiliares de delinear adicionais!
 
 ```js
 import { useCounterStore } from '../stores/counterStore'
