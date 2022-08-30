@@ -1,4 +1,4 @@
-# Definindo uma Memória (`Store`)
+# Definindo uma Memória (`store`)
 
 Antes de mergulhar dentro dos conceitos fundamentais, nós precisamos saber que uma memória é definida com a utilização de `defineStore()` e que ela requer um nome **único**, passado como primeiro argumento:
 
