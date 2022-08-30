@@ -1,10 +1,10 @@
-# Dealing with Composables
+# Lidando com Constituíveis
 
-[Composables](https://vuejs.org/guide/reusability/composables.html#composables) are functions that leverage Vue Composition API to encapsulate and reuse stateful logic. Whether you write your own, you use [external libraries](https://vueuse.org/) or do both, you can fully use the power of Composables in your pinia stores.
+[Constituíveis (Composables, termo em Inglês)](https://vuejs.org/guide/reusability/composables.html#composables) são funções que entregam a API de Composição de Vue para encapsular e reutilizar a lógica estabelecida. Quer escrevas a tua própria, utilizes [bibliotecas externas](https://vueuse.org/) ou faças ambas, tu podes utilizar completamente o poder das Constituíveis nas tuas memórias de `pinia`.
 
-## Option Stores
+## Memórias Baseadas em Opções
 
-When defining an option store, you can call a composable inside of the `state` property:
+Quando estiveres definindo uma memória baseada opções, tu podes chamar uma constituível dentro da propriedade `state`:
 
 ```ts
 export const useAuthStore = defineStore('auth', {
@@ -14,43 +14,40 @@ export const useAuthStore = defineStore('auth', {
 })
 ```
 
-Keep in mind that **you can only return writable state** (e.g. a `ref()`). Here are some examples of composables that you can use:
+Lembre-se de que **só podes retornar estado gravável** (por exemplo, uma `ref()`). Cá está alguns exemplos de constituíveis que podes utilizar:
 
-- [useLocalStorage](https://vueuse.org/core/useLocalStorage/)
-- [useAsyncState](https://vueuse.org/core/useAsyncState/)
+- [`useLocalStorage`](https://vueuse.org/core/useLocalStorage/)
+- [`useAsyncState`](https://vueuse.org/core/useAsyncState/)
 
-Here are some examples of composables that cannot be used in an option stores (but can be used with setup stores):
+Cá está alguns exemplos de constituíveis que não podem ser utilizadas em memórias baseadas em opções (mas podem ser utilizadas com memórias baseadas em composições):
 
-- [useMediaControls](https://vueuse.org/core/useMediaControls/): exposes functions
-- [useMemoryInfo](https://vueuse.org/core/useMemory/): exposes readonly data
-- [useEyeDropper](https://vueuse.org/core/useEyeDropper/): exposes readonly data and functions
+- [`useMediaControls`](https://vueuse.org/core/useMediaControls/): expõe funções
+- [`useMemoryInfo`](https://vueuse.org/core/useMemory/): expõe dados de somente leitura
+- [`useEyeDropper`](https://vueuse.org/core/useEyeDropper/): expõe dados e funções de somente leitura
 
-## Setup Stores
+## Memórias Baseadas em Composições
 
-On the other hand, when defining a setup store, you can use almost any composable since every property gets discerned into state, action, or getter:
+Por outro lado, quando estiveres definindo uma memória baseada em composições, tu podes utilizar quase qualquer constituível desde que toda propriedade seja discernida dentro do estado, da ação, ou recuperador:
 
 ```ts
 import { defineStore, skipHydrate } from 'pinia'
 import { useMediaControls } from '@vueuse/core'
 
 export const useVideoPlayer = defineStore('video', () => {
-  // we won't expose this element directly
+  // não iremos expor este elemento diretamente
   const videoElement = ref<HTMLVideoElement>()
   const src = ref('/data/video.mp4')
   const { playing, volume, currentTime, togglePictureInPicture } =
     useMediaControls(video, { src })
-
   function loadVideo(element: HTMLVideoElement, src: string) {
     videoElement.value = element
     src.value = src
   }
-
   return {
     src,
     playing,
     volume,
     currentTime,
-
     loadVideo,
     togglePictureInPicture,
   }
@@ -59,9 +56,9 @@ export const useVideoPlayer = defineStore('video', () => {
 
 ## SSR
 
-When dealing with [Server Side Rendering](../ssr/index.md), you need to take care of some extra steps in order to use composables within your stores.
+Quando estiveres lidando com a [Interpretação no Lado do Servidor (SSR, sigla em Inglês)](../ssr/index.md), tu precisas considerar algumas etapas extras para utilizares os constituíveis dentro das tuas memórias.
 
-In [Option Stores](#option-stores), you need to define a `hydrate()` function. This function is called when the store is instantiated on the client (the browser) when there is an initial state available at the time the store is created. The reason we need to define this function is because in such scenario, `state()` is not called.
+Nas [Memórias baseadas em Opções](#memórias-baseadas-em-opções), tu precisas definir uma função `hydrate()`. Esta função é chamada quando a memória for instanciada no cliente (o navegador) quando houver um estado inicial disponível no momento em que a memória for criada. A razão de nós precisarmos definir esta função é que em tal cenário, `state()` não é chamada.
 
 ```ts
 import { defineStore, skipHydrate } from 'pinia'
@@ -71,16 +68,15 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: useLocalStorage('pinia/auth/login', 'bob'),
   }),
-
   hydrate(state, initialState) {
-    // in this case we can completely ignore the initial state since we
-    // want to read the value from the browser
+    // neste caso podemos ignorar completamente o estado inicial
+    // visto que queremos ler o valor a partir do navegador
     state.user = useLocalStorage('pinia/auth/login', 'bob')
   },
 })
 ```
 
-In [Setup Stores](#setup-stores), you need to use a helper named `skipHydrate()` on any state property that shouldn't be picked up from the initial state. Differently from option stores, setup stores cannot just _skip calling `state()`_, so we mark properties that cannot be hydrated with `skipHydrate()`. Note that this only applies to writable reactive properties:
+Nas [Memórias baseadas em Composições](#memórias-baseadas-em-composições), tu precisas utilizar um auxiliar com o nome `skipHydrate()` em qualquer propriedade de estado que não deveria ser buscada no estado inicial. Diferentemente das memórias baseadas em opções, as memórias baseadas em composições só não podem _ignorar a chamada de `state()`_, então nós marcamos as propriedades que não podem ser hidratadas com `skipHydrate()`. Nota que isto só se aplica às propriedades reativas graváveis:
 
 ```ts
 import { defineStore, skipHydrate } from 'pinia'
@@ -92,8 +88,8 @@ export const useColorStore = defineStore('colors', () => {
   // ...
   return {
     lastColor: skipHydrate(pickedColor), // Ref<string>
-    open, // Function
-    isSupported, // boolean (not even reactive)
+    open, // Função
+    isSupported, // booleano (não sequer é reativo)
   }
 })
 ```
