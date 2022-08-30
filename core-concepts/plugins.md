@@ -1,68 +1,69 @@
-# Plugins
+# Extensões (`plugins`)
 
-Pinia stores can be fully extended thanks to a low level API. Here is a list of things you can do:
+As memórias da Pinia podem ser completamente estendidas graças a uma API de baixo nível. Cá está uma lista de coisas que podes fazer:
 
-- Add new properties to stores
-- Add new options when defining stores
-- Add new methods to stores
-- Wrap existing methods
-- Change or even cancel actions
-- Implement side effects like [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
-- Apply **only** to specific stores
+- Adicionar novas propriedades às memórias
+- Adicionar novas opções quando estiveres definindo memórias
+- Adicionar novos métodos às memórias
+- Envolver os métodos existentes
+- Mudar ou até mesmo cancelar ações
+- Implementar efeitos colaterais tipo [Armazenamento Local](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+- Aplicar **apenas** para memórias especificas
 
-Plugins are added to the pinia instance with `pinia.use()`. The simplest example is adding a static property to all stores by returning an object:
+As extensões são adicionas à instância de `pinia` com `pinia.use()`. O exemplo mais simples é a adição de uma propriedade estática para todas memórias com retorno de um objeto:
 
 ```js
 import { createPinia } from 'pinia'
 
-// add a property named `secret` to every store that is created after this plugin is installed
-// this could be in a different file
+// adiciona uma propriedade com o nome `secret` para toda memória que for criada depois desta extensão ser instalada
+// isto poderia estar em um ficheiro diferente
 function SecretPiniaPlugin() {
   return { secret: 'the cake is a lie' }
 }
 
 const pinia = createPinia()
-// give the plugin to pinia
+// entregar a extensão ao pinia
 pinia.use(SecretPiniaPlugin)
 
-// in another file
+// em um outro ficheiro
 const store = useStore()
 store.secret // 'the cake is a lie'
 ```
 
-This is useful to add global objects like the router, modal, or toast managers.
+Isto é útil para adicionar objetos globais tais como roteador, modal, gestores de brinde (toast, termo em Inglês).
 
-## Introduction
+## Introdução
 
-A Pinia plugin is a function that optionally returns properties to be added to a store. It takes one optional argument, a _context_:
+Uma extensão de Pinia é uma função que opcionalmente retorna propriedades a serem adicionadas à uma memória. Ela recebe um argumento opcional, um _contexto_:
 
 ```js
 export function myPiniaPlugin(context) {
-  context.pinia // the pinia created with `createPinia()`
-  context.app // the current app created with `createApp()` (Vue 3 only)
-  context.store // the store the plugin is augmenting
-  context.options // the options object defining the store passed to `defineStore()`
+  context.pinia // a pinia criada com `createPinia()`
+  context.app // o aplicação atual criada com `createApp()` (apenas na Vue 3)
+  context.store // a memória que a extensão está aumentando
+  context.options // o objeto de opções definindo a memória passada para `defineStore()`
   // ...
 }
 ```
 
-This function is then passed to `pinia` with `pinia.use()`:
+Esta função é então passada para `pinia` com `pinia.use()`:
 
 ```js
 pinia.use(myPiniaPlugin)
 ```
 
-Plugins are only applied to stores **created after `pinia` is passed to the app**, otherwise they won't be applied.
+As extensões apenas são aplicadas às memórias **criadas depois da `pinia` ser passada para a aplicação**, do contrário elas não serão aplicadas.
 
-## Augmenting a Store
+## Aumentando uma Memória
 
 You can add properties to every store by simply returning an object of them in a plugin:
+Tu podes adicionar propriedades para toda memória ao simplesmente retornar um objeto delas em uma extensão:
 
 ```js
 pinia.use(() => ({ hello: 'world' }))
 ```
 
-You can also set the property directly on the `store` but **if possible use the return version so they can be automatically tracked by devtools**:
+Tu podes também definir a propriedade diretamente na `store` mas **se possível utilize a versão que retorna assim elas podem ser automaticamente rastreadas pela ferramenta do programador (devtools, em Inglês)**:
 
 ```js
 pinia.use(({ store }) => {
@@ -70,89 +71,87 @@ pinia.use(({ store }) => {
 })
 ```
 
-Any property _returned_ by a plugin will be automatically tracked by devtools so in order to make `hello` visible in devtools, make sure to add it to `store._customProperties` **in dev mode only** if you want to debug it in devtools:
+Qualquer propriedade _retornada_ por uma extensão será automaticamente rastreada pela ferramenta do programador então para tornar `hello` visível na ferramenta do programador, certifique-se de adicioná-lo à `store._customProperties` **apenas no modo de desenvolvimento** se quiseres depurá-la na ferramenta do programador:
 
 ```js
-// from the example above
+// do exemplo acima
 pinia.use(({ store }) => {
   store.hello = 'world'
-  // make sure your bundler handle this. webpack and vite should do it by default
+  // certifique-se de que o teu empacotador manipule isto. o webpack e vite devem fazê-lo por padrão
   if (process.env.NODE_ENV === 'development') {
-    // add any keys you set on the store
+    // adiciona quaisquer chaves que definires na memória
     store._customProperties.add('hello')
   }
 })
 ```
 
-Note that every store is wrapped with [`reactive`](https://v3.vuejs.org/api/basic-reactivity.html#reactive), automatically unwrapping any Ref (`ref()`, `computed()`, ...) it contains:
+Nota que toda memória que é envolvida com [`reactive`](https://v3.vuejs.org/api/basic-reactivity.html#reactive), desembrulha automaticamente qualquer referência (`ref()`, `computed()`, ...) que ela contenha:
 
 ```js
 const sharedRef = ref('shared')
 pinia.use(({ store }) => {
-  // each store has its individual `hello` property
+  // cada memória tem sua propriedade `hello` individual
   store.hello = ref('secret')
-  // it gets automatically unwrapped
+  // ela é desembrulhada automaticamente
   store.hello // 'secret'
 
-  // all stores are sharing the value `shared` property
+  // todas memórias estão partilhando o valor da propriedade `shared`
   store.shared = sharedRef
   store.shared // 'shared'
 })
 ```
 
-This is why you can access all computed properties without `.value` and why they are reactive.
+É por isso que podes acessar todas propriedades computadas sem `.value` e por isto que elas são reativas.
 
-### Adding new state
+### Adicionando novo estado
 
-If you want to add new state properties to a store or properties that are meant to be used during hydration, **you will have to add it in two places**:
+Se quiseres adicionar novas propriedades de estado à uma memória ou propriedades que estão destinadas a serem utilizadas durante a hidratação, **terás de adicioná-la em dois lugares**:
 
-- On the `store` so you can access it with `store.myState`
-- On `store.$state` so it can be used in devtools and, **be serialized during SSR**.
+- Na `store`, assim podes acessá-la com `store.myState`
+- Na `store.$state`, assim ela pode ser utilizada na ferramenta do programador e, **ser adaptada (serialized, em Inglês) durante a interpretação no lado do servidor (SSR, sigla em Inglês)**
 
-On top of that, you will certainly have to use a `ref()` (or other reactive API) in order to share the value across different accesses:
+Além de que, certamente terás de utilizar uma `ref()` (ou outra API reativa) para partilhar o valor através de acessos diferentes:
 
 ```js
 import { toRef, ref } from 'vue'
 
 pinia.use(({ store }) => {
-  // to correctly handle SSR, we need to make sure we are not overriding an
-  // existing value
+  // para corretamente manipular a SSR, precisamos ter a certeza de que não estamos sobrepondo um valor existente
   if (!Object.prototype.hasOwnProperty(store.$state, 'hasError')) {
-    // hasError is defined within the plugin, so each store has their individual
-    // state property
+    // `hasError` é definido dentro da extensão, assim cada memória tem sua propriedade `state` individual
     const hasError = ref(false)
-    // setting the variable on `$state`, allows it be serialized during SSR
+    // a definição da variável em `$state`, permite que ela seja adaptada durante a SSR
     store.$state.hasError = hasError
   }
-  // we need to transfer the ref from the state to the store, this way
-  // both accesses: store.hasError and store.$state.hasError will work
-  // and share the same variable
-  // See https://vuejs.org/api/reactivity-utilities.html#toref
+  // podemos transferir a `ref` de `state` para a `store`, desta maneira
+  // ambos acessos: `store.hasError` e `store.$state.hasError` funcionarão
+  // e partilharão a mesma variável
+  // Consulte https://vuejs.org/api/reactivity-utilities.html#toref
   store.hasError = toRef(store.$state, 'hasError')
 
-  // in this case it's better not to return `hasError` since it
-  // will be displayed in the `state` section in the devtools
-  // anyway and if we return it, devtools will display it twice.
+  // neste caso é melhor não retornar `hasError` visto que será
+  // exibida na secção `state` na ferramenta do programador
+  // de qualquer maneira e se a retornarmos, a ferramenta do programador a exibirá duas vezes
 })
 ```
 
-Note that state changes or additions that occur within a plugin (that includes calling `store.$patch()`) happen before the store is active and therefore **do not trigger any subscriptions**.
+Nota que as mudanças de estado ou adições que ocorrem dentro de uma extensão (que inclui a chamada `store.$patch()`) acontecem antes da memória estar ativa e portanto **não aciona quaisquer subscrições**.
 
 :::warning
-If you are using **Vue 2**, Pinia is subject to the [same reactivity caveats](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats) as Vue. You will need to use `Vue.set()` (Vue 2.7) or `set()` (from `@vue/composition-api` for Vue <2.7) for when creating new state properties like `secret` and `hasError`:
+Se estiveres utilizando a **Vue 2**, a Pinia está sujeita às [mesmas advertências de reatividade](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats) da  Vue. Precisarás utilizar a `set` da `@vue/composition-api` quando estiveres criando novas propriedades de estado tais como `secret` e `hasError`:
 
 ```js
 import { set, toRef } from '@vue/composition-api'
 pinia.use(({ store }) => {
   if (!Object.prototype.hasOwnProperty(store.$state, 'hello')) {
     const secretRef = ref('secret')
-    // If the data is meant to be used during SSR, you should
-    // set it on the `$state` property so it is serialized and
-    // picked up during hydration
+    // Se o dado está destinado a ser utilizado durante a SSR, deves
+    // defini-la na propriedade `$state` assim ele é adaptado e
+    // recuperado durante a hidratação
     set(store.$state, 'secret', secretRef)
   }
-  // set it directly on the store too so you can access it
-  // both ways: `store.$state.secret` / `store.secret`
+  // defini-a também diretamente na `store`, assim podes acessá-la
+  // de duas maneiras: `store.$state.secret` / `store.secret`
   set(store, 'secret', toRef(store.$state, 'secret'))
   store.secret // 'secret'
 })
@@ -160,13 +159,13 @@ pinia.use(({ store }) => {
 
 :::
 
-## Adding new external properties
+## Adicionando novas propriedades externas
 
-When adding external properties, class instances that come from other libraries, or simply things that are not reactive, you should wrap the object with `markRaw()` before passing it to pinia. Here is an example adding the router to every store:
+Quando estiveres adicionando propriedades externas, para as instâncias de classe que vêm de outras bibliotecas, ou simplesmente coisas que não são reativas, deves envolver o objeto com `markRaw()` antes de passá-lo ao `pinia`. Cá está um exemplo adicionando o roteador para toda memória:
 
 ```js
 import { markRaw } from 'vue'
-// adapt this based on where your router is
+// adapta isto com base onde teu roteador está
 import { router } from './router'
 
 pinia.use(({ store }) => {
@@ -174,24 +173,24 @@ pinia.use(({ store }) => {
 })
 ```
 
-## Calling `$subscribe` inside plugins
+## Chamando `$subscribe` dentro de extensões
 
-You can use [store.$subscribe](./state.md#subscribing-to-the-state) and [store.$onAction](./actions.md#subscribing-to-actions) inside plugins too:
+Tu também podes utilizar [`store.$subscribe`](./state.md#subscrevendo-ao-estado) e [`store.$onAction`](./actions.md#subscrevendo-às-ações) dentro de extensões:
 
 ```ts
 pinia.use(({ store }) => {
   store.$subscribe(() => {
-    // react to store changes
+    // reage as mudanças da memória (`store`)
   })
   store.$onAction(() => {
-    // react to store actions
+    // reage as ações da memória (`store`)
   })
 })
 ```
 
-## Adding new options
+## Adicionando novas opções
 
-It is possible to create new options when defining stores to later on consume them from plugins. For example, you could create a `debounce` option that allows you to debounce any action:
+É possível criar novas opções quando estiveres definindo as memórias para depois as consumires a partir das extensões. Por exemplo, poderias criar uma opção `debounce` que permite-te aplicar o `debounce` à qualquer ação:
 
 ```js
 defineStore('search', {
@@ -201,23 +200,23 @@ defineStore('search', {
     },
   },
 
-  // this will be read by a plugin later on
+  // isto depois será lido por uma extensão
   debounce: {
-    // debounce the action searchContacts by 300ms
+    // aplicar `debounce` a ação `searchContacts` por 300ms
     searchContacts: 300,
   },
 })
 ```
 
-The plugin can then read that option to wrap actions and replace the original ones:
+A extensão pode então ler aquela opção para envolver as ações e substituir as originais:
 
 ```js
-// use any debounce library
+// utilize qualquer biblioteca de `debounce`
 import debounce from 'lodash/debounce'
 
 pinia.use(({ options, store }) => {
   if (options.debounce) {
-    // we are overriding the actions with new ones
+    // estamos sobrepondo as ações com as novas
     return Object.keys(options.debounce).reduce((debouncedActions, action) => {
       debouncedActions[action] = debounce(
         store[action],
@@ -229,7 +228,7 @@ pinia.use(({ options, store }) => {
 })
 ```
 
-Note that custom options are passed as the 3rd argument when using the setup syntax:
+Nota que as opções personalizadas são passadas como terceiro argumento quando estiveres utilizando a sintaxe de `setup`:
 
 ```js
 defineStore(
@@ -238,9 +237,9 @@ defineStore(
     // ...
   },
   {
-    // this will be read by a plugin later on
+    // isto depois será lido por uma extensão
     debounce: {
-      // debounce the action searchContacts by 300ms
+      // aplicar `debounce` a ação `searchContacts` por 300ms
       searchContacts: 300,
     },
   }
@@ -249,11 +248,11 @@ defineStore(
 
 ## TypeScript
 
-Everything shown above can be done with typing support, so you don't ever need to use `any` or `@ts-ignore`.
+Tudo mostrado acima pode ser feito com suporte a tipos, assim já não precisas de utilizar `any` ou `@ts-ignore`.
 
-### Typing plugins
+### Tipando as extensões
 
-A Pinia plugin can be typed as follows:
+Uma extensão de Pinia pode ser tipada como se segue:
 
 ```ts
 import { PiniaPluginContext } from 'pinia'
@@ -263,26 +262,26 @@ export function myPiniaPlugin(context: PiniaPluginContext) {
 }
 ```
 
-### Typing new store properties
+### Tipando as novas propriedades da memória
 
-When adding new properties to stores, you should also extend the `PiniaCustomProperties` interface.
+Quando estiveres adicionando novas propriedades à memória, também deves aumentar a interface de `PiniaCustomProperties`.
 
 ```ts
 import 'pinia'
 
 declare module 'pinia' {
   export interface PiniaCustomProperties {
-    // by using a setter we can allow both strings and refs
+    // com uso de um definidor (setter, em Inglês) podemos permitir ambas `strings` e `refs`
     set hello(value: string | Ref<string>)
     get hello(): string
 
-    // you can define simpler values too
+    // também podes definir valores mais simples
     simpleNumber: number
   }
 }
 ```
 
-It can then be written and read safely:
+Isto pode ser então escrito e lido com segurança:
 
 ```ts
 pinia.use(({ store }) => {
@@ -290,18 +289,18 @@ pinia.use(({ store }) => {
   store.hello = ref('Hola')
 
   store.simpleNumber = Math.random()
-  // @ts-expect-error: we haven't typed this correctly
+  // `@ts-expect-error`: não tipamos isto corretamente
   store.simpleNumber = ref(Math.random())
 })
 ```
 
-`PiniaCustomProperties` is a generic type that allows you to reference properties of a store. Imagine the following example where we copy over the initial options as `$options` (this would only work for option stores):
+A `PiniaCustomProperties` é um tipo genérico que permite-te referenciar propriedades de uma memória. Suponha que o seguinte exemplo onde copiamos em cima das opções iniciais como `$options` (isto só funciona para as memórias baseadas em opções):
 
 ```ts
 pinia.use(({ options }) => ({ $options: options }))
 ```
 
-We can properly type this by using the 4 generic types of `PiniaCustomProperties`:
+Podemos tipar corretamente isto com o uso de 4 tipos genéricos de `PiniaCustomProperties`:
 
 ```ts
 import 'pinia'
@@ -319,18 +318,18 @@ declare module 'pinia' {
 ```
 
 :::tip
-When extending types in generics, they must be named **exactly as in the source code**. `Id` cannot be named `id` or `I`, and `S` cannot be named `State`. Here is what every letter stands for:
+Quanto estiveres estendendo os tipos em genéricos, eles devem ser nomeados **exatamente como estão no código-fonte**. `Id` não pode ser nomeado `id` ou `I`, e `S` não pode ser nomeado `State`. Cá está o que cada letra significa:
 
-- S: State
-- G: Getters
-- A: Actions
-- SS: Setup Store / Store
+- S: State (Estado)
+- G: Getters (Recuperadores)
+- A: Actions (Ações)
+- SS: Setup Store / Store (Memória baseada em Composições / Memória)
 
 :::
 
-### Typing new state
+### Tipando o novo estado
 
-When adding new state properties (to both, the `store` and `store.$state`), you need to add the type to `PiniaCustomStateProperties` instead. Differently from `PiniaCustomProperties`, it only receives the `State` generic:
+Quando estiveres adicionando novas propriedades de estado (para ambas, a `store` e `store.$state`), precisas de preferência adicionar o tipo ao `PiniaCustomStateProperties`. Diferentemente de `PiniaCustomProperties`, ela só recebe o `State` genérico:
 
 ```ts
 import 'pinia'
@@ -342,28 +341,28 @@ declare module 'pinia' {
 }
 ```
 
-### Typing new creation options
+### Tipando novas opções de criação
 
-When creating new options for `defineStore()`, you should extend the `DefineStoreOptionsBase`. Differently from `PiniaCustomProperties`, it only exposes two generics: the State and the Store type, allowing you to limit what can be defined. For example, you can use the names of the actions:
+Quando estiveres criando novas opções para `defineStore()`, deves estender a `DefineStoreOptionsBase`. Diferentemente de `PiniaCustomProperties`, ela só expõem dois tipos genéricos: o tipo `State` e o tipo `Store`, permitindo-te limitar o que pode ser definido. Por exemplo, podes utilizar os nomes das ações:
 
 ```ts
 import 'pinia'
 
 declare module 'pinia' {
   export interface DefineStoreOptionsBase<S, Store> {
-    // allow defining a number of ms for any of the actions
+    // permite a definição de um número de `ms` para quaisquer das ações
     debounce?: Partial<Record<keyof StoreActions<Store>, number>>
   }
 }
 ```
 
 :::tip
-There is also a `StoreGetters` type to extract the _getters_ from a Store type. You can also extend the options of _setup stores_ or _option stores_ **only** by extending the types `DefineStoreOptions` and `DefineSetupStoreOptions` respectively.
+Há também um tipo `StoreGetters` para extrair os _recuperadores (getters, em Inglês)_ de um tipo `Store`. Também podes estender as opções das _memórias baseadas em composição_ ou _memórias baseadas em opções_ **apenas** estendendo os tipos `DefineStoreOptions` e `DefineSetupStoreOptions` respetivamente.
 :::
 
 ## Nuxt.js
 
-When [using pinia alongside Nuxt](../ssr/nuxt.md), you will have to create a [Nuxt plugin](https://nuxtjs.org/docs/2.x/directory-structure/plugins) first. This will give you access to the `pinia` instance:
+Quando estiveres [utilizando a `pinia` junto da Nuxt](../ssr/nuxt.md), terás de criar uma [extensão de Nuxt](https://nuxtjs.org/docs/2.x/directory-structure/plugins) primeiro. Isto dar-te-á acesso à instância de `pinia`:
 
 ```ts
 // plugins/myPiniaPlugin.js
@@ -372,11 +371,11 @@ import { Plugin } from '@nuxt/types'
 
 function MyPiniaPlugin({ store }: PiniaPluginContext) {
   store.$subscribe((mutation) => {
-    // react to store changes
+    // reage as mudanças da memória
     console.log(`[🍍 ${mutation.storeId}]: ${mutation.type}.`)
   })
 
-  // Note this has to be typed if you are using TS
+  // Nota que isto precisa ser tipado caso estiveres utilizando TS (TypeScript)
   return { creationTime: new Date() }
 }
 
@@ -387,4 +386,4 @@ const myPlugin: Plugin = ({ $pinia }) => {
 export default myPlugin
 ```
 
-Note the above example is using TypeScript, you have to remove the type annotations `PiniaPluginContext` and `Plugin` as well as their imports if you are using a `.js` file.
+Nota que o exemplo acima está utilizando TypeScript, precisas remover as anotações de tipos `PiniaPluginContext` e `Plugin` bem como as importações delas caso estiveres utilizando um ficheiro `.js`.
