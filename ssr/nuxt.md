@@ -53,10 +53,10 @@ export default {
       '@pinia/nuxt',
       {
         autoImports: [
-          // importa `usePinia()` automaticamente
-          'defineStore',
-          // importa `usePinia()` automaticamente como `usePiniaStore()`
-          ['defineStore', 'definePiniaStore'],
+          // importa `defineStore()` automaticamente
+          'defineStore', // `import { defineStore } from 'pinia'`
+          // importa `defineStore()` automaticamente como `definePiniaStore()`
+          ['defineStore', 'definePiniaStore'], // `import { defineStore as definePiniaStore } from 'pinia'`
         ],
       },
     ],
