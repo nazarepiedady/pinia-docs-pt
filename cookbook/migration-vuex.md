@@ -1,56 +1,57 @@
-# Migrating from Vuex ≤4
+# Migrando da Vuex <=4
 
-Although the structure of Vuex and Pinia stores is different, a lot of the logic can be reused. This guide serves to help you through the process and point out some common gotchas that can appear.
+Embora a estrutura da memória de Vuex e Pinia sejam diferentes, muito da lógico pode ser reutilizada. Este guia serve para auxiliar-te através do processo e apontar alguns entendimentos comuns que podem aparecer.
 
-## Preparation
 
-First, follow the [Getting Started guide](../getting-started.md) to install Pinia.
+## Preparação
 
-## Restructuring Modules to Stores
+Primeiro, siga o [guia Começar](../getting-started.md) para instalar a Pinia.
 
-Vuex has the concept of a single store with multiple _modules_. These modules can optionally be namespaced and even nested within each other.
+## Reestruturando Módulos para as Memórias
 
-The easiest way to transition that concept to be used with Pinia is that each module you used previously is now a _store_. Each store requires an `id` which is similar to a namespace in Vuex. This means that each store is namespaced by design. Nested modules can also each become their own store. Stores that depend on each other will simply import the other store.
+A Vuex tem o conceito de uma única memória com vários _módulos_. Estes módulos podem ser opcionalmente nomes reservados e até mesmo encaixados dentro de umas as outras.
 
-How you choose to restructure your Vuex modules into Pinia stores is entirely up to you, but here is one suggestion:
+A maneira mais fácil para a transição daquele conceito para ser utilizado com a Pinia é de que agora cada módulo que utilizaste anteriormente é agora uma _memória(`store`)_. Cada memória precisa de uma `id` o que é semelhante a um nome reservado na Vuex. Isto significa que cada memória é um nome reservado por padrão. Módulos encaixados também podem cada um tornar-se em sua própria memória. As memórias que dependem umas das outras simplesmente importarão a outra memória.
+
+Como escolhes reestruturar os teus módulos de Vuex para memórias de Pinia depende inteiramente ti, mas cá está uma sugestão:
 
 ```bash
-# Vuex example (assuming namespaced modules)
+# Exemplo da Vuex (assumindo módulos de nomes reservados)
 src
 └── store
-    ├── index.js           # Initializes Vuex, imports modules
+    ├── index.js           # Inicializa a Vuex, importa os módulos
     └── modules
-        ├── module1.js     # 'module1' namespace
+        ├── module1.js     # nome de espaço reservado de 'module1'
         └── nested
-            ├── index.js   # 'nested' namespace, imports module2 & module3
-            ├── module2.js # 'nested/module2' namespace
-            └── module3.js # 'nested/module3' namespace
+            ├── index.js   # nome de espaço reservado de 'nested', importa o module2 e module3
+            ├── module2.js # nome de espaço reservado de 'nested/module2'
+            └── module3.js # nome de espaço reservado de 'nested/module3'
 
-# Pinia equivalent, note ids match previous namespaces
+# Equivalente em Pinia, nota que os `id` correspondem aos anteriores nomes de espaço reservados
 src
 └── stores
-    ├── index.js          # (Optional) Initializes Pinia, does not import stores
-    ├── module1.js        # 'module1' id
-    ├── nested-module2.js # 'nestedModule2' id
-    ├── nested-module3.js # 'nestedModule3' id
-    └── nested.js         # 'nested' id
+    ├── index.js          # (Opcional) Inicializa a Pinia, não importa as memórias
+    ├── module1.js        # id de 'module1'
+    ├── nested-module2.js # id de 'nestedModule2'
+    ├── nested-module3.js # id de 'nestedModule3'
+    └── nested.js         # id de 'nested'
 ```
 
-This creates a flat structure for stores but also preserves the previous namespacing with equivalent `id`s. If you had some state/getters/actions/mutations in the root of the store (in the `store/index.js` file of Vuex) you may wish to create another store called something like `root` which holds all that information.
+Isto cria uma estrutura plana para as memórias mas também preserva os anteriores nomes reservados com os `id` equivalentes. Se tinhas algum estado/recuperadores/ações/mutações na raiz da memória (no ficheiro `store/index.js` de Vuex) podes desejar criar uma outra memória chamada de algo tipo `root` que segura todas aquelas informações.
 
-The directory for Pinia is generally called `stores` instead of `store`. This is to emphasize that Pinia uses multiple stores, instead of a single store in Vuex.
+O diretório para a Pinia é geralmente chamado de `stores` no lugar de `store`. Isto é para enfatizar que a Pinia utiliza várias memórias, no lugar de uma única memória na Vuex.
 
-For large projects you may wish to do this conversion module by module rather than converting everything at once. You can actually mix Pinia and Vuex together during the migration so this approach can also work and is another reason for naming the Pinia directory `stores` instead.
+Para projetos maiores podes desejar realizar esta conversão de módulo por módulo em vez de converter tudo de uma só vez. Tu podes na realidade misturar juntos a Pinia e a Vuex durante a migração assim esta abordagem pode também funcionar e é uma outra razão para a nomeação do diretório da Pinia para `stores`.
 
-## Converting a Single Module
+## Convertendo um Único Módulo
 
-Here is a complete example of the before and after of converting a Vuex module to a Pinia store, see below for a step-by-step guide. The Pinia example uses an option store as the structure is most similar to Vuex:
+Aqui está um exemplo completo de antes e depois da conversão de um módulo de Vuex para uma memória de Pinia, consulte abaixo para um guia passo a passo. O exemplo da Pinia utiliza um memória com a sintaxe de opções visto que a estrutura é mais parecida ao da Vuex:
 
 ```ts
-// Vuex module in the 'auth/user' namespace
+// Módulo da Vuex no nome de espaço reservado de 'auth/user'
 import { Module } from 'vuex'
 import { api } from '@/api'
-import { RootState } from '@/types' // if using a Vuex type definition
+import { RootState } from '@/types' // Se estiveres utilizando uma definição de tipo de Vuex
 
 interface State {
   firstName: string
@@ -69,14 +70,14 @@ const storeModule: Module<State, RootState> = {
     firstName: (state) => state.firstName,
     fullName: (state) => `${state.firstName} ${state.lastName}`,
     loggedIn: (state) => state.userId !== null,
-    // combine with some state from other modules
+    // combinar com algum estado de outros módulos
     fullUserDetails: (state, getters, rootState, rootGetters) => {
       return {
         ...state,
         fullName: getters.fullName,
-        // read the state from another module named `auth`
+        // ler o estado de um outro módulo nomeado `auth`
         ...rootState.auth.preferences,
-        // read a getter from a namespaced module called `email` nested under `auth`
+        // ler um recuperador de um módulo de nome de espaço reservado chamado de `email` encaixado sob `auth`
         ...rootGetters['auth/email'].details
       }
     }
@@ -106,11 +107,11 @@ export default storeModule
 ```
 
 ```ts
-// Pinia Store
+// Memória de Pinia
 import { defineStore } from 'pinia'
 import { useAuthPreferencesStore } from './auth-preferences'
 import { useAuthEmailStore } from './auth-email'
-import vuexStore from '@/store' // for gradual conversion, see fullUserDetails
+import vuexStore from '@/store' // para conversão gradual, consulte o `fullUserDetails`
 
 interface State {
   firstName: string
@@ -119,30 +120,30 @@ interface State {
 }
 
 export const useAuthUserStore = defineStore('authUser', {
-  // convert to a function
+  // converter para uma função
   state: (): State => ({
     firstName: '',
     lastName: '',
     userId: null
   }),
   getters: {
-    // firstName getter removed, no longer needed
+    // recuperador de `firstName` removido, já não é necessário
     fullName: (state) => `${state.firstName} ${state.lastName}`,
     loggedIn: (state) => state.userId !== null,
-    // must define return type because of using `this`
+    // deves definir o tipo de retorno por causa da utilização do `this`
     fullUserDetails (state): FullUserDetails {
-      // import from other stores
+      // importar de outras memórias
       const authPreferencesStore = useAuthPreferencesStore()
       const authEmailStore = useAuthEmailStore()
       return {
         ...state,
-        // other getters now on `this`
+        // agora outros recuperadores em `this`
         fullName: this.fullName,
         ...authPreferencesStore.$state,
         ...authEmailStore.details
       }
 
-      // alternative if other modules are still in Vuex
+      // alternativa se outros módulos ainda estiverem na Vuex
       // return {
       //   ...state,
       //   fullName: this.fullName,
@@ -152,19 +153,19 @@ export const useAuthUserStore = defineStore('authUser', {
     }
   },
   actions: {
-    // no context as first argument, use `this` instead
+    // nenhum contexto como primeiro argumento, utilize `this` no lugar
     async loadUser (id: number) {
       if (this.userId !== null) throw new Error('Already logged in')
       const res = await api.user.load(id)
       this.updateUser(res)
     },
-    // mutations can now become actions, instead of `state` as first argument use `this`
+    // mutações podem agora tornar-se ações, no lugar de `state` como primeiro argumento utilize `this`
     updateUser (payload) {
       this.firstName = payload.firstName
       this.lastName = payload.lastName
       this.userId = payload.userId
     },
-    // easily reset state using `$reset`
+    // reinicie facilmente o estado utilizando `$reset`
     clearUser () {
       this.$reset()
     }
@@ -172,31 +173,31 @@ export const useAuthUserStore = defineStore('authUser', {
 })
 ```
 
-Let's break the above down into steps:
+Vamos decompor o que está acima em passos:
 
-1. Add a required `id` for the store, you may wish to keep this the same as the namespace before. It is also recommended to make sure the `id` is in _camelCase_ as it makes it easier to use with `mapStores()`.
-2. Convert `state` to a function if it was not one already
-3. Convert `getters`
-    1. Remove any getters that return state under the same name (eg. `firstName: (state) => state.firstName`), these are not necessary as you can access any state directly from the store instance
-    2. If you need to access other getters, they are on `this` instead of using the second argument. Remember that if you are using `this` then you will have to use a regular function instead of an arrow function. Also note that you will need to specify a return type because of TS limitations, see [here](../core-concepts/getters.md#accessing-other-getters) for more details
-    3. If using `rootState` or `rootGetters` arguments, replace them by importing the other store directly, or if they still exist in Vuex then access them directly from Vuex
-4. Convert `actions`
-    1. Remove the first `context` argument from each action. Everything should be accessible from `this` instead
-    2. If using other stores either import them directly or access them on Vuex, the same as for getters
-5. Convert `mutations`
-    1. Mutations do not exist any more. These can be converted to `actions` instead, or you can just assign directly to the store within your components (eg. `userStore.firstName = 'First'`)
-    2. If converting to actions, remove the first `state` argument and replace any assignments with `this` instead
-    3. A common mutation is to reset the state back to its initial state. This is built in functionality with the store's `$reset` method. Note that this functionality only exists for option stores.
+1. Adicionar um `id` obrigatório para a memória, podes desejar manter isto o mesmo como nome de espaço reservado de antes. É recomendado certificar-se de que o `id` seja em _camelCase_ visto que facilita o uso da mesma com a `mapStores()`.
+2. Converter o `state` para uma função se já não for uma
+3. Converter os `getters`
+    1. Remover quaisquer recuperadores que retorna o estado sob o mesmo nome (por exemplo, `firstName: (state) => state.firstName`), não são necessários visto que podes acessar qualquer estado diretamente da instância da memória
+    2. Se precisares acessar outros recuperadores, eles estão sobre o `this` no lugar de estarem utilizando o segundo argumento. Lembre-se de que se estiveres utilizando o `this` então terás de utilizar uma função regular no lugar de uma função em flecha. Também nota que precisarás especificar um tipo de retorno por causa das limitações de TypeScript, consulte [aqui](../core-concepts/getters.md#acessando-outros-recuperadores) para mais detalhes
+    3. Se estiveres utilizando os argumentos `rootState` ou `rootGetters`, substitui-os diretamente pela importação de outra memória, ou se elas existirem na Vuex então acesse-as diretamente a partir da Vuex
+4. Converter as `actions`
+    1. Remover o primeiro argumento de `context` de cada ação. No lugar disto, tudo deve ser acessível a partir de `this`
+    2. Se estiveres utilizando outras memórias ou importe-as diretamente ou acesse-as na Vuex, o mesmo para os recuperadores (getters)
+5. Converter as `mutations`
+    1. Mutações não existem mais. Estes podem ser convertidos para `actions` (ações), ou podes apenas atribuir diretamente a memória dentro dos teus componentes (por exemplo, `userStore.firstName = 'First'`)
+    2. Se estiveres convertendo para ações, remova o primeiro argumento de `state` e substitua quaisquer atribuições com `this`.
+    3. Uma mutação comum é reiniciar o estado de volta para o seu estado inicial. Isto é uma funcionalidade embutida com o método `$reset` da memória. Nota que esta funcionalidade apenas existe para memórias baseadas em opções.
 
-As you can see most of your code can be reused. Type safety should also help you identify what needs to be changed if anything is missed.
+Como podes ver a maior parte do teu código pode ser reutilizado. A segurança de tipo deve também ajudar-te a identificar o que precisa ser mudado se alguma coisa estiver falta.
 
-## Usage Inside Components
+## Utilização Dentro de Componentes
 
-Now that your Vuex module has been converted to a Pinia store, any component or other file that uses that module needs to be updated too.
+Agora que a teu módulo de Vuex foi convertido para uma memória de Pinia, qualquer componente ou outro ficheiro que utilize este módulo também precisa ser atualizado.
 
-If you were using `map` helpers from Vuex before, it's worth looking at the [Usage without setup() guide](./options-api.md) as most of those helpers can be reused.
+Se antes estavas utilizando auxiliares de `map` da Vuex, é importante olhar para o [guia de Utilização sem `setup()`](./options-api.md) visto que a maior parte destes auxiliares podem ser reutilizados.
 
-If you were using `useStore` then instead import the new store directly and access the state on it. For example:
+Se estavas utilizando `useStore` então no lugar deste importe a nova memória diretamente e acesse o estado nela. Por exemplo:
 
 ```ts
 // Vuex
@@ -231,7 +232,7 @@ export default defineComponent({
     const fullName = computed(() => authUserStore.fullName)
 
     return {
-      // you can also access the whole store in your component by returning it
+      // podes também acessar a memória inteira no teu componente ao retorná-la
       authUserStore,
       firstName,
       fullName
@@ -240,9 +241,9 @@ export default defineComponent({
 })
 ```
 
-## Usage Outside Components
+## Utilização Fora de Componentes
 
-Updating usage outside of components should be simple as long as you're careful to _not use a store outside of functions_. Here is an example of using the store in a Vue Router navigation guard:
+A atualização da utilização fora de componentes deve ser simples enquanto fores cuidadoso em _não utilizar uma memória fora de funções_. Aqui está um exemplo de utilização da memória em uma sentinela de navegação de Vue Router:
 
 ```ts
 // Vuex
@@ -259,29 +260,29 @@ router.beforeEach((to, from, next) => {
 import { useAuthUserStore } from '@/stores/auth-user'
 
 router.beforeEach((to, from, next) => {
-  // Must be used within the function!
+  // Deve ser utilizada dentro da função!
   const authUserStore = useAuthUserStore()
   if (authUserStore.loggedIn) next()
   else next('/login')
 })
 ```
 
-More details can be found [here](../core-concepts/outside-component-usage.md).
+Mais detalhes podem ser encontrados [aqui](../core-concepts/outside-component-usage.md).
 
-## Advanced Vuex Usage
+## Utilização Avançada da Vuex 
 
-In the case your Vuex store using some of the more advanced features it offers, here is some guidance on how to accomplish the same in Pinia. Some of these points are already covered in [this comparison summary](../introduction.md#comparison-with-vuex-3-x-4-x).
+No caso de teu memória de Vuex estiver utilizando algumas das funcionalidades mais avançadas que ela oferece, aqui está alguma orientação de como conseguir o mesmo em Pinia. Alguns destes pontos já estão cobertos neste [sumário de comparação](../introduction.md#comparação-com-a-vuex-3x4x).
 
-### Dynamic Modules
+### Módulos Dinâmicos
 
-There is no need to dynamically register modules in Pinia. Stores are dynamic by design and are only registered when they are needed. If a store is never used, it will never be "registered".
+Não há necessidade de dinamicamente registar módulos na Pinia. As memórias são dinâmicas por padrão e são apenas registadas quando elas são necessárias. Se uma memória nunca for utilizada, nunca será "registada".
 
-### Hot Module Replacement
+### Substituição de Módulo Instantânea
 
-HMR is also supported but will need to be replaced, see the [HMR Guide](./hot-module-replacement.md).
+Substituição de Módulo Instantânea (HMR, sigla em Inglês) também é suportada mas precisará ser substituída, consulte o [guia de HMR](./hot-module-replacement.md).
 
-### Plugins
+### Extensões
 
-If you use a public Vuex plugin then check if there is a Pinia alternative. If not you will need to write your own or evaluate whether the plugin is still necessary.
+Se utilizas uma extensão de Vuex publica então verifique se há uma alternativa para Pinia. Se não precisarás escrever a tua própria ou avaliar se a extensão continua a ser necessária.
 
-If you have written a plugin of your own, then it can likely be updated to work with Pinia. See the [Plugin Guide](../core-concepts/plugins.md).
+Se tiveres escrito uma extensão por ti mesmo, então pode provavelmente ser atualizada para funcionar com a Pinia. Consulte a [Guia de Extensão](../core-concepts/plugins.md).
