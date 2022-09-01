@@ -205,11 +205,11 @@ module.exports = {
         {
           text: 'Conceitos Principais',
           children: [
-            { text: 'Definição de uma Memória', link: '/core-concepts/' },
-            { text: 'Estado', link: '/core-concepts/state.html' },
-            { text: 'Recuperadores', link: '/core-concepts/getters.html' },
-            { text: 'Ações', link: '/core-concepts/actions.html' },
-            { text: 'Extensões', link: '/core-concepts/plugins.html' },
+            { text: 'Definição de uma Memória (Store)', link: '/core-concepts/' },
+            { text: 'Estado (State)', link: '/core-concepts/state.html' },
+            { text: 'Recuperadores (Getters)', link: '/core-concepts/getters.html' },
+            { text: 'Ações (Actions)', link: '/core-concepts/actions.html' },
+            { text: 'Extensões (Plugins)', link: '/core-concepts/plugins.html' },
             {
               text: 'Memórias fora dos componentes',
               link: '/core-concepts/outside-component-usage.html',
@@ -246,7 +246,7 @@ module.exports = {
               link: '/cookbook/hot-module-replacement.html',
             },
             {
-              text: 'Testing Testagem',
+              text: 'Testagem',
               link: '/cookbook/testing.html',
             },
             {
