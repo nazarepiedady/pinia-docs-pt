@@ -1,21 +1,21 @@
-# Usage without `setup()`
+# Utilização sem a `setup()`
 
-Pinia can be used even if you are not using the composition API (if you are using Vue <2.7, you still need to install the `@vue/composition-api` plugin though). While we recommend you give the Composition API a try and learn it, it might not be the time for you and your team yet, you might be in the process of migrating an application, or any other reason. There are a few functions:
+A pinia pode ser utilizada mesmo que não estejas utilizando a API de composição (se estiveres utilizando a Vue 2, mas ainda precisas instalar a extensão `@vue/composition-api`). Embora recomendamos-te dar uma chance a API de Composição e aprende-la, pode ainda não ser o teu momento e da tua equipa, podes estar em processo de migração de uma aplicação, ou qualquer outra razão. Existem algumas funções:
 
-- [mapStores](#giving-access-to-the-whole-store)
-- [mapState](../core-concepts/state.md#usage-with-the-options-api)
-- [mapWritableState](../core-concepts/state.md#modifiable-state)
-- ⚠️ [mapGetters](../core-concepts/getters.md#without-setup) (just for migration convenience, use `mapState()` instead)
-- [mapActions](../core-concepts/actions.md#without-setup)
+- [mapStores](#dando-acesso-à-memória-inteira)
+- [mapState](../core-concepts/state.md#utilização-com-a-api-de-opções)
+- [mapWritableState](../core-concepts/state.md#estado-modificável)
+- ⚠️ [mapGetters](../core-concepts/getters.md#sem-a-setup) (apenas por conveniência de migração, utilize de preferência a `mapState()`)
+- [mapActions](../core-concepts/actions.md#sem-a-setup)
 
-## Giving access to the whole store
+## Dando acesso à memória inteira
 
-If you need to access pretty much everything from the store, it might be too much to map every single property of the store... Instead you can get access to the whole store with `mapStores()`:
+Se precisares acessar tudo da memória, pode ser demasiado ter que delinear cada propriedade da memória... No lugar disto podes ter acesso à memória inteira com `mapStores()`:
 
 ```js
 import { mapStores } from 'pinia'
 
-// given two stores with the following ids
+// dada duas memórias com os seguintes ids
 const useUserStore = defineStore('user', {
   // ...
 })
@@ -42,36 +42,36 @@ export default {
 }
 ```
 
-By default, Pinia will add the `"Store"` suffix to the `id` of each store. You can customize this behavior by calling the `setMapStoreSuffix()`:
+Por padrão, a Pinia adicionará o sufixo `"Store"` ao `id` de cada memória. Tu podes personalizar este comportamento chamando o `setMapStoreSuffix()`:
 
 ```js
 import { createPinia, setMapStoreSuffix } from 'pinia'
 
-// completely remove the suffix: this.user, this.cart
+// remova completamente o sufixo: `this.user`, `this.cart`
 setMapStoreSuffix('')
-// this.user_store, this.cart_store (it's okay, I won't judge you)
+// `this.user_store`, `this.cart_store` (está bem, eu não o julgo)
 setMapStoreSuffix('_store')
 export const pinia = createPinia()
 ```
 
 ## TypeScript
 
-By default, all map helpers support autocompletion and you don't need to do anything. If you call `setMapStoreSuffix()` to change the `"Store"` suffix, you will need to also add it somewhere in a TS file or your `global.d.ts` file. The most convenient place would be the same place where you call `setMapStoreSuffix()`:
+Por padrão, todos auxiliares de delinear (mapa, em outras palavras) suportam a conclusão automática e tu não precisas fazer nada. Se chamares `setMapStoreSuffix()` para mudar o sufixo `"Store"`, precisarás também adicioná-lo em algum lugar em um ficheiro TypeScript ou no teu ficheiro `global.d.ts`. O lugar mais conveniente seria o mesmo lugar onde tu chamas `setMapStoreSuffix()`:
 
 ```ts
 import { createPinia, setMapStoreSuffix } from 'pinia'
 
-setMapStoreSuffix('') // completely remove the suffix
+setMapStoreSuffix('') // remova completamente o sufixo
 export const pinia = createPinia()
 
 declare module 'pinia' {
   export interface MapStoresCustomization {
-    // set it to the same value as above
+    // define-a para o mesmo valor que o de cima
     suffix: ''
   }
 }
 ```
 
 :::warning
-If you are using a TypeScript declaration file (like `global.d.ts`), make sure to `import 'pinia'` at the top of it to expose all existing types.
+Se estiveres utilizando um ficheiro de declaração de TypeScript (tipo `global.d.ts`), certifique-te de `importar 'pinia'` no inicio dele para expor todos tipos existentes.
 :::
