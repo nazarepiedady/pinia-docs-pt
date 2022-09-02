@@ -12,6 +12,7 @@ const isProduction = process.env.NODE_ENV
  * @type {import('vitepress').UserConfig['head']}
  */
 const productionHead = [
+  /*
   [
     'script',
     {
@@ -20,6 +21,7 @@ const productionHead = [
       type: 'text/javascript',
     },
   ],
+  */
   [
     'script',
     {
