@@ -20,6 +20,23 @@ const productionHead = [
       type: 'text/javascript',
     },
   ],
+  [
+    'script',
+    {
+      async: true
+      src: 'https://www.googletagmanager.com/gtm.js?id=GTM-KNPCXMJ'
+    }
+  ],
+  [
+    'script',
+    {},
+    `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GTM-KNPCXMJ');
+    `
+  ]
 ]
 
 /**
