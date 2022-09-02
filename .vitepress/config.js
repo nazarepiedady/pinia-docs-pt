@@ -22,6 +22,8 @@ const productionHead = [
     },
   ],
   */
+
+  /*
   [
     'script',
     {
@@ -39,6 +41,7 @@ const productionHead = [
       gtag('config', 'GTM-KNPCXMJ');
     `
   ]
+  */
 ]
 
 /**
