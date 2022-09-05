@@ -25,14 +25,14 @@ const useCartStore = defineStore('cart', {
 
 export default {
   computed: {
-    // note we are not passing an array, just one store after the other
-    // each store will be accessible as its id + 'Store'
+    // repare que não estamos passando um arranjo, apenas uma memória depois de outra
+    // cada memória estará acessível como sua `id + 'Store'`
     ...mapStores(useCartStore, useUserStore)
   },
 
   methods: {
     async buyStuff() {
-      // use them anywhere!
+      // utilize-os em qualquer lugar!
       if (this.userStore.isAuthenticated()) {
         await this.cartStore.buy()
         this.$router.push('/purchased')
