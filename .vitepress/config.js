@@ -163,12 +163,14 @@ module.exports = {
       apiKey: '45441f4b65a2f80329fd45c7cb371fea',
       indexName: 'pinia',
     },
+    
 
     carbonAds: {
       carbon: 'CEBICK3I',
       custom: 'CEBICK3M',
       placement: 'routervuejsorg',
     },
+
 
     nav: [
       { text: 'Guia', link: '/introduction.html' },
@@ -233,7 +235,7 @@ module.exports = {
             { text: 'Ações (Actions)', link: '/core-concepts/actions.html' },
             { text: 'Extensões (Plugins)', link: '/core-concepts/plugins.html' },
             {
-              text: 'Memórias fora dos componentes',
+              text: 'Memórias fora dos Componentes',
               link: '/core-concepts/outside-component-usage.html',
             },
           ],
@@ -242,7 +244,7 @@ module.exports = {
           text: 'Interpretação no Lado do Servidor (SSR)',
           children: [
             {
-              text: 'Vue e Vite',
+              text: 'Vue & Vite',
               link: '/ssr/',
             },
             {
@@ -250,7 +252,7 @@ module.exports = {
               link: '/ssr/nuxt.html',
             },
             {
-              text: 'Lidando com constituíveis',
+              text: 'Lidando com Constituíveis',
               link: '/cookbook/composables.html#ssr',
             },
           ],
@@ -272,7 +274,7 @@ module.exports = {
               link: '/cookbook/testing.html',
             },
             {
-              text: 'Utilização sem setup()',
+              text: 'Utilização sem Setup()',
               link: '/cookbook/options-api.html',
             },
             {
@@ -284,7 +286,7 @@ module.exports = {
               link: '/cookbook/migration-v1-v2.html',
             },
             {
-              text: 'Lidando com constituíveis',
+              text: 'Lidando com Constituíveis',
               link: '/cookbook/composables.html',
             },
           ],
