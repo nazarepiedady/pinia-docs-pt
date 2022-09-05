@@ -25,7 +25,8 @@ const useCartStore = defineStore('cart', {
 
 export default {
   computed: {
-    // repare que não estamos passando um arranjo, apenas uma memória depois de outra
+    // repare que não estamos passando um arranjo,
+    // apenas uma memória depois de outra
     // cada memória estará acessível como sua `id + 'Store'`
     ...mapStores(useCartStore, useUserStore)
   },
