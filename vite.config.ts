@@ -8,7 +8,7 @@ const fs = _fs.promises
 export default defineConfig({
   clearScreen: false,
   plugins: [
-    ...(process.env.NETLIFY ? [] : [copyPiniaPlugin()]),
+    //...(process.env.NETLIFY ? [] : [copyPiniaPlugin()]),
     // TODO: actual plugin that works well
     // TypeDocPlugin({
     //   name: 'Pinia',
