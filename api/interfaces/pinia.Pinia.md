@@ -4,62 +4,71 @@ editLinks: false
 sidebarDepth: 3
 ---
 
-[API Documentation](../index.md) / [pinia](../modules/pinia.md) / Pinia
+[API da Documentação](../index.md) / [pinia](../modules/pinia.md) / Pinia
 
 # Interface: Pinia
 
 [pinia](../modules/pinia.md).Pinia
 
-Every application must own its own pinia to be able to create stores
+Toda aplicação deve possuir a sua própria instância de pinia para ser 
+capaz de criar memórias.
 
-## Hierarchy
+## Hierarquia
 
 - **`Pinia`**
 
   ↳ [`TestingPinia`](pinia_testing.TestingPinia.md)
 
-## Properties
-
-### install
-
-• **install**: (`app`: `App`<`any`\>) => `void`
-
-#### Type declaration
-
-▸ (`app`): `void`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | `App`<`any`\> |
-
-##### Returns
-
-`void`
-
-___
+## Propriedades
 
 ### state
 
 • **state**: `Ref`<`Record`<`string`, [`StateTree`](../modules/pinia.md#statetree)\>\>
 
-root state
+estado de raiz
 
-## Methods
+#### Definida em
+
+[packages/pinia/src/rootStore.ts:51](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L51)
+
+## Métodos
+
+### install
+
+▸ **install**(`app`): `void`
+
+#### Parâmetros
+
+| Name | Tipo |
+| :------ | :------ |
+| `app` | `App`<`any`\> |
+
+#### Retorna
+
+`void`
+
+#### Definida em
+
+[packages/pinia/src/rootStore.ts:46](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L46)
+
+___
 
 ### use
 
 ▸ **use**(`plugin`): [`Pinia`](pinia.Pinia.md)
 
-Adds a store plugin to extend every store
+Adiciona uma extensão de memória para estender toda memória
 
-#### Parameters
+#### Parâmetros
 
-| Name | Type | Description |
+| Nome | Tipo | Descrição |
 | :------ | :------ | :------ |
-| `plugin` | [`PiniaPlugin`](pinia.PiniaPlugin.md) | store plugin to add |
+| `plugin` | [`PiniaPlugin`](pinia.PiniaPlugin.md) | extensão de memória para adicionar |
 
-#### Returns
+#### Retorna
 
 [`Pinia`](pinia.Pinia.md)
+
+#### Definida em
+
+[packages/pinia/src/rootStore.ts:58](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L58)
