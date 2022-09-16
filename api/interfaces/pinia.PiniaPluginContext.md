@@ -4,30 +4,34 @@ editLinks: false
 sidebarDepth: 3
 ---
 
-[API Documentation](../index.md) / [pinia](../modules/pinia.md) / PiniaPluginContext
+[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / PiniaPluginContext
 
 # Interface: PiniaPluginContext<Id, S, G, A\>
 
 [pinia](../modules/pinia.md).PiniaPluginContext
 
-Context argument passed to Pinia plugins.
+Argumento de contexto passado para as extensões de Pinia.
 
-## Type parameters
+## Parâmetros de tipo
 
-| Name | Type |
+| Nome | Tipo |
 | :------ | :------ |
 | `Id` | extends `string` = `string` |
 | `S` | extends [`StateTree`](../modules/pinia.md#statetree) = [`StateTree`](../modules/pinia.md#statetree) |
 | `G` | [`_GettersTree`](../modules/pinia.md#_getterstree)<`S`\> |
 | `A` | [`_ActionsTree`](../modules/pinia.md#_actionstree) |
 
-## Properties
+## Propriedades
 
 ### app
 
 • **app**: `App`<`any`\>
 
-Current app created with `Vue.createApp()`.
+Aplicação atual criada com `Vue.createApp()`.
+
+#### Definida em
+
+[packages/pinia/src/rootStore.ts:117](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L117)
 
 ___
 
@@ -35,7 +39,11 @@ ___
 
 • **options**: [`DefineStoreOptionsInPlugin`](pinia.DefineStoreOptionsInPlugin.md)<`Id`, `S`, `G`, `A`\>
 
-Initial options defining the store when calling `defineStore()`.
+Objeto de opções definindo a memória passada para `defineStore()`.
+
+#### Definida em
+
+[packages/pinia/src/rootStore.ts:127](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L127)
 
 ___
 
@@ -43,7 +51,11 @@ ___
 
 • **pinia**: [`Pinia`](pinia.Pinia.md)
 
-pinia instance.
+Instância de pinia.
+
+#### Definida em
+
+[packages/pinia/src/rootStore.ts:112](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L112)
 
 ___
 
@@ -51,4 +63,8 @@ ___
 
 • **store**: [`Store`](../modules/pinia.md#store)<`Id`, `S`, `G`, `A`\>
 
-Current store being extended.
+Memória atual sendo estendida.
+
+#### Definida em
+
+[packages/pinia/src/rootStore.ts:122](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L122)
