@@ -4,42 +4,54 @@ editLinks: false
 sidebarDepth: 3
 ---
 
-[API Documentation](../index.md) / [pinia](../modules/pinia.md) / MutationType
+[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / MutationType
 
-# Enumeration: MutationType
+# Enumeração: MutationType
 
 [pinia](../modules/pinia.md).MutationType
 
-Possible types for SubscriptionCallback
+Tipos possíveis para `SubscriptionCallback`
 
-## Enumeration Members
+## Membros da Enumeração
 
 ### direct
 
-• **direct** = ``"direct"``
+• **direct** = `"direct"`
 
-Direct mutation of the state:
+Mutação direta do estado:
 
 - `store.name = 'new name'`
 - `store.$state.name = 'new name'`
 - `store.list.push('new item')`
 
+#### Definida em
+
+[packages/pinia/src/types.ts:50](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L50)
+
 ___
 
 ### patchFunction
 
-• **patchFunction** = ``"patch function"``
+• **patchFunction** = `"patch function"`
 
-Mutated the state with `$patch` and a function
+Mudou o estado com `$path` e uma função
 
 - `store.$patch(state => state.name = 'newName')`
+
+#### Definida em
+
+[packages/pinia/src/types.ts:64](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L64)
 
 ___
 
 ### patchObject
 
-• **patchObject** = ``"patch object"``
+• **patchObject** = `"patch object"`
 
-Mutated the state with `$patch` and an object
+Mudou o estado com `$patch` e um objeto
 
 - `store.$patch({ name: 'newName' })`
+
+#### Definida em
+
+[packages/pinia/src/types.ts:57](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L57)
