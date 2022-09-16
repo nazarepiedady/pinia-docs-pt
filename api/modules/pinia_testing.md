@@ -4,36 +4,35 @@ editLinks: false
 sidebarDepth: 3
 ---
 
-[API Documentation](../index.md) / @pinia/testing
+[Documentação da API](../index.md) / @pinia/testing
 
-# Module: @pinia/testing
+# Módulo: @pinia/testing
 
 ## Interfaces
 
 - [TestingOptions](../interfaces/pinia_testing.TestingOptions.md)
 - [TestingPinia](../interfaces/pinia_testing.TestingPinia.md)
 
-## Functions
+## Funções
 
 ### createTestingPinia
 
 ▸ **createTestingPinia**(`options?`): [`TestingPinia`](../interfaces/pinia_testing.TestingPinia.md)
 
-Creates a pinia instance designed for unit tests that **requires mocking**
-the stores. By default, **all actions are mocked** and therefore not
-executed. This allows you to unit test your store and components separately.
-You can change this with the `stubActions` option. If you are using jest,
-they are replaced with `jest.fn()`, otherwise, you must provide your own
-`createSpy` option.
+Cria uma instância de pinia desenhada para testes de unidade que **precisam imitar** a memória. Por padrão, **todas ações são simuladas** e logo não executadas. Isto permite-te testar a unidade da sua memória e componentes separadamente. Tu podes mudar isto com a opção `stubActions`. Se estiveres utilizando a `jest`, elas são substituídas com a `jest.fn()`, de outro modo, tu deves fornecer a tua própria opção `createSpy`.
 
-#### Parameters
+#### Parâmetros
 
-| Name | Type | Description |
+| Nome | Tipo | Descrição |
 | :------ | :------ | :------ |
-| `options` | [`TestingOptions`](../interfaces/pinia_testing.TestingOptions.md) | options to configure the testing pinia |
+| `options` | [`TestingOptions`](../interfaces/pinia_testing.TestingOptions.md) | opções para configurar a testagem de pinia |
 
-#### Returns
+#### Retorna
 
 [`TestingPinia`](../interfaces/pinia_testing.TestingPinia.md)
 
-a augmented pinia instance
+uma instância de pinia aumentada
+
+#### Definida em
+
+[packages/testing/src/testing.ts:92](https://github.com/vuejs/pinia/blob/2b998ee/packages/testing/src/testing.ts#L92)
