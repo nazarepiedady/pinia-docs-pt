@@ -4,15 +4,15 @@ editLinks: false
 sidebarDepth: 3
 ---
 
-[API Documentation](../index.md) / [pinia](../modules/pinia.md) / \_SubscriptionCallbackMutationBase
+[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / \_SubscriptionCallbackMutationBase
 
 # Interface: \_SubscriptionCallbackMutationBase
 
 [pinia](../modules/pinia.md)._SubscriptionCallbackMutationBase
 
-Base type for the context passed to a subscription callback. Internal type.
+Tipo base para o contexto passado para uma resposta de subscrição. Tipo interno.
 
-## Hierarchy
+## Hierarquia
 
 - **`_SubscriptionCallbackMutationBase`**
 
@@ -22,13 +22,17 @@ Base type for the context passed to a subscription callback. Internal type.
 
   ↳ [`SubscriptionCallbackMutationPatchObject`](pinia.SubscriptionCallbackMutationPatchObject.md)
 
-## Properties
+## Propriedades
 
 ### storeId
 
 • **storeId**: `string`
 
-`id` of the store doing the mutation.
+`id` da memória que está fazendo a mutação.
+
+#### Definida em
+
+[packages/pinia/src/types.ts:81](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L81)
 
 ___
 
@@ -36,4 +40,8 @@ ___
 
 • **type**: [`MutationType`](../enums/pinia.MutationType.md)
 
-Type of the mutation.
+Tipo da mutação
+
+#### Definida em
+
+[packages/pinia/src/types.ts:76](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L76)
