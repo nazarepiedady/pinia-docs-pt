@@ -4,54 +4,34 @@ editLinks: false
 sidebarDepth: 3
 ---
 
-[API Documentation](../index.md) / [pinia](../modules/pinia.md) / \_StoreOnActionListenerContext
+[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / \_StoreOnActionListenerContext
 
 # Interface: \_StoreOnActionListenerContext<Store, ActionName, A\>
 
 [pinia](../modules/pinia.md)._StoreOnActionListenerContext
 
-Actual type for [StoreOnActionListenerContext](../modules/pinia.md#storeonactionlistenercontext). Exists for refactoring
-purposes. For internal use only.
-For internal use **only**
+Tipo atual para [StoreOnActionListenerContext](../modules/pinia.md#storeonactionlistenercontext). Existe para propósito de refatoração. Apenas para utilização interna.
+**Apenas** para utilização interna.
 
-## Type parameters
+## Parâmetros de tipo
 
-| Name | Type |
+| Nome | Tipo |
 | :------ | :------ |
 | `Store` | `Store` |
 | `ActionName` | extends `string` |
 | `A` | `A` |
 
-## Properties
-
-### after
-
-• **after**: (`callback`: `A` extends `Record`<`ActionName`, [`_Method`](../modules/pinia.md#_method)\> ? (`resolvedReturn`: [`_Awaited`](../modules/pinia.md#_awaited)<`ReturnType`<`A`[`ActionName`]\>\>) => `void` : () => `void`) => `void`
-
-#### Type declaration
-
-▸ (`callback`): `void`
-
-Sets up a hook once the action is finished. It receives the return value
-of the action, if it's a Promise, it will be unwrapped.
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `callback` | `A` extends `Record`<`ActionName`, [`_Method`](../modules/pinia.md#_method)\> ? (`resolvedReturn`: [`_Awaited`](../modules/pinia.md#_awaited)<`ReturnType`<`A`[`ActionName`]\>\>) => `void` : () => `void` |
-
-##### Returns
-
-`void`
-
-___
+## Propriedades
 
 ### args
 
 • **args**: `A` extends `Record`<`ActionName`, [`_Method`](../modules/pinia.md#_method)\> ? `Parameters`<`A`[`ActionName`]\> : `unknown`[]
 
-Parameters passed to the action
+Parâmetros passados para a ação
+
+#### Definida em
+
+[packages/pinia/src/types.ts:195](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L195)
 
 ___
 
@@ -59,30 +39,11 @@ ___
 
 • **name**: `ActionName`
 
-Name of the action
+Nome da ação
 
-___
+#### Definida em
 
-### onError
-
-• **onError**: (`callback`: (`error`: `unknown`) => `void`) => `void`
-
-#### Type declaration
-
-▸ (`callback`): `void`
-
-Sets up a hook if the action fails. Return `false` to catch the error and
-stop it from propagating.
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `callback` | (`error`: `unknown`) => `void` |
-
-##### Returns
-
-`void`
+[packages/pinia/src/types.ts:185](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L185)
 
 ___
 
@@ -90,4 +51,52 @@ ___
 
 • **store**: `Store`
 
-Store that is invoking the action
+Memória que está invocando a ação
+
+#### Definida em
+
+[packages/pinia/src/types.ts:190](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L190)
+
+## Métodos
+
+### after
+
+▸ **after**(`callback`): `void`
+
+Define um gatilho uma vez que a ação é terminada. Recebe o valor de retorno da ação, se for uma Promessa, ela será desembrulhada. Pode retornar um valor (outro senão `undefined`) para **sobrescrever** o valor retornado.
+
+#### Parâmetros
+
+| Nome | Tipo |
+| :------ | :------ |
+| `callback` | `A` extends `Record`<`ActionName`, [`_Method`](../modules/pinia.md#_method)\> ? (`resolvedReturn`: [`_Awaited`](../modules/pinia.md#_awaited)<`ReturnType`<`A`[`ActionName`]\>\>) => `void` \| `ReturnType`<`A`[`ActionName`]\> \| [`_Awaited`](../modules/pinia.md#_awaited)<`ReturnType`<`A`[`ActionName`]\>\> : () => `void` |
+
+#### Retorna
+
+`void`
+
+#### Definida em
+
+[packages/pinia/src/types.ts:204](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L204)
+
+___
+
+### onError
+
+▸ **onError**(`callback`): `void`
+
+Define um gatilho se a ação falhar. Retorna `false` para capturar o erro e impedi-o de propagar-se.
+
+#### Parâmetros
+
+| Nome | Tipo |
+| :------ | :------ |
+| `callback` | (`error`: `unknown`) => `unknown` |
+
+#### Retorna
+
+`void`
+
+#### Definida em
+
+[packages/pinia/src/types.ts:220](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L220)
