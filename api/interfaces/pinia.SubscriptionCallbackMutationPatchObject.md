@@ -4,34 +4,37 @@ editLinks: false
 sidebarDepth: 3
 ---
 
-[API Documentation](../index.md) / [pinia](../modules/pinia.md) / SubscriptionCallbackMutationPatchObject
+[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / SubscriptionCallbackMutationPatchObject
 
 # Interface: SubscriptionCallbackMutationPatchObject<S\>
 
 [pinia](../modules/pinia.md).SubscriptionCallbackMutationPatchObject
 
-Context passed to a subscription callback when `store.$patch()` is called
-with an object.
+Contexto passado para uma resposta de subscrição quando `store.$patch()` é chamada com um objeto.
 
-## Type parameters
+## Parâmetros de tipo
 
-| Name |
+| Nome |
 | :------ |
 | `S` |
 
-## Hierarchy
+## Hierarquia
 
 - [`_SubscriptionCallbackMutationBase`](pinia._SubscriptionCallbackMutationBase.md)
 
   ↳ **`SubscriptionCallbackMutationPatchObject`**
 
-## Properties
+## Propriedades
 
 ### events
 
 • **events**: `DebuggerEvent`[]
 
-DEV ONLY. Array for patch calls.
+PARA DESENVOLVIMENTO APENAS. Arranjo para chamadas do remendo (patch).
+
+#### Definida em
+
+[packages/pinia/src/types.ts:110](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L110)
 
 ___
 
@@ -39,7 +42,11 @@ ___
 
 • **payload**: [`_DeepPartial`](../modules/pinia.md#_deeppartial)<`S`\>
 
-Object passed to `store.$patch()`.
+Objeto passado para `store.$patch()`.
+
+#### Definida em
+
+[packages/pinia/src/types.ts:115](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L115)
 
 ___
 
@@ -47,11 +54,15 @@ ___
 
 • **storeId**: `string`
 
-`id` of the store doing the mutation.
+`id` da memória que está fazendo a mutação.
 
-#### Inherited from
+#### Herdado de
 
 [_SubscriptionCallbackMutationBase](pinia._SubscriptionCallbackMutationBase.md).[storeId](pinia._SubscriptionCallbackMutationBase.md#storeid)
+
+#### Definida em
+
+[packages/pinia/src/types.ts:81](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L81)
 
 ___
 
@@ -59,8 +70,12 @@ ___
 
 • **type**: [`patchObject`](../enums/pinia.MutationType.md#patchobject)
 
-Type of the mutation.
+Tipo da mutação
 
-#### Overrides
+#### Sobreposições
 
 [_SubscriptionCallbackMutationBase](pinia._SubscriptionCallbackMutationBase.md).[type](pinia._SubscriptionCallbackMutationBase.md#type)
+
+#### Definida em
+
+[packages/pinia/src/types.ts:105](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L105)
