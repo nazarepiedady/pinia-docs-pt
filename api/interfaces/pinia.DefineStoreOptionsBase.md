@@ -4,24 +4,22 @@ editLinks: false
 sidebarDepth: 3
 ---
 
-[API Documentation](../index.md) / [pinia](../modules/pinia.md) / DefineStoreOptionsBase
+[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / DefineStoreOptionsBase
 
 # Interface: DefineStoreOptionsBase<S, Store\>
 
 [pinia](../modules/pinia.md).DefineStoreOptionsBase
 
-Options passed to `defineStore()` that are common between option and setup
-stores. Extend this interface if you want to add custom options to both kinds
-of stores.
+Opções passadas para `defineStore()` que são comuns entre as memórias baseadas em composições e memórias baseadas em opções. Estende esta interface se quiseres adicionar opções personalizadas para ambos tipos de memórias.
 
-## Type parameters
+## Parâmetros de tipo
 
-| Name | Type |
+| Nome | Tipo |
 | :------ | :------ |
 | `S` | extends [`StateTree`](../modules/pinia.md#statetree) |
 | `Store` | `Store` |
 
-## Hierarchy
+## Hierarquia
 
 - **`DefineStoreOptionsBase`**
 
