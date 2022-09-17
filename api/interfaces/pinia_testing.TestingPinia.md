@@ -4,52 +4,32 @@ editLinks: false
 sidebarDepth: 3
 ---
 
-[API Documentation](../index.md) / [@pinia/testing](../modules/pinia_testing.md) / TestingPinia
+[Documentação da API](../index.md) / [@pinia/testing](../modules/pinia_testing.md) / TestingPinia
 
 # Interface: TestingPinia
 
 [@pinia/testing](../modules/pinia_testing.md).TestingPinia
 
-Pinia instance specifically designed for testing. Extends a regular
-`Pinia` instance with test specific properties.
+Instância de pinia especificamente desenhada para testes. Estende uma 
+instância regular de [Pinia](pinia.Pinia.md) com propriedades de teste especificas.
 
-## Hierarchy
+## Hierarquia
 
 - [`Pinia`](pinia.Pinia.md)
 
   ↳ **`TestingPinia`**
 
-## Properties
+## Propriedades
 
 ### app
 
 • **app**: `App`<`any`\>
 
-App used by Pinia
+Aplicação utilizada pela Pinia
 
-___
+#### Definida em
 
-### install
-
-• **install**: (`app`: `App`<`any`\>) => `void`
-
-#### Type declaration
-
-▸ (`app`): `void`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `app` | `App`<`any`\> |
-
-##### Returns
-
-`void`
-
-#### Inherited from
-
-[Pinia](pinia.Pinia.md).[install](pinia.Pinia.md#install)
+[packages/testing/src/testing.ts:72](https://github.com/vuejs/pinia/blob/2b998ee/packages/testing/src/testing.ts#L72)
 
 ___
 
@@ -57,30 +37,62 @@ ___
 
 • **state**: `Ref`<`Record`<`string`, [`StateTree`](../modules/pinia.md#statetree)\>\>
 
-root state
+estado de raiz
 
-#### Inherited from
+#### Herdada de
 
 [Pinia](pinia.Pinia.md).[state](pinia.Pinia.md#state)
 
-## Methods
+#### Definida em
+
+[packages/pinia/src/rootStore.ts:51](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L51)
+
+## Métodos
+
+### install
+
+▸ **install**(`app`): `void`
+
+#### Parâmetros
+
+| Nome | Tipo |
+| :------ | :------ |
+| `app` | `App`<`any`\> |
+
+#### Retorna
+
+`void`
+
+#### Herdada de
+
+[Pinia](pinia.Pinia.md).[install](pinia.Pinia.md#install)
+
+#### Definida em
+
+[packages/pinia/src/rootStore.ts:46](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L46)
+
+___
 
 ### use
 
 ▸ **use**(`plugin`): [`Pinia`](pinia.Pinia.md)
 
-Adds a store plugin to extend every store
+Adiciona uma extensão de memória para estender todas as memórias
 
-#### Parameters
+#### Parâmetros
 
-| Name | Type | Description |
+| Nome | Tipo | Descrição |
 | :------ | :------ | :------ |
-| `plugin` | [`PiniaPlugin`](pinia.PiniaPlugin.md) | store plugin to add |
+| `plugin` | [`PiniaPlugin`](pinia.PiniaPlugin.md) | extensão de memória para adicionar |
 
-#### Returns
+#### Retorna
 
 [`Pinia`](pinia.Pinia.md)
 
-#### Inherited from
+#### Herdada de
 
 [Pinia](pinia.Pinia.md).[use](pinia.Pinia.md#use)
+
+#### Definida em
+
+[packages/pinia/src/rootStore.ts:58](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L58)
