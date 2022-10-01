@@ -87,7 +87,7 @@ export const useColorStore = defineStore('colors', () => {
   const lastColor = useLocalStorage('lastColor', sRGBHex)
   // ...
   return {
-    lastColor: skipHydrate(pickedColor), // Ref<string>
+    lastColor: skipHydrate(lastColor), // Ref<string>
     open, // Função
     isSupported, // booleano (não sequer é reativo)
   }
