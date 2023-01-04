@@ -64,7 +64,7 @@ import { useDark } from '@vueuse/core'
 const isDark = useDark(darkStorageConfig)
 
 const label = computed(() =>
-  isDark.value ? 'Switch to light mode' : 'Switch to dark mode'
+  isDark.value ? 'Mudar para modo claro' : 'Mudar para modo escuro'
 )
 </script>
 
