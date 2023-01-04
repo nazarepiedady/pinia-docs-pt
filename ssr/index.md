@@ -1,7 +1,7 @@
-# Interpretação no Lado do Servidor (SSR, sigla em Inglês)
+# Interpretação no Lado do Servidor
 
-:::tip
-Se estiveres utilizando a **Nuxt.js** tu precisas ler [**estas instruções**](./nuxt.md).
+:::tip Dica
+Se estiveres a utilizar a **Nuxt.js**, precisas ler [**estas instruções**](./nuxt.md).
 :::
 
 A criação de memórias com a Pinia deve funcionar fora da caixa para SSR enquanto chamas as tuas funções `useStore()` no inicio das funções `setup`, `getters` e `actions`:
@@ -19,7 +19,7 @@ export default defineComponent({
 
 ## Utilizando a memória fora de `setup()`
 
-Se precisares utilizar a memória noutro lugar, tu precisas passar a instância de `pinia` [que foi passada para a aplicação](#instalar-a-extensão) para a chamada da função `useStore()`:
+Se precisares utilizar a memória noutro lugar, precisas passar a instância de `pinia` [que foi passada para a aplicação](#instalar-a-extensão) para a chamada da função `useStore()`:
 
 ```js
 const pinia = createPinia()
@@ -37,7 +37,7 @@ router.beforeEach((to) => {
 })
 ```
 
-A Pinia se adiciona convenientemente como `$pinia` à tua aplicação assim podes utilizá-la dentro de funções como `serverPrefetch()`:
+A Pinia adiciona-se a si mesma convenientemente como `$pinia` à tua aplicação assim podes utilizá-la dentro de funções como `serverPrefetch()`:
 
 ```js
 export default {
@@ -47,7 +47,7 @@ export default {
 }
 ```
 
-## Hidratação do estado
+## Hidratação do estado {#state-hydration}
 
 Para hidratar o estado inicial, precisas certificar-te de que a `rootState` é incluída em algum lugar dentro da HTML para a Pinia pegá-la mais tarde. Dependo daquilo que estiveres utilizando para Interpretação no Lado do Servidor (SSR, sigla em Inglês), **tu deves escapar o estado por razões de segurança**. Nós recomendamos a utilização de [`@nuxt/devalue`](https://github.com/nuxt-contrib/devalue) que é aquela utilizada pela Nuxt.js:
 
@@ -69,7 +69,7 @@ app.use(pinia)
 devalue(pinia.state.value)
 ```
 
-Dependendo do que estiveres utilizando para Interpretação no Lado do Servidor (SSR, sigla em Inglês), definirás uma variável de _estado inicial_ que será adaptada em HTML. Tu deves também proteger-te de ataques de XSS. Por exemplo, com a [`vite-ssr`](https://github.com/frandiox/vite-ssr) podes utilizar a [opção `transformState`](https://github.com/frandiox/vite-ssr#state-serialization) e `@nuxt/devalue`:
+Dependendo do que estiveres a utilizar para Interpretação no Lado do Servidor (SSR, sigla em Inglês), definirás uma variável de _estado inicial_ que será adaptada em HTML. Tu deves também proteger-te de ataques de XSS. Por exemplo, com a [`vite-ssr`](https://github.com/frandiox/vite-ssr) podes utilizar a [opção `transformState`](https://github.com/frandiox/vite-ssr#state-serialization) e `@nuxt/devalue`:
 
 ```js
 import devalue from '@nuxt/devalue'
@@ -85,7 +85,7 @@ export default viteSSR(
   ({ initialState }) => {
     // ...
     if (import.meta.env.SSR) {
-      // isto será transformado em sequência de caracteres e 
+      // isto será transformado em sequência de caracteres e
       // definida para o `window.__INITIAL_STATE__`
       initialState.pinia = pinia.state.value
     } else {
