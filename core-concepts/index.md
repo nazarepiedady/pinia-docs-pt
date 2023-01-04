@@ -1,5 +1,10 @@
 # Definindo uma Memória (`store`)
 
+<VueSchoolLink
+  href="https://vueschool.io/lessons/define-your-first-pinia-store"
+  title="Aprenda a como definir e usar memórias na Pinia"
+/>
+
 Antes de mergulhar dentro dos conceitos fundamentais, nós precisamos saber que uma memória é definida com a utilização de `defineStore()` e que ela requer um nome **único**, passado como primeiro argumento:
 
 ```js
@@ -64,7 +69,6 @@ As memórias baseadas composições trazem muito mais flexibilidade do que [Mem�
 
 ## Qual sintaxe eu deveria escolher?
 
-As with [Vue's Composition API and Option API](https://vuejs.org/guide/introduction.html#which-to-choose), pick the one that you feel the most comfortable with. If you're not sure, try the [Option Stores](#option-stores) first.
 De acordo com o artigo que fala sobre a escolha entre a [API de Composição e API de Opções da Vue](https://vuejs.org/guide/introduction.html#which-to-choose), escolha aquela com a qual estás mais confortável. Se não estiveres certo de qual, experimente primeiro a [Memórias baseadas em Opções](#memórias-baseadas-em-opções).
 
 ## Utilizando a memória
@@ -86,7 +90,7 @@ export default {
 }
 ```
 
-:::tip
+:::tip Dica
 Se ainda não estiveres a utilizar os componentes `setup`, [podes continuar a utilizar a Pinia com os _mapas auxiliares_](../cookbook/options-api.md).
 :::
 
@@ -100,19 +104,26 @@ Nota que a `store` é um objeto envolvido com a `reactive`, querendo dizer que n
 ```js
 export default defineComponent({
   setup() {
-    const store = useStore()
+    const store = useCounterStore()
     // ❌ Isto não funcionará porque quebra a reatividade
     // é o mesmo que desestruturar a partir de `props`
     const { name, doubleCount } = store
 
-    name // "eduardo"
-    doubleCount // 2
+    name // "Eduardo"
+    doubleCount // 0
+
+    setTimeout(() => {
+      store.increment()
+    }, 1000)
 
     return {
       // sempre será "eduardo"
       name,
-      // sempre será 2
+      // sempre será 0
       doubleCount,
+      // também sempre será 0
+      doubleNumber: store.doubleCount,
+
       // ✅ este aqui será reativo
       doubleValue: computed(() => store.doubleCount),
     }
@@ -120,7 +131,7 @@ export default defineComponent({
 })
 ```
 
-No sentido de extrair propriedades da memória enquanto preserva-se sua reatividade, precisas utilizar a `storeToRefs()`. Ela criará referências para todas as propriedades reativas. Isto é útil para quando estiveres apenas utilizando o estado da memória mas não chamando nenhuma ação. Nota que podes desestruturar as ações diretamente da memória visto que elas também estão presas a própria memória:
+Para extrair propriedades da memória enquanto preserva-se a sua reatividade, precisas utilizar a `storeToRefs()`. Ela criará referências para todas as propriedades reativas. Isto é útil para quando estiveres apenas utilizando o estado da memória mas não chamando nenhuma ação. Nota que podes desestruturar as ações diretamente da memória visto que elas também estão presas a própria memória:
 
 ```js
 import { storeToRefs } from 'pinia'
