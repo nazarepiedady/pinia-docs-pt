@@ -8,7 +8,7 @@
       <HomeSponsorsGroup v-if="sponsors.silver.length" name="Silver" size="24" />
 
       <div class="cta">
-        <a class="become-sponsor" href="https://github.com/sponsors/posva">Become a Sponsor!</a>
+        <a class="become-sponsor" href="https://github.com/sponsors/posva">{{ translations[site.lang] || translations.pt }}</a>
       </div>
     </div>
   </div>
@@ -17,6 +17,13 @@
 <script setup>
 import HomeSponsorsGroup from './HomeSponsorsGroup.vue'
 import sponsors from './sponsors.json'
+import { useData } from 'vitepress'
+
+const { site } = useData()
+const translations = {
+  pt: 'Torna-te um patrocinador',
+  'pt-PT': 'Torna-te um Patrocinador!',
+}
 </script>
 
 <style scoped>
