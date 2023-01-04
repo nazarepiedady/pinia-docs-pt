@@ -1,6 +1,6 @@
 # Nuxt.js
 
-Utilização de Pinia com a [Nuxt.js](https://nuxtjs.org/) é muito fácil visto que a Nuxt encarrega-se de várias coisas quando ela vem para _interpretação no lado do servidor (SSR, sigla em Inglês)_. Por exemplo, **não precisas de te importares com a adaptação(serialization, termo em Inglês) nem com os ataques de XSS**. A Pinia suporta a Nuxt Bridge e a Nuxt 3, para suporte básico a Nuxt 2, [consulte abaixo](#nuxt-2-sem-bridge).
+Utilização de Pinia com a [Nuxt.js](https://nuxtjs.org/) é muito fácil visto que a Nuxt encarrega-se de várias coisas quando ela vem para _interpretação no lado do servidor (SSR, sigla em Inglês)_. Por exemplo, **não precisas de te importares com a adaptação(serialization, termo em Inglês) nem com os ataques de XSS**. A Pinia suporta a Nuxt Bridge e a Nuxt 3, para suporte básico a Nuxt 2, [consulte abaixo](#nuxt-2-sem-o-bridge).
 
 ## Instalação
 
@@ -64,9 +64,9 @@ export default {
 }
 ```
 
-## Nuxt 2 sem bridge
+## Nuxt 2 sem o bridge
 
-A Pinia suporta a Nuxt 2 até a versão 0.2.1 da `@pinia/nuxt`. Certifique-se também de instalar [`@nuxtjs/composition-api`](https://composition-api.nuxtjs.org/) ao lado da `pinia`:
+A Pinia suporta a Nuxt 2 até a versão 0.2.1 da `@pinia/nuxt`. Certifique-te também de instalar [`@nuxtjs/composition-api`](https://composition-api.nuxtjs.org/) ao lado da `pinia`:
 
 ```bash
 yarn add pinia @pinia/nuxt@0.2.1 @nuxtjs/composition-api
@@ -91,7 +91,7 @@ export default {
 
 ## TypeScript
 
-Se estiveres utilizando a TypeScript ou tiveres um `jsconfig.json`, deves também adicionar os tipos para a `context.pinia`:
+Se estiveres a utilizar a TypeScript ou tiveres um `jsconfig.json`, deves também adicionar os tipos para a `context.pinia`:
 
 ```json
 {
@@ -106,7 +106,7 @@ Isto também garantirá que tenhas a conclusão automática 😉.
 
 ### Utilizando a Pinia ao lado da Vuex
 
-É recomendado **evitar a utilização de Pinia e Vuex juntas** mas se precisares utilizar ambas, precisas dizer a `pinia` para não a desativa-lá (a `vuex`).
+É recomendado **evitar a utilização de Pinia e Vuex juntas** mas se precisares utilizar ambas, precisas dizer a `pinia` para não desativar a `vuex`.
 
 ```js
 // nuxt.config.js
