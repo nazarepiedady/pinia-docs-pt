@@ -4,7 +4,7 @@ import sponsors from '../components/sponsors.json'
 import './sponsors.css'
 import { darkStorageConfig } from '../theme/dark-theme'
 import { useDark } from '@vueuse/core'
-import Banner from '../components/Banner.vue'
+import VueMasteryHomeLink from '../components/VueMasteryHomeLink.vue'
 
 export const Layout = defineComponent({
   name: 'CustomLayout',
@@ -17,27 +17,27 @@ export const Layout = defineComponent({
         Theme.Layout,
         {},
         {
-          'home-hero': () => h('div', {}, [
-            h(Banner),
-            h(
-              'div',
-              {
-                class: 'vue-school-homepage-link',
-              },
-              [
-                h(
-                  'a',
-                  {
-                    href: 'https://vueschool.io/lessons/introduction-to-pinia?friend=vuerouter&utm_source=pinia&utm_medium=link&utm_campaign=homepage',
-                    target: '_blank',
-                    rel: 'noopener',
-                  },
-                  [h('span', 'Watch Video Introduction')]
-                ),
-              ]
-            )
-          ]),
-          'page-top': () => h(Banner),
+          'home-hero': () =>
+            h('div', {}, [
+              h(
+                'div',
+                {
+                  class: 'vue-school-homepage-link',
+                },
+                [
+                  h(
+                    'a',
+                    {
+                      href: 'https://vueschool.io/lessons/introduction-to-pinia?friend=vuerouter&utm_source=pinia&utm_medium=link&utm_campaign=homepage',
+                      target: '_blank',
+                      rel: 'noopener',
+                    },
+                    [h('span', 'Assista a Introdução em Vídeo')]
+                  ),
+                ]
+              ),
+              h(VueMasteryHomeLink),
+            ]),
           'sidebar-top': () =>
             h('div', { class: 'sponsors sponsors-top' }, [
               h('span', 'Platinum Sponsors'),
@@ -67,9 +67,9 @@ export const Layout = defineComponent({
                         href: 'https://github.com/sponsors/posva',
                         target: '_blank',
                         rel: 'noopener',
-                        alt: 'Your logo here',
+                        alt: 'O teu logótipo aqui',
                       },
-                      'Become a Sponsor!'
+                      'Torna-te um Patrocinador!'
                     ),
                   ]),
             ]),
