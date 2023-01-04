@@ -12,7 +12,6 @@ const isProduction = process.env.NODE_ENV
  * @type {import('vitepress').UserConfig['head']}
  */
 const productionHead = [
-  /*
   [
     'script',
     {
@@ -21,27 +20,6 @@ const productionHead = [
       type: 'text/javascript',
     },
   ],
-  */
-
-  /*
-  [
-    'script',
-    {
-      async: true,
-      src: 'https://www.googletagmanager.com/gtm.js?id=GTM-KNPCXMJ'
-    }
-  ],
-  [
-    'script',
-    {},
-    `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GTM-KNPCXMJ');
-    `
-  ]
-  */
 ]
 
 /**
@@ -147,6 +125,15 @@ module.exports = {
       },
     ],
 
+    [
+      'script',
+      {
+        src: 'https://vueschool.io/banners/main.js',
+        async: true,
+        type: 'text/javascript',
+      },
+    ],
+
     ...(isProduction ? productionHead : []),
   ],
 
@@ -158,12 +145,12 @@ module.exports = {
     editLinks: true,
     editLinkText: 'Sugerir mudanças para esta página',
 
-    algolia: {
+   algolia: {
       appId: '69Y3N7LHI2',
       apiKey: '45441f4b65a2f80329fd45c7cb371fea',
       indexName: 'pinia',
     },
-    
+
 
     carbonAds: {
       carbon: 'CEBICK3I',
@@ -229,7 +216,7 @@ module.exports = {
         {
           text: 'Conceitos Principais',
           children: [
-            { text: 'Definição de uma Memória (Store)', link: '/core-concepts/' },
+            { text: 'Definindo uma Memória (Store)', link: '/core-concepts/' },
             { text: 'Estado (State)', link: '/core-concepts/state.html' },
             { text: 'Recuperadores (Getters)', link: '/core-concepts/getters.html' },
             { text: 'Ações (Actions)', link: '/core-concepts/actions.html' },
