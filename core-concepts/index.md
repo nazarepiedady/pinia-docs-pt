@@ -94,7 +94,6 @@ export default {
 Se ainda não estiveres a utilizar os componentes `setup`, [podes continuar a utilizar a Pinia com os _mapas auxiliares_](../cookbook/options-api.md).
 :::
 
-You can define as many stores as you want and **you should define each store in a different file** to get the most out of pinia (like automatically allow your bundle to code split and TypeScript inference).
 Tu podes definir quantas memórias que quiseres e **deves definir cada memória em um ficheiro diferente** para obter o melhor da pinia (tal como permitir a separação de código e fazer inferência de TypeScript do teu pacote automaticamente).
 
 Uma vez que a memória é instanciada, podes acessar diretamente qualquer propriedade `state`, `getters`, e `actions` definida na memória. Nós veremos estes em detalhe nas próximas páginas mas a conclusão automática ajudar-te-á.
