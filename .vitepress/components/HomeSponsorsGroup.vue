@@ -1,5 +1,5 @@
 <template>
-  <h3>{{ name }} Sponsors</h3>
+  <h3>Patrocinadores {{ name }}</h3>
 
   <p>
     <a
