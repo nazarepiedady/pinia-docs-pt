@@ -1,6 +1,6 @@
 # Introdução
 
-A Pinia [começou](https://github.com/vuejs/pinia/commit/06aeef54e2cad66696063c62829dac74e15fd19e) como um experimento para redesenhar aquilo que uma Memória para Vue se pareceria com a [API de Composição](https://github.com/vuejs/composition-api) por volta de Novembro de 2019. Desde então, os princípios iniciais continuaram os mesmos, exceto que a Pinia funciona para ambas Vue 2 e Vue 3 **e não te obriga a utilizar a API de composição**. A API é a mesma para ambas exceto para a _instalação_ e _interpretação no lado do servidor (SSR, sigla em Inglês)_, e estas documentações são dirigidas para Vue 3 **com notas sobre a Vue 2** sempre que necessário assim isto pode ser lido por utilizadores da Vue 2 e Vue 3! 
+A Pinia [começou](https://github.com/vuejs/pinia/commit/06aeef54e2cad66696063c62829dac74e15fd19e) como um experimento para redesenhar aquilo que uma Memória para Vue se pareceria com a [API de Composição](https://github.com/vuejs/composition-api) por volta de Novembro de 2019. Desde então, os princípios iniciais continuaram os mesmos, exceto que a Pinia funciona para ambas Vue 2 e Vue 3 **e não te obriga a utilizar a API de composição**. A API é a mesma para ambas exceto para a _instalação_ e _interpretação no lado do servidor (SSR, sigla em Inglês)_, e estas documentações são dirigidas para Vue 3 **com notas sobre a Vue 2** sempre que necessário assim isto pode ser lido por utilizadores da Vue 2 e Vue 3!
 
 ## Porquê eu deveria utilizar a Pinia?
 
@@ -8,7 +8,7 @@ A Pinia é uma biblioteca de memória para Vue, ela permite-te partilhar um esta
 
 - Suporte a ferramenta do programador
   - Uma linha do tempo para rastrear as ações e mutações
-  - Stores appear in components where they are used As memórias aparecem nos componentes onde elas são usadas
+  - As memórias aparecem nos componentes onde elas são usadas
   - Viagem no tempo e depuração mais fáceis
 - Substituição instantânea de módulo
   - Modificar suas memórias sem recarregar tua página
@@ -70,7 +70,7 @@ export const useCounterStore = defineStore('counter', () => {
 })
 ```
 
-Se ainda não estiveres entendendo a `setup()` e a API de Composição, não se preocupe, a Pinia também suporta um conjunto similar de [_mapas auxiliares_ tal como a Vuex](https://vuex.vuejs.org/guide/state.html#the-mapstate-helper). Tu defines as memórias da mesma maneira exceto que depois utilizas `mapStores()`, `mapState()`, ou `mapActions()`:
+Se ainda não estiveres a entender a `setup()` e a API de Composição, não se preocupe, a Pinia também suporta um conjunto similar de [_mapas auxiliares_ tal como a Vuex](https://vuex.vuejs.org/guide/state.html#the-mapstate-helper). Tu defines as memórias da mesma maneira exceto que depois utilizas `mapStores()`, `mapState()`, ou `mapActions()`:
 
 ```js {22,24,28}
 const useCounterStore = defineStore('counter', {
@@ -160,7 +160,7 @@ export const useTodos = defineStore('todos', {
 
 ## Comparação com a Vuex
 
-A Pinia começou como uma exploração de com o quê a próxima iteração da Vuex poderia se parecer, incorporando muitas ideias das discussões da equipa principal para Vuex 5. Eventualmente, nós nos apercebê-mos de que a Pinia já implementa a maioria daquilo que nós queríamos na Vuex 5, e decidimos torná-la a nova recomendação no lugar da Vuex. 
+A Pinia começou como uma exploração de com o quê a próxima iteração da Vuex poderia se parecer, incorporando muitas ideias das discussões da equipa principal para Vuex 5. Eventualmente, nós nos apercebê-mos de que a Pinia já implementa a maioria daquilo que nós queríamos na Vuex 5, e decidimos torná-la a nova recomendação no lugar da Vuex.
 
 Comparada a Vuex, a Pinia fornece uma API mais simples com menos cerimónia, oferece APIs no estilo da API de Composição, e mais importante, tem suporte sólido a inferência de tipo quando utilizada com TypeScript.
 
@@ -182,7 +182,7 @@ Nomeadamente, a API da Pinia é muito diferente a Vuex <=4:
 
 - Não precisa criar envolvedores complexos personalizados para suportar a TypeScript, tudo está tipado e a API é desenhada de uma maneira que influencie a inferência de tipo de TypeScript tanto quanto possível.
 
-- Nada de sequências de caracteres magicas para injetar, importar as funções, chamá-las, desfrute da conclusão automática (autocompletion, em Inglês)! 
+- Nada de sequências de caracteres magicas para injetar, importar as funções, chamá-las, desfrute da conclusão automática (autocompletion, em Inglês)!
 
 - Não precisa de adicionar a memórias dinamicamente, elas são todas dinâmicas por padrão e nem notarás. Nota que ainda podes utilizar manualmente uma memória para registá-la sempre que quiseres mas por isto ser automático não precisas preocupar-se com ela.
 
