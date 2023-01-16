@@ -10,6 +10,16 @@ yarn add @pinia/nuxt
 npm install @pinia/nuxt
 ```
 
+:::tip Dica
+Se estiveres a usar o npm, é possível que recebas um erro de _ERESOLVE unable to resolve dependency tree_. Neste caso, adicione o seguinte ao teu `package.json`:
+
+```js
+"overrides": {
+	"vue": "latest"
+}
+```
+:::
+
 Nós fornecemos um _módulo_ para manipular tudo por ti, tu apenas precisas adicioná-lo ao `modules` no teu ficheiro `nuxt.config.js`:
 
 ```js
@@ -39,7 +49,7 @@ export default {
 }
 ```
 
-## Importações automáticas
+## Importações Automáticas
 
 Por padrão `@pinia/nuxt` expõe uma única importação automática: `usePinia()`, a qual é semelhante ao `getActivePinia()` mas funciona melhor com a Nuxt. Tu podes adicionar importações automáticas para facilitar a tua vida:
 
@@ -64,7 +74,7 @@ export default {
 }
 ```
 
-## Nuxt 2 sem o bridge
+## Nuxt 2 sem o Bridge
 
 A Pinia suporta a Nuxt 2 até a versão 0.2.1 da `@pinia/nuxt`. Certifique-te também de instalar [`@nuxtjs/composition-api`](https://composition-api.nuxtjs.org/) ao lado da `pinia`:
 
