@@ -110,7 +110,7 @@ Para os seguintes exemplos, podes assumir que a seguinte memória foi criada:
 // Caminho do Ficheiro de Exemplo:
 // ./src/stores/counterStore.js
 
-import { defineStore } from 'pinia',
+import { defineStore } from 'pinia'
 
 const useCounterStore = defineStore('counterStore', {
   state: () => ({
