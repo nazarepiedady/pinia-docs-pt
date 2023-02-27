@@ -1,17 +1,20 @@
-// @ts-check
+import { defineConfig, HeadConfig } from 'vitepress'
 
 const META_URL = 'https://pinia.vuejs.org'
 const META_TITLE = 'Pinia 🍍'
-const META_DESCRIPTION =
-  'Memória intuitiva, flexível, leve, de tipo seguro para Vue'
+const META_DESCRIPTION = 'Memória intuitiva, flexível, leve, de tipo seguro para Vue'
 const META_IMAGE = 'https://pinia.vuejs.org/social.png'
 
-const isProduction = process.env.NODE_ENV
+const isProduction = process.env.NETLIFY && process.env.NODE_ENV === 'production'
+
+if (process.env.NETLIFY) {
+  console.log('Netlify build', process.env.CONTEXT)
+}
 
 /**
  * @type {import('vitepress').UserConfig['head']}
  */
-const productionHead = [
+const productionHead: HeadConfig[] = [
   [
     'script',
     {
@@ -22,23 +25,25 @@ const productionHead = [
   ],
 ]
 
-/**
- * @type {import('vitepress').UserConfig}
- */
-module.exports = {
+export default defineConfig({
+  title: 'Pinia',
+  description: META_DESCRIPTION,
+  appearance: 'dark',
+
   markdown: {
+    theme: {
+      dark: 'dracula-soft',
+      light: 'vitesse-light',
+    },
     attrs: {
       leftDelimiter: '%{',
       rightDelimiter: '}%',
-    },
+    }
   },
-  title: 'Pinia',
-  lang: 'pt-PT',
-  description: 'A Memória de Vue que gostarás de utilizar',
+
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
     ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
-
     [
       'meta',
       { name: 'wwads-cn-verify', content: '5878a7ab84fb43402106c575658472fa' },
@@ -125,59 +130,63 @@ module.exports = {
       },
     ],
 
-    [
+    // TODO: add this back when fixed
+    /* [
       'script',
       {
         src: 'https://vueschool.io/banners/main.js',
         async: true,
         type: 'text/javascript',
       },
-    ],
+    ], */
 
     ...(isProduction ? productionHead : []),
   ],
 
   themeConfig: {
-    repo: 'nazarepiedady/pinia-docs-pt',
     logo: '/logo.svg',
-    docsDir: '',
-    docsBranch: 'main',
-    editLinks: true,
-    editLinkText: 'Sugerir mudanças para esta página',
+    outline: [2, 3],
 
-   algolia: {
+    socialLinks: [
+      { icon: 'twitter', link: 'https://twitter.com/posva' },
+      { icon: 'github', link: 'https://github.com/vuejs/pinia' },
+      { icon: 'discord', link: 'https://chat.vuejs.org' }
+    ],
+
+    footer: {
+      copyright: 'Direitos de autor © 2019-presente Eduardo San Martin Morote',
+      message: 'Lançado sob a licença MIT.',
+    },
+
+    editLink: {
+      pattern: 'https://github.com/nazarepiedady/pinia-docs-pt/edit/main/:path',
+      text: 'Sugerir mudanças para esta página',
+    },
+
+    algolia: {
       appId: '69Y3N7LHI2',
       apiKey: '45441f4b65a2f80329fd45c7cb371fea',
       indexName: 'pinia',
     },
 
-
     carbonAds: {
       carbon: 'CEBICK3I',
-      custom: 'CEBICK3M',
+      //custom: 'CEBICK3M',
       placement: 'routervuejsorg',
     },
 
-
     nav: [
-      { text: 'Guia', link: '/introduction.html' },
-      { text: 'API', link: '/api/' },
       // { text: 'Config', link: '/config/' },
       // { text: 'Plugins', link: '/plugins/' },
+      { text: 'Guia', link: '/core-concepts/', activeMatch: '^/core-concepts/' },
+      { text: 'API', link: '/api/', activeMatch: '^/api/' },
+      { text: 'Livro de Receitas', link: '/cookbook/', activeMatch: '^/cookbook/'},
       {
         text: 'Ligações',
         items: [
           {
             text: 'Discussões',
             link: 'https://github.com/vuejs/pinia/discussions',
-          },
-          {
-            text: 'Conversas',
-            link: 'https://chat.vuejs.org',
-          },
-          {
-            text: 'Twitter',
-            link: 'https://twitter.com/posva',
           },
           {
             text: 'Relatório de Mudança',
@@ -231,23 +240,20 @@ module.exports = {
           text: 'Interpretação no Lado do Servidor (SSR)',
           children: [
             {
-              text: 'Vue & Vite',
+              text: 'Vue e Vite',
               link: '/ssr/',
             },
             {
               text: 'Nuxt.js',
               link: '/ssr/nuxt.html',
             },
-            {
-              text: 'Lidando com Constituíveis',
-              link: '/cookbook/composables.html#ssr',
-            },
           ],
         },
         {
           text: 'Livro de Receitas',
-          link: '/cookbook/',
-          children: [
+          collapsable: true,
+          collapsed: false,
+          items: [
             {
               text: 'Migrando da Vuex ≤4',
               link: '/cookbook/migration-vuex.html',
@@ -281,4 +287,10 @@ module.exports = {
       ],
     },
   },
-}
+
+  locales: {
+    root: { label: 'Português', lang: 'pt-PT' },
+    en: { label: 'English', lang: 'en-US', link: 'https://pinia.vuejs.org/' },
+    zh: { label: '简体中文', lang: 'zh-CN', link: 'https://pinia.vuejs.org/zh/' }
+  }
+})
