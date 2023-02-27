@@ -12,6 +12,6 @@
     "@chenfengyuan/vue-countdown": "^2.1.0",
     "@vueuse/core": "^8.9.4",
     "pinia": "^2.0.18",
-    "vitepress": "^0.22.4"
+    "vitepress": "^1.0.0-alpha.46"
   }
 }
