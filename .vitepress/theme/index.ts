@@ -1,22 +1,36 @@
-import Theme from 'vitepress/theme'
-import VueSchoolLink from '../components/VueSchoolLink.vue'
-import VueMasteryLogoLink from '../components/VueMasteryLogoLink.vue'
-import { Layout } from './Layout'
-import './custom.css'
-import './code-theme.css'
-// import { createPinia } from 'pinia'
+//import { h, watchEffect } from 'vue'
+import { Theme /*,useData */ } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
 
-/** @type {import('vitepress').Theme} */
-const config = {
-  ...Theme,
+import './styles/vars.css'
+// import AsideSponsors from './components/AsideSponsors.vue'
+// import HomeSponsors from './components/HomeSponsors.vue'
+import VueSchoolLink from './components/VueSchoolLink.vue'
+import VueMasteryLogoLink from './components/VueMasteryLogoLink.vue'
 
-  Layout,
+
+const theme: Theme = {
+  ...DefaultTheme,
+  // Layout() {
+  //   return h(DefaultTheme.Layout, null, {
+  //     'home-features-after': () => h(HomeSponsors),
+  //     'aside-ads-before': () => h(AsideSponsors),
+  //   })
+  // },
 
   enhanceApp({ app }) {
-    // app.use(createPinia())
     app.component('VueSchoolLink', VueSchoolLink)
     app.component('VueMasteryLogoLink', VueMasteryLogoLink)
   },
+
+  // setup() {
+  //   const { lang } = useData()
+  //   watchEffect(() => {
+  //     if (typeof document !== 'undefined') {
+  //       document.cookie = `nf_lang=${lang.value}; expires=Sun, 1 Jan 2023 00:00:00 UTC; path=/`
+  //     }
+  //   })
+  // },
 }
 
-export default config
+export default theme
