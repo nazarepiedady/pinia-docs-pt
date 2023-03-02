@@ -1,11 +1,29 @@
 ---
-home: true
-heroImage: /logo.svg
-actionText: Começar
-actionLink: /introduction.html
+layout: home
 
-altActionText: Demonstração
-altActionLink: https://stackblitz.com/github/piniajs/example-vue-3-vite
+title: Pinia
+titleTemplate: A Memória Intuitiva para Vue.js
+
+hero:
+  name: Pinia
+  text: A Memória Intuitiva para Vue.js
+  tagline: Tipagem Segura, Extensível, e Modular por padrão. Esqueça que estás a usar uma memória.
+  image:
+    src: /logo.svg
+    alt: Pinia
+  actions:
+    - theme: brand
+      text: Começar
+      link: /introduction
+    - theme: alt
+      text: Demonstração
+      link: https://stackblitz.com/github/piniajs/example-vue-3-vite
+    - theme: cta vueschool
+      text: Assista Um Vídeo Introdutório
+      link: https://vueschool.io/lessons/introduction-to-pinia?friend=vuerouter&utm_source=pinia&utm_medium=link&utm_campaign=homepage
+    - theme: cta vue-mastery
+      text: Receba o Pinia Cheat Sheet
+      link: https://www.vuemastery.com/pinia?coupon=PINIA-DOCS&via=eduardo
 
 features:
   - title: 💡 Intuitiva
@@ -20,18 +38,11 @@ features:
     details: Construia várias memorias e deixe o teu empacotador separar o código delas automaticamente.
   - title: 📦 Extremamente leve
     details: Pinia pesa por volta de ~1.5kb, nem perceberás a presença dela!
-footer: MIT Licensed | Copyright © 2019-present Eduardo San Martin Morote
 ---
 
-<ClientOnly>
-  <ThemeToggle/>
-  <!-- <TestStore/> -->
-</ClientOnly>
+<script setup>
+import HomeSponsors from './.vitepress/theme/components/HomeSponsors.vue'
+import './.vitepress/theme/styles/home-links.css'
+</script>
 
 <HomeSponsors />
-
-<script setup>
-import HomeSponsors from './.vitepress/components/HomeSponsors.vue'
-import ThemeToggle from './.vitepress/components/ThemeToggle.vue'
-// import TestStore from './.vitepress/components/TestStore.vue'
-</script>
