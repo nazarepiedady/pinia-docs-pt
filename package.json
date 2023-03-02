@@ -12,9 +12,9 @@
     "@chenfengyuan/vue-countdown": "^2.1.0",
     "@vueuse/core": "^9.11.1",
     "pinia": "^2.0.18",
-    "vitepress": "^1.0.0-alpha.46"
+    "vitepress": "^1.0.0-alpha.49"
   },
   "devDependencies": {
-    "@types/node": "18.14.0"
+    "@types/node": "^18.14.0"
   }
 }
