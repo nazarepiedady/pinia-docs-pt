@@ -2,12 +2,12 @@
 layout: home
 
 title: Pinia
-titleTemplate: A Memória Intuitiva para Vue.js
+titleTemplate: O gestor de estado moderno para Vue.js
 
 hero:
   name: Pinia
-  text: A Memória Intuitiva para Vue.js
-  tagline: Tipagem Segura, Extensível, e Modular por padrão. Esqueça que estás a usar uma memória.
+  text: O gestor de estado moderno para Vue.js
+  tagline: Tipagem Segura, Extensível, e Modular por padrão. Esqueça que usas um gestor de estado.
   image:
     src: /logo.svg
     alt: Pinia
