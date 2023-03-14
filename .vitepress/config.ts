@@ -200,7 +200,7 @@ export default defineConfig({
       '/api/': [
         {
           text: 'Pacotes',
-          children: [
+          items: [
             { text: 'pinia', link: '/api/modules/pinia.html' },
             { text: '@pinia/nuxt', link: '/api/modules/pinia_nuxt.html' },
             { text: '@pinia/testing', link: '/api/modules/pinia_testing.html' },
@@ -211,7 +211,7 @@ export default defineConfig({
       '/': [
         {
           text: 'Introdução',
-          children: [
+          items: [
             {
               text: 'O que é Pinia?',
               link: '/introduction.html',
@@ -224,7 +224,7 @@ export default defineConfig({
         },
         {
           text: 'Conceitos Principais',
-          children: [
+          items: [
             { text: 'Definindo uma Memória (Store)', link: '/core-concepts/' },
             { text: 'Estado (State)', link: '/core-concepts/state.html' },
             { text: 'Recuperadores (Getters)', link: '/core-concepts/getters.html' },
@@ -238,7 +238,7 @@ export default defineConfig({
         },
         {
           text: 'Interpretação no Lado do Servidor (SSR)',
-          children: [
+          items: [
             {
               text: 'Vue e Vite',
               link: '/ssr/',
@@ -251,7 +251,7 @@ export default defineConfig({
         },
         {
           text: 'Livro de Receitas',
-          collapsable: true,
+          collapsible: true,
           collapsed: false,
           items: [
             {
