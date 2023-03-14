@@ -20,6 +20,7 @@ import sponsors from './sponsors.json'
 import { useData } from 'vitepress'
 
 const { site } = useData()
+
 const translations = {
   pt: 'Torna-te um patrocinador',
   'pt-PT': 'Torna-te um Patrocinador!',
@@ -30,13 +31,13 @@ const translations = {
 .sponsors_outer {
   text-align: center;
   padding: 35px 40px 45px;
-  background-color: var(--c-bg-accent);
+  background-color: var(--vp-c-bg-accent);
   /* transition when toggling dark mode */
   transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
 }
 
 .cta {
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 </style>
 
