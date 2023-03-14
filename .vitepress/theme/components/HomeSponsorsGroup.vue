@@ -1,5 +1,5 @@
 <template>
-  <h3>Patrocinadores {{ name }}</h3>
+  <h3>Patrocinadores de {{ translateToPortuguese(name) }}</h3>
 
   <p>
     <a
@@ -32,14 +32,13 @@
 import sponsors from './sponsors.json'
 import { computed } from 'vue'
 import type { PropType } from 'vue'
-import { darkStorageConfig } from '../theme/dark-theme'
-import { useDark } from '@vueuse/core'
+import { useData } from 'vitepress'
 
-const isDark = useDark(darkStorageConfig)
+const { isDark } = useData()
 
 const props = defineProps({
   name: {
-    type: String as PropType<'gold' | 'platinum' | 'silver' | 'bronze'>,
+    type: String as PropType<'Gold' | 'Platinum' | 'Silver' | 'Bronze'>,
     required: true,
   },
   size: {
@@ -47,6 +46,17 @@ const props = defineProps({
     default: 140,
   },
 })
+
+function translateToPortuguese(name) {
+  let sponsorsName = {
+    Gold: 'Ouro',
+    Platinum: 'Platina',
+    Silver: 'Prata',
+    Bronze: 'Bronze'
+  }
+
+  return sponsorsName[name]
+}
 
 const list = computed(() =>
   sponsors[props.name.toLowerCase()].map((sponsor) => ({
