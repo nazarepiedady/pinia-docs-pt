@@ -170,7 +170,7 @@ export default defineConfig({
     },
 
     carbonAds: {
-      carbon: 'CEBICK3I',
+      code: 'CEBICK3I',
       //custom: 'CEBICK3M',
       placement: 'routervuejsorg',
     },
@@ -255,7 +255,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             {
-              text: 'Migrando da Vuex ≤4',
+              text: 'Migrando da Vuex',
               link: '/cookbook/migration-vuex.html',
             },
             {
@@ -267,7 +267,7 @@ export default defineConfig({
               link: '/cookbook/testing.html',
             },
             {
-              text: 'Utilização sem Setup()',
+              text: 'Utilização sem Setup',
               link: '/cookbook/options-api.html',
             },
             {
@@ -275,7 +275,7 @@ export default defineConfig({
               link: '/cookbook/composing-stores.html',
             },
             {
-              text: 'Migrando de v0/v1 para v2',
+              text: 'Migrando para Versão 2',
               link: '/cookbook/migration-v1-v2.html',
             },
             {
