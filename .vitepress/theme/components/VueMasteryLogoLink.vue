@@ -8,6 +8,7 @@ const links = {
 }
 
 const link = links[props.for]
+
 const forPiniaCheatSheet = props.for === 'pinia-cheat-sheet'
 </script>
 
