@@ -39,7 +39,7 @@ export const useUsers = defineStore('users', {
         showTooltip(`Welcome back ${this.userData.name}!`)
       } catch (error) {
         showTooltip(error)
-        // deixe o componente de formulário exibir o erro
+        // deixe o componente do formulário exibir o erro
         return error
       }
     },
