@@ -1,12 +1,12 @@
 {
-  "name": "@pinia/docs",
+  "name": "pinia-docs-pt",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "docs": "vitepress dev .",
-    "docs:api": "node run-typedoc.js",
-    "docs:build": "vitepress build .",
-    "docs:serve": "vitepress serve"
+    "dev": "vitepress dev .",
+    "api": "node run-typedoc.js",
+    "build": "vitepress build .",
+    "serve": "vitepress serve"
   },
   "dependencies": {
     "@chenfengyuan/vue-countdown": "^2.1.0",
