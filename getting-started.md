@@ -45,7 +45,8 @@ new Vue({
   el: '#app',
   // outras opções...
   // ...
-  // nota que a mesma instância de `pinia` pode ser usando ao longo de várias aplicações de Vue na mesma página
+  // nota que a mesma instância de `pinia` pode ser usada
+  // ao longo de várias aplicações de Vue na mesma página
   pinia,
 })
 ```
