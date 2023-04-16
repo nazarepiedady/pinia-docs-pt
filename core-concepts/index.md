@@ -9,9 +9,11 @@ Antes de mergulhar dentro dos conceitos fundamentais, nós precisamos saber que 
 
 ```js
 import { defineStore } from 'pinia'
-// Tu podes nomear o valor de retorno de `defineStore()` para que quiseres, mas é melhor utilizar o nome da memória e envolvê-la com `use` e `Store` (por exemplo, `useUserStore`, `useCartStore`, `useProductStore`)
+// Tu podes nomear o valor de retorno de `defineStore()` para que quiseres,
+// mas é melhor utilizar o nome da memória e envolvê-la com `use` e
+// `Store` (por exemplo, `useUserStore`, `useCartStore`, `useProductStore`)
 // `useStore`, poderia ser qualquer coisa tipo, `userUser`, `useCart` (remover)
-// o primeiro argumento é um identificador (id) único da memória em toda a tua aplicação
+// o primeiro argumento é um identificador único da memória na tua aplicação
 export const useStore = defineStore('main', {
   // outras opções...
 })
@@ -83,7 +85,8 @@ export default {
     const store = useCounterStore()
 
     return {
-      // tu podes retornar uma instância da memória inteira para utilizá-la no modelo de marcação (template, em Inglês).
+      // retornar uma instância da memória
+      // para utilizá-la no modelo de marcação.
       store,
     }
   },
@@ -139,8 +142,10 @@ export default defineComponent({
   setup() {
     const store = useCounterStore()
     // `name` e `doubleCount` são referências reativas
-    // Isto também criará referências para as propriedades adicionas pelas extensões
-    // mas ignorará qualquer ação ou propriedade não reativa e ou referenciada
+    // também criará referências 
+    // para as propriedades adicionas pelas extensões
+    // mas ignorará qualquer ação ou
+    // propriedade não reativa e ou referenciada
     const { name, doubleCount } = storeToRefs(store)
     // a ação de incrementar `increment` já pode ser extraída
     const { increment } = store
