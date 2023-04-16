@@ -147,7 +147,7 @@ export default defineComponent({
     // mas ignorará qualquer ação ou
     // propriedade não reativa e ou referenciada
     const { name, doubleCount } = storeToRefs(store)
-    // a ação de incrementar `increment` já pode ser extraída
+    // a ação `increment` já pode ser extraída
     const { increment } = store
 
     return {
