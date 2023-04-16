@@ -26,7 +26,6 @@ const userStore = useUserStore()
 
 A maneira mais fácil de garantir que isto sempre é aplicado é _adiar_ as chamadas de `useStore()` colocando-as dentro de funções que sempre serão executadas depois da `pinia` ser instalada.
 
-Let's take a look at this example of using a store inside of a navigation guard with Vue Router:
 Vamos ver um exemplo de utilização de uma memória dentro de uma sentinela de navegação com o Roteador da Vue (`Vue Router`):
 
 ```js
