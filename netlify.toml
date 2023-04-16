@@ -2,5 +2,5 @@
 NPM_FLAGS="--install --force"
 
 [build]
-command = "npm run docs:build"
+command = "npm run build"
 publish = ".vitepress/dist"
