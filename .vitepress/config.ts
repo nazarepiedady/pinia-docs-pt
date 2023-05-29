@@ -35,10 +35,11 @@ export default defineConfig({
       dark: 'dracula-soft',
       light: 'vitesse-light',
     },
+    /*
     attrs: {
       leftDelimiter: '%{',
       rightDelimiter: '}%',
-    }
+    }*/
   },
 
   head: [
@@ -213,7 +214,7 @@ export default defineConfig({
           text: 'Introdução',
           items: [
             {
-              text: 'O que é Pinia?',
+              text: 'O Que é Pinia?',
               link: '/introduction.html',
             },
             {
@@ -231,7 +232,7 @@ export default defineConfig({
             { text: 'Ações (Actions)', link: '/core-concepts/actions.html' },
             { text: 'Extensões (Plugins)', link: '/core-concepts/plugins.html' },
             {
-              text: 'Memórias fora dos Componentes',
+              text: 'Memórias Fora dos Componentes',
               link: '/core-concepts/outside-component-usage.html',
             },
           ],
@@ -244,7 +245,7 @@ export default defineConfig({
               link: '/ssr/',
             },
             {
-              text: 'Nuxt.js',
+              text: 'Nuxt',
               link: '/ssr/nuxt.html',
             },
           ],
@@ -255,7 +256,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             {
-              text: 'Migrando da Vuex',
+              text: 'Guia de Migração da Vuex',
               link: '/cookbook/migration-vuex.html',
             },
             {
@@ -263,11 +264,11 @@ export default defineConfig({
               link: '/cookbook/hot-module-replacement.html',
             },
             {
-              text: 'Testagem',
+              text: 'Testes',
               link: '/cookbook/testing.html',
             },
             {
-              text: 'Utilização sem Setup',
+              text: 'Utilização Sem Setup',
               link: '/cookbook/options-api.html',
             },
             {
@@ -275,11 +276,11 @@ export default defineConfig({
               link: '/cookbook/composing-stores.html',
             },
             {
-              text: 'Migrando para Versão 2',
+              text: 'Guia de Migração da Versão 2',
               link: '/cookbook/migration-v1-v2.html',
             },
             {
-              text: 'Lidando com Constituíveis',
+              text: 'Lidando com Funções de Composição',
               link: '/cookbook/composables.html',
             },
           ],
