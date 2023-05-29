@@ -1,8 +1,8 @@
-# Nuxt.js
+# Nuxt.js {#nuxt-js}
 
 Utilização de Pinia com a [Nuxt.js](https://nuxtjs.org/) é muito fácil visto que a Nuxt encarrega-se de várias coisas quando ela vem para _interpretação no lado do servidor (SSR, sigla em Inglês)_. Por exemplo, **não precisas de te importares com a adaptação(serialization, termo em Inglês) nem com os ataques de XSS**. A Pinia suporta a Nuxt Bridge e a Nuxt 3, para suporte básico a Nuxt 2, [consulte abaixo](#nuxt-2-sem-o-bridge).
 
-## Instalação
+## Instalação {#installation}
 
 ```bash
 yarn add @pinia/nuxt
@@ -10,7 +10,7 @@ yarn add @pinia/nuxt
 npm install @pinia/nuxt
 ```
 
-:::tip Dica
+:::tip DICA
 Se estiveres a usar o npm, é possível que recebas um erro de _ERESOLVE unable to resolve dependency tree_. Neste caso, adicione o seguinte ao teu `package.json`:
 
 ```js
@@ -35,7 +35,7 @@ export default defineNuxtConfig({
 
 E já está, utilize a tua memória como o habitual!
 
-## Utilizando a memória fora do `setup()`
+## Utilizando a Memória Fora do `setup()` {#using-the-store-outside-of-setup}
 
 Se quiseres utilizar uma memória fora de `setup()`, lembre-se de passar o objeto `pinia` para `useStore()`. Nós adicionamos ela [ao contexto](https://nuxtjs.org/docs/2.x/internals-glossary/context) assim tens acesso a ela em `asyncData()` e `fetch()`:
 
@@ -49,7 +49,7 @@ export default {
 }
 ```
 
-## Importações Automáticas
+## Importações Automáticas {#auto-imports}
 
 Por padrão `@pinia/nuxt` expõe uma única importação automática: `usePinia()`, a qual é semelhante ao `getActivePinia()` mas funciona melhor com a Nuxt. Tu podes adicionar importações automáticas para facilitar a tua vida:
 
@@ -74,7 +74,7 @@ export default {
 }
 ```
 
-## Nuxt 2 sem o Bridge
+## Nuxt 2 sem a Bridge {#nuxt-2-without-bridge}
 
 A Pinia suporta a Nuxt 2 até a versão 0.2.1 da `@pinia/nuxt`. Certifique-te também de instalar [`@nuxtjs/composition-api`](https://composition-api.nuxtjs.org/) ao lado da `pinia`:
 
@@ -99,7 +99,7 @@ export default {
 }
 ```
 
-## TypeScript
+## TypeScript {#typescript}
 
 Se estiveres a utilizar a TypeScript ou tiveres um `jsconfig.json`, deves também adicionar os tipos para a `context.pinia`:
 
@@ -114,7 +114,7 @@ Se estiveres a utilizar a TypeScript ou tiveres um `jsconfig.json`, deves també
 
 Isto também garantirá que tenhas a conclusão automática 😉.
 
-### Utilizando a Pinia ao lado da Vuex
+### Utilizando a Pinia ao lado da Vuex {#using-pinia-alongside-vuex}
 
 É recomendado **evitar a utilização de Pinia e Vuex juntas** mas se precisares utilizar ambas, precisas dizer a `pinia` para não desativar a `vuex`.
 
