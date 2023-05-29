@@ -1,4 +1,4 @@
-# Introdução
+# Introdução {#introduction}
 
 <VueSchoolLink
   href="https://vueschool.io/lessons/introduction-to-pinia"
@@ -7,7 +7,7 @@
 
 A Pinia [começou](https://github.com/vuejs/pinia/commit/06aeef54e2cad66696063c62829dac74e15fd19e) como um experimento para redesenhar aquilo que uma Memória para Vue se pareceria com a [API de Composição](https://github.com/vuejs/composition-api) por volta de Novembro de 2019. Desde então, os princípios iniciais continuaram os mesmos, exceto que a Pinia funciona para ambas Vue 2 e Vue 3 **e não te obriga a utilizar a API de composição**. A API é a mesma para ambas exceto para a _instalação_ e _interpretação no lado do servidor (SSR, sigla em Inglês)_, e estas documentações são dirigidas para Vue 3 **com notas sobre a Vue 2** sempre que necessário assim isto pode ser lido por utilizadores da Vue 2 e Vue 3!
 
-## Porquê eu deveria utilizar a Pinia?
+## Porquê Eu Deveria Usar a Pinia? {#why-should-i-use-pinia}
 
 A Pinia é uma biblioteca de memória para Vue, ela permite-te partilhar um estado entre os componentes ou páginas. Se estás familiarizado com a API de Composição, tu poderias estar pensar em como que já consegues partilhar um estado global com uma simples `export const state = reactive({})`. Isto é verdade para aplicações de página única, porém **expõe a tua aplicação à [vulnerabilidades de segurança](https://vuejs.org/guide/scaling-up/ssr.html#cross-request-state-pollution)** se ela for interpretada no lado do servidor. Porém mesmo em pequenas aplicações de página única, tu ganhas muito utilizando a Pinia:
 
@@ -22,7 +22,9 @@ A Pinia é uma biblioteca de memória para Vue, ela permite-te partilhar um esta
 - Suporte apropriado ao TypeScript ou **conclusão automática (autocompletion, em Inglês)** para utilizadores de JavaScript
 - Suporte a Interpretação no Lado do Servidor (SSR, em Inglês)
 
-## Exemplo básico
+<VueMasteryLogoLink for="pinia-cheat-sheet" />
+
+## Exemplo Básico {#basic-example}
 
 Isto é como a utilização da pinia se parece em termos de API (certifique-se de consultar o [Começar](./getting-started.md) para instruções completas). Tu começas pela criação de uma memória:
 
@@ -112,11 +114,11 @@ export default {
 
 Tu encontrarás mais informações sobre cada _mapa auxiliar_ nos conceitos fundamentais.
 
-## Porquê _Pinia_
+## Porquê _Pinia_ {#why-pinia}
 
 Pinia (pronunciado `/piːnjʌ/`, semelhante a "peenya" em Inglês) é a palavra mais próxima a _pinã_ (_ananás_ em Espanhol) que é um nome de pacote válido. Um ananás é na realidade um grupo de flores individuais que unem-se juntas para criar um múltiplo de fruta. Similar as memórias, cada uma é nascida individualmente, mas no final elas estão todas conectadas. Também é um fruto tropical nativo da América do Sul.
 
-## Um exemplo mais realista
+## Um Exemplo Mais Realista {#a-more-realistic-example}
 
 Aqui está um exemplo mais completo da API que estarás utilizando com a Pinia **com tipos mesmo em JavaScript**. Para algumas pessoas, isto pode ser o suficiente para começar sem leitura adicional, porém nós ainda recomendamos a consulta do resto da documentação ou até mesmo pular este exemplo e voltar atrás uma vez que tens que ler tudo sobre os _Conceitos Fundamentais_
 
@@ -129,7 +131,7 @@ export const useTodos = defineStore('todos', {
     todos: [],
     /** @type {'all' | 'finished' | 'unfinished'} */
     filter: 'all',
-    // o tipo será automaticamente inferido para número
+    // o tipo será automaticamente inferido ao número
     nextId: 0,
   }),
   getters: {
@@ -156,20 +158,20 @@ export const useTodos = defineStore('todos', {
   actions: {
     // quaisquer quantidade de argumentos, retorna uma promessa ou não
     addTodo(text) {
-      // tu podes alterar o estado diretamente
+      // podes alterar o estado diretamente
       this.todos.push({ text, id: this.nextId++, isFinished: false })
     },
   },
 })
 ```
 
-## Comparação com a Vuex
+## Comparação com a Vuex {#comparison-with-vuex}
 
 A Pinia começou como uma exploração de com o quê a próxima iteração da Vuex poderia se parecer, incorporando muitas ideias das discussões da equipa principal para Vuex 5. Eventualmente, nós nos apercebê-mos de que a Pinia já implementa a maioria daquilo que nós queríamos na Vuex 5, e decidimos torná-la a nova recomendação no lugar da Vuex.
 
 Comparada a Vuex, a Pinia fornece uma API mais simples com menos cerimónia, oferece APIs no estilo da API de Composição, e mais importante, tem suporte sólido a inferência de tipo quando utilizada com TypeScript.
 
-### Pedido por Comentários (RFCs, em Inglês)
+### Pedido por Comentários (RFCs, em Inglês) {#rfcs}
 
 Inicialmente a Pinia não avançou através de qualquer pedido por comentário (RFC, em Inglês). Eu testei ideias baseadas na minha experiência programando aplicações, lendo código de outras pessoas, trabalhando para clientes que utilizam a Pinia, e respondendo questões na Discord.
 Isto permitiu-me fornecer uma solução que funciona e que é adaptada a uma variedade de casos e tamanho de aplicações. Eu costumava a publicar com frequência e fiz a biblioteca evoluir enquanto preserva a sua API principal.
@@ -177,7 +179,7 @@ Isto permitiu-me fornecer uma solução que funciona e que é adaptada a uma var
 
 Agora que a Pinia tornou-se a solução padrão para gestão de estados, está sujeita ao mesmo processo de Pedido por Comentário (RFC, em Inglês) tal como as outras bibliotecas principais dentro do ecossistema da Vue e sua API entrou em um estado estável.
 
-### Comparação com a Vuex 3.x/4.x
+### Comparação com a Vuex 3.x ou 4.x {#comparison-with-vuex-3-x-4-x}
 
 > A Vuex 3.x é a Vuex para a Vue 2 enquanto a Vuex 4.x é para a Vue 3
 
