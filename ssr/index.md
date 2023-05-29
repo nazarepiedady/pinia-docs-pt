@@ -1,7 +1,7 @@
-# Interpretação no Lado do Servidor
+# Interpretação no Lado do Servidor (SSR) {#server-side-rendering}
 
 :::tip Dica
-Se estiveres a utilizar a **Nuxt.js**, precisas ler [**estas instruções**](./nuxt.md).
+Se estiveres a usar a **Nuxt.js**, precisas ler [**estas instruções**](./nuxt.md).
 :::
 
 A criação de memórias com a Pinia deve funcionar fora da caixa para SSR enquanto chamas as tuas funções `useStore()` no inicio das funções `setup`, `getters` e `actions`:
@@ -17,7 +17,7 @@ export default defineComponent({
 })
 ```
 
-## Utilizando a memória fora de `setup()`
+## Utilizando a memória fora de `setup()` {#using-the-store-outside-of-setup}
 
 Se precisares utilizar a memória noutro lugar, precisas passar a instância de `pinia` [que foi passada para a aplicação](#instalar-a-extensão) para a chamada da função `useStore()`:
 
