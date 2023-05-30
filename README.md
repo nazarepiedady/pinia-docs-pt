@@ -1,43 +1,49 @@
 <p align="center">
   <a href="https://pinia.vuejs.org" target="_blank" rel="noopener noreferrer">
-    <img width="180" src="https://pinia.vuejs.org/logo.svg" alt="Pinia logo">
+    <img width="180" src="https://pinia.vuejs.org/logo.svg" alt="Logótipo da Pinia">
   </a>
 </p>
 <br/>
 <p align="center">
-  <a href="https://npmjs.com/package/pinia"><img src="https://badgen.net/npm/v/pinia" alt="npm package"></a>
-  <a href="https://github.com/vuejs/pinia/actions/workflows/test.yml?query=branch%3Av2"><img src="https://github.com/vuejs/pinia/workflows/test/badge.svg?branch=v2" alt="build status"></a>
-  <a href="https://codecov.io/github/vuejs/pinia"><img src="https://badgen.net/codecov/c/github/vuejs/pinia/v2" alt="code coverage"></a>
+  <a href="https://npmjs.com/package/pinia">
+    <img src="https://badgen.net/npm/v/pinia" alt="pacote da npm">
+  </a>
+  <a href="https://github.com/vuejs/pinia/actions/workflows/test.yml?query=branch%3Av2">
+    <img src="https://github.com/vuejs/pinia/workflows/test/badge.svg?branch=v2" alt="estado da construção">
+  </a>
+  <a href="https://codecov.io/github/vuejs/pinia">
+    <img src="https://badgen.net/codecov/c/github/vuejs/pinia/v2" alt="cobertura de código">
+  </a>
 </p>
 <br/>
 
 # Pinia
 
-> Intuitive, type safe and flexible Store for Vue
+> Intuitiva, memória flexível e segurança de tipo para Vue.js
 
-- 💡 Intuitive
-- 🔑 Type Safe
-- ⚙️ Devtools support
-- 🔌 Extensible
-- 🏗 Modular by design
-- 📦 Extremely light
+- 💡 Intuitiva
+- 🔑 Segurança de Tipo
+- ⚙️ Suporte de Ferramenta de Programação
+- 🔌 Extensível
+- 🏗 Modular de Propósito
+- 📦 Extremamente Leve
 
-Pinia works with both Vue 2 and Vue 3.
+A Pinia funciona com ambas Vue 2 e Vue 3.
 
-Pinia is the most similar English pronunciation of the word _pineapple_ in Spanish: _piña_. A pineapple is in reality a group of individual flowers that join together to create a multiple fruit. Similar to stores, each one is born individually, but they are all connected at the end. It's also a delicious tropical fruit indigenous to South America.
+Pinia é a pronúncia em Inglês mais parecida com a palavra _pineapple_ em Espanhol: _pinã_ que significa ananás em Português. Um ananás é na realidade um grupo de flores individuais que se juntam para criar uma fruta diversificada. Semelhante as memórias, cada uma é nascida individualmente, mas são todas conectadas no final. É também uma deliciosa fruta tropical nativa da América do Sul.
 
-## 👉 [Demo with Vue 3 on StackBlitz](https://stackblitz.com/github/piniajs/example-vue-3-vite)
+## 👉 [Demonstração com a Vue 3 na StackBlitz](https://stackblitz.com/github/piniajs/example-vue-3-vite)
 
-## 👉 [Demo with Nuxt 3 on StackBlitz](https://stackblitz.com/github/piniajs/example-nuxt-3)
+## 👉 [ Demonstração com a Nuxt 3 na StackBlitz](https://stackblitz.com/github/piniajs/example-nuxt-3)
 
-## Help me keep working on this project 💚
+## Ajuda-me a continuar a trabalhar neste projeto 💚
 
-- [Become a Sponsor on GitHub](https://github.com/sponsors/posva)
-- [One-time donation via PayPal](https://paypal.me/posva)
+- [Torna-te um Patrocinador na GitHub](https://github.com/sponsors/posva)
+- [Doação de uma vez através da PayPal](https://paypal.me/posva)
 
 <!--sponsors start-->
 
-<h4 align="center">Gold Sponsors</h4>
+<h4 align="center">Patrocinadores de Ouro</h4>
 <p align="center">
     <a href="https://vuejobs.com/?utm_source=vuerouter&utm_campaign=sponsor" target="_blank" rel="noopener noreferrer">
     <picture>
@@ -47,7 +53,7 @@ Pinia is the most similar English pronunciation of the word _pineapple_ in Spani
   </a>
 </p>
 
-<h4 align="center">Silver Sponsors</h4>
+<h4 align="center">Patrocinadores de Prata</h4>
 <p align="center">
     <a href="https://www.vuemastery.com/" target="_blank" rel="noopener noreferrer">
     <picture>
@@ -63,7 +69,7 @@ Pinia is the most similar English pronunciation of the word _pineapple_ in Spani
   </a>
 </p>
 
-<h4 align="center">Bronze Sponsors</h4>
+<h4 align="center">Patrocinadores de Bronze</h4>
 <p align="center">
     <a href="https://stormier.ninja" target="_blank" rel="noopener noreferrer">
     <picture>
@@ -95,36 +101,36 @@ Pinia is the most similar English pronunciation of the word _pineapple_ in Spani
 
 ---
 
-## FAQ
+## Questões Feitas com Frequências
 
-A few notes about the project and possible questions:
+Algumas notas sobre o projeto e possíveis questões:
 
-**Q**: _Is Pinia the successor of Vuex?_
+- **Questão**: _A Pinia é a sucessora da Vuex?_
 
-**A**: [Yes](https://vuejs.org/guide/scaling-up/state-management.html#pinia)
+  - **Resposta**: [Sim](https://vuejs.org/guide/scaling-up/state-management.html#pinia)
 
-**Q**: _What about dynamic modules?_
+- **Questão**: _E os módulos dinâmicos?_
 
-**A**: Dynamic modules are not type safe, so instead [we allow creating different stores](https://pinia.vuejs.org/cookbook/composing-stores.html) that can be imported anywhere
+  - **Resposta**: Os módulos dinâmicos não estão em segurança de tipo, assim no lugar destes [permitimos a criação de memórias diferentes](https://pinia.vuejs.org/cookbook/composing-stores.html) que podem ser importadas em qualquer parte.
 
-## Installation
+## Instalação
 
 ```bash
-# or pnpm or yarn
+# ou pnpm ou yarn
 npm install pinia
 ```
 
-If you are using Vue <2.7, make sure to install latest `@vue/composition-api`:
+Se estiveres a usar uma versão da Vue abaixo da 2.7, certifica-te de instalar o `@vue/composition-api` mas recente:
 
 ```bash
 npm install pinia @vue/composition-api
 ```
 
-## Usage
+## Uso
 
-### Install the plugin
+### Instalar a extensão
 
-Create a pinia (the root store) and pass it to app:
+Crie uma pinia (a memória raiz) e passe-a para aplicação:
 
 ```js
 // Vue 3
@@ -148,49 +154,49 @@ const pinia = createPinia()
 
 new Vue({
   el: '#app',
-  // other options...
+  // outras opções...
   // ...
-  // note the same `pinia` instance can be used across multiple Vue apps on
-  // the same page
+  // nota que a mesma instância de `pinia` pode ser usada
+  // através de várias aplicações de Vue na mesma página.
   pinia,
 })
 ```
 
-### Create a Store
+### Criar uma Memória (`store`)
 
-You can create as many stores as you want, and they should each exist in different files:
+Tu podes criar quantas memórias quiseres, e cada uma deve existir em ficheiros diferentes:
 
 ```ts
 import { defineStore } from 'pinia'
 
-// main is the name of the store. It is unique across your application
-// and will appear in devtools
+// `main` é o nome da memória. É único através da tua aplicação
+// e aparecerá nas ferramentas de programação
 export const useMainStore = defineStore('main', {
-  // a function that returns a fresh state
+  // uma função que retorna um estado novo
   state: () => ({
     counter: 0,
     name: 'Eduardo',
   }),
-  // optional getters
+  // recuperadores opcionais
   getters: {
-    // getters receive the state as first parameter
+    // os recuperadores recebem o estado como primeiro argumento
     doubleCounter: (state) => state.counter * 2,
-    // use getters in other getters
+    // usar recuperadores dentro doutros recuperadores
     doubleCounterPlusOne(): number {
       return this.doubleCounter + 1
     },
   },
-  // optional actions
+  // ações opcionais
   actions: {
     reset() {
-      // `this` is the store instance
+      // `this` é a instância da memória
       this.counter = 0
     },
   },
 })
 ```
 
-`defineStore` returns a function that has to be called to get access to the store:
+`defineStore` retorna uma função que precisa de ser chamada para receber o acesso à memória:
 
 ```ts
 import { useMainStore } from '@/stores/main'
@@ -200,13 +206,13 @@ export default defineComponent({
   setup() {
     const main = useMainStore()
 
-    // extract specific store properties
+    // extrair propriedades específicas da memórias
     const { counter, doubleCounter } = storeToRefs(main)
 
     return {
-      // gives access to the whole store in the template
+      // dar acesso à memória inteira no modelo de marcação
       main,
-      // gives access only to specific state or getter
+      // dar acesso apenas ao estado ou recuperador específico
       counter,
       doubleCounter,
     }
@@ -214,10 +220,10 @@ export default defineComponent({
 })
 ```
 
-## Documentation
+## Documentação
 
-To learn more about Pinia, check [its documentation](https://pinia.vuejs.org).
+Para saberes mais sobre a Pinia, consulta a [sua documentação](https://pinia.vuejs.org).
 
-## License
+## Licença
 
 [MIT](http://opensource.org/licenses/MIT)
