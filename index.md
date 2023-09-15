@@ -2,12 +2,12 @@
 layout: home
 
 title: Pinia
-titleTemplate: O gestor de estado moderno para Vue.js
+titleTemplate: A memória intuitiva para Vue.js
 
 hero:
   name: Pinia
-  text: O gestor de estado moderno para Vue.js
-  tagline: Tipagem Segura, Extensível, e Modular por padrão. Esqueça que usas um gestor de estado.
+  text: A memória intuitiva para Vue.js
+  tagline: Tipos Seguros, Extensível, e Modular por padrão. Não notarás a diferença.
   image:
     src: /logo.svg
     alt: Pinia
@@ -18,11 +18,14 @@ hero:
     - theme: alt
       text: Demonstração
       link: https://stackblitz.com/github/piniajs/example-vue-3-vite
+    - theme: cta mastering-pinia
+      text: ' '
+      link: https://masteringpinia.com
     - theme: cta vueschool
-      text: Assista Um Vídeo Introdutório
+      text: Assistir Um Vídeo Introdutório
       link: https://vueschool.io/lessons/introduction-to-pinia?friend=vuerouter&utm_source=pinia&utm_medium=link&utm_campaign=homepage
     - theme: cta vue-mastery
-      text: Receba o Pinia Cheat Sheet
+      text: Receba a Folha de Consulta da Pinia
       link: https://www.vuemastery.com/pinia?coupon=PINIA-DOCS&via=eduardo
 
 features:
