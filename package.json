@@ -2,6 +2,7 @@
   "name": "pinia-docs-pt",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vitepress dev .",
     "api": "node run-typedoc.js",
@@ -12,7 +13,7 @@
     "@chenfengyuan/vue-countdown": "^2.1.0",
     "@vueuse/core": "^9.11.1",
     "pinia": "^2.0.18",
-    "vitepress": "^1.0.0-alpha.49"
+    "vitepress": "1.0.0-beta.7"
   },
   "devDependencies": {
     "@types/node": "^18.14.0"
