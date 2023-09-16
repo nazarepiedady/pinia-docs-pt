@@ -1,4 +1,4 @@
-# Ações (`actions`)
+# Ações (`actions`) {#actions}
 
 As ações são as equivalentes dos [métodos](https://v3.vuejs.org/guide/data-methods.html#methods) em componentes. Elas podem ser definidas com a propriedade `actions` em `defineStore()` e **elas são perfeitas para definir a lógica do negócio**:
 
@@ -63,7 +63,7 @@ export default defineComponent({
 })
 ```
 
-## Acessando outras ações de memórias
+## Acessando outras ações de memórias {#accessing-other-stores-actions}
 
 Para utilizar uma outra memória, podes _utilizá-la_ diretamente dentro da _ação_:
 
@@ -88,31 +88,17 @@ export const useSettingsStore = defineStore('settings', {
 })
 ```
 
-## Utilização com `setup()`
-
-Tu podes chamar diretamente qualquer ação como um método da memória:
-
-```js
-export default {
-  setup() {
-    const store = useStore()
-
-    store.randomizeCounter()
-  },
-}
-```
-
-## Utilização com API de Opções
+## Utilização com API de Opções {#usage-with-the-options-api}
 
 Para os seguintes exemplos, podes assumir que a seguinte memória foi criada:
 
 ```js
 // Caminho do Ficheiro de Exemplo:
-// ./src/stores/counterStore.js
+// ./src/stores/counter.js
 
 import { defineStore } from 'pinia'
 
-const useCounterStore = defineStore('counterStore', {
+export const useCounterStore = defineStore('counter', {
   state: () => ({
     count: 0
   }),
@@ -124,7 +110,7 @@ const useCounterStore = defineStore('counterStore', {
 })
 ```
 
-### Com `setup()`
+### Com `setup()` {#with-setup}
 
 Apesar de a API de Composição não ser para todos, o gatilho `setup()` pode tornar a utilização da Pinia mais fácil de se trabalhar dentro da API de Opções. Sem a necessidade de funções auxiliares de delinear adicionais!
 
@@ -146,7 +132,7 @@ export default {
 }
 ```
 
-### Sem `setup()`
+### Sem `setup()` {#without-setup}
 
 Se preferirias não utilizar a API de Composição, podes utilizar a auxiliar `mapActions()` para delinear as propriedades de ações como métodos dentro do teu componente:
 
@@ -156,7 +142,7 @@ import { useCounterStore } from '../stores/counterStore'
 
 export default {
   methods: {
-    // dá acesso ao `this.increment()` dentro do componente
+    // dar acesso ao `this.increment()` dentro do componente
     // o mesmo que chamar a partir do `store.increment()`
     ...mapActions(useCounterStore, ['increment'])
     // o mesmo que acima exceto que regista-o como `this.myOwnName()`
@@ -165,7 +151,7 @@ export default {
 }
 ```
 
-## Subscrevendo às ações
+## Subscrevendo às ações {#subscribing-to-actions}
 
 É possível observar as ações e seus resultados com `store.$onActions()`. A função de resposta passada para ela é executada antes da própria ação. O `after` manipula as promessas e permite-te executar uma função depois de resolver a ação. De uma maneira semelhante, o `onError` permite-te executar uma função se a ação lançar ou rejeitar. Estes são úteis para rastrear erros em tempo de execução, parecida com [esta dica na documentação da Vue](https://v3.vuejs.org/guide/tooling/deployment.html#tracking-runtime-errors).
 

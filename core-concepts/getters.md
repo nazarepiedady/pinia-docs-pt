@@ -1,4 +1,4 @@
-# Recuperadores (`getters`)
+# Recuperadores (`getters`) {#getters}
 
 Os recuperadores são exatamente o equivalente dos [valores computados](https://v3.vuejs.org/guide/reactivity-computed-watchers.html#computed-values) para o estado de uma Memória. Eles podem ser definidos com a propriedade `getters` dentro de `defineStore()`. Eles recebem o `state` como primeiro parâmetro **para encorajar** o uso de uma função em flecha:
 
@@ -27,7 +27,7 @@ export const useCounterStore = defineStore('counter', {
     },
     // o tipo de retorno **deve** ser definido explicitamente
     doublePlusOne(): number {
-      // conclusão automática e tipagens para a memória inteira ✨
+      // conclusão automática e tipos para a memória inteira ✨
       return this.doubleCount + 1
     },
   },
@@ -52,7 +52,7 @@ export default {
 </script>
 ```
 
-## Acessando outros recuperadores
+## Acessando outros recuperadores {#accessing-other-getters}
 
 Tal como com as propriedades computadas, tu podes combinar vários recuperadores. Acessar qualquer outro recuperador através do `this`. Mesmo que não estejas utilizando a TypeScript, podes sugerir os tipos à tua IDE com a [JSDoc](https://jsdoc.app/tags-returns.html):
 
@@ -79,7 +79,7 @@ export const useCounterStore = defineStore('counter', {
 })
 ```
 
-## Passando argumentos para os recuperadores
+## Passando argumentos para os recuperadores {#passing-arguments-to-getters}
 
 Nos bastidores os _recuperadores_ são apenas propriedades _computadas_, então não é possível passar quaisquer parâmetros para eles. Contudo, tu podes retornar uma função do _recuperador_ para aceitar quaisquer argumentos:
 
@@ -124,7 +124,7 @@ export const useStore = defineStore('main', {
 })
 ```
 
-## Acessando outros recuperadores de memórias
+## Acessando outros recuperadores de memórias {#accessing-other-stores-getters}
 
 Para utilizar os outros recuperadores de memória, tu podes _utilizá-los_ diretamente dentro do _recuperador_:
 
@@ -144,7 +144,7 @@ export const useStore = defineStore('main', {
 })
 ```
 
-## Utilização com `setup()`
+## Utilização com `setup()` {#usage-with-setup}
 
 Tu podes acessar diretamente qualquer recuperador como uma propriedade da memória (exatamente como as propriedades de estado):
 
@@ -159,7 +159,7 @@ export default {
 }
 ```
 
-## Utilização com a API de Opções
+## Utilização com a API de Opções {#usage-with-the-options-api}
 
 Para os seguintes exemplos, podes assumir que a seguinte memória foi criada:
 
@@ -181,7 +181,7 @@ const useCounterStore = defineStore('counter', {
 })
 ```
 
-### Com `setup()`
+### Com `setup()` {#with-setup}
 
 Apesar de a API de Composição não ser para todos, o gatilho `setup()` pode tornar a Pinia mais fácil de se trabalhar dentro da API de Opções. Sem a necessidade de funções auxiliares de delinear adicionais!
 
@@ -202,7 +202,7 @@ export default {
 }
 ```
 
-### Sem `setup()`
+### Sem `setup()` {#without-setup}
 
 Tu podes utilizar a mesma função `mapState()` utilizada na [secção anterior do estado](./state.md#utilização-com-a-api-de-opções) para delinear um caminho até os recuperadores:
 

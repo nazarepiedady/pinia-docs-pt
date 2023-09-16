@@ -1,10 +1,10 @@
-# Utilizando uma memória fora de um componente
+# Utilizando uma memória fora de um componente {#using-a-store-outside-of-a-component}
 
 As memórias da Pinia dependem da instância de `pinia` para partilhar a mesma instância da memória através de todas chamadas. Na maioria das vezes, isto funciona fora da caixa pela simples chamada da sua função `useStore()`. Por exemplo, em `setup()`, não precisas fazer nada. Porém as coisas são um pouco diferentes fora de um componente.
 Nos bastidores, `useStore()` _injeta_ a instância de `pinia` que entregaste a tua `app`. Isto significa que se a instância de `pinia` não pode ser injetada automaticamente, precisas fornecê-la manualmente à função `useStore()`.
 Tu podes resolver isto de maneiras diferentes dependendo do tipo de aplicação que estiveres escrevendo.
 
-## Aplicações de Página Única
+## Aplicações de Página Única {#single-page-application}
 
 Se não estiveres fazendo nenhuma interpretação no lado do servidor (SSR, sigla em Inglês), qualquer chamada de `useStore()` depois da instalação da extensão pinia com `app.use(pinia)` funcionará: 
 
@@ -52,8 +52,8 @@ router.beforeEach((to) => {
 })
 ```
 
-## Aplicações Interpretadas no Lado do Servidor
+## Aplicações Interpretadas no Lado do Servidor {#ssr-apps}
 
-Quando estiveres lidando com a Interpretação no Lado do Servidor (SSR, sigla em Inglês), terás que passar a instância de `pinia` para `useStore()`. Isto impedi a `pinia` de partilhar o estado global entre diferentes instâncias da aplicação.
+Quando estiveres lidando com a Interpretação no Lado do Servidor, terás que passar a instância de `pinia` para `useStore()`. Isto impedi a `pinia` de partilhar o estado global entre diferentes instâncias da aplicação.
 
-Há uma secção inteira dedicada a isto na [guia da Interpretação no Lado do Servidor (SSR, sigla em Inglês)](/ssr/index.md)
+Há uma secção inteira dedicada a isto na [guia da Interpretação no Lado do Servidor](/ssr/index)
