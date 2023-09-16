@@ -1,29 +1,13 @@
-import { defineConfig, HeadConfig } from 'vitepress'
+import { defineConfig } from 'vitepress'
 
 const META_URL = 'https://pinia.vuejs.org'
 const META_TITLE = 'Pinia 🍍'
 const META_DESCRIPTION = 'Memória intuitiva, flexível, leve, de tipo seguro para Vue'
 const META_IMAGE = 'https://pinia.vuejs.org/social.png'
 
-const isProduction = process.env.NETLIFY && process.env.NODE_ENV === 'production'
-
 if (process.env.NETLIFY) {
   console.log('Netlify build', process.env.CONTEXT)
 }
-
-/**
- * @type {import('vitepress').UserConfig['head']}
- */
-const productionHead: HeadConfig[] = [
-  [
-    'script',
-    {
-      src: 'https://unpkg.com/thesemetrics@latest',
-      async: '',
-      type: 'text/javascript',
-    },
-  ],
-]
 
 export default defineConfig({
   title: 'Pinia',
@@ -35,11 +19,6 @@ export default defineConfig({
       dark: 'dracula-soft',
       light: 'vitesse-light',
     },
-    /*
-    attrs: {
-      leftDelimiter: '%{',
-      rightDelimiter: '}%',
-    }*/
   },
 
   head: [
@@ -49,7 +28,6 @@ export default defineConfig({
       'meta',
       { name: 'wwads-cn-verify', content: '5878a7ab84fb43402106c575658472fa' },
     ],
-
     [
       'meta',
       {
@@ -130,18 +108,6 @@ export default defineConfig({
         onload: "this.onload=null;this.rel='stylesheet'",
       },
     ],
-
-    // TODO: add this back when fixed
-    /* [
-      'script',
-      {
-        src: 'https://vueschool.io/banners/main.js',
-        async: true,
-        type: 'text/javascript',
-      },
-    ], */
-
-    ...(isProduction ? productionHead : []),
   ],
 
   themeConfig: {
@@ -156,7 +122,7 @@ export default defineConfig({
 
     footer: {
       copyright: 'Direitos de autor © 2019-presente Eduardo San Martin Morote',
-      message: 'Lançado sob a licença MIT.',
+      message: 'Lançada sob a licença MIT.',
     },
 
     editLink: {
@@ -226,19 +192,19 @@ export default defineConfig({
         {
           text: 'Conceitos Principais',
           items: [
-            { text: 'Definindo uma Memória (Store)', link: '/core-concepts/' },
-            { text: 'Estado (State)', link: '/core-concepts/state.html' },
-            { text: 'Recuperadores (Getters)', link: '/core-concepts/getters.html' },
-            { text: 'Ações (Actions)', link: '/core-concepts/actions.html' },
-            { text: 'Extensões (Plugins)', link: '/core-concepts/plugins.html' },
+            { text: 'Definindo uma Memória', link: '/core-concepts/' },
+            { text: 'Estado', link: '/core-concepts/state' },
+            { text: 'Recuperadores', link: '/core-concepts/getters' },
+            { text: 'Ações', link: '/core-concepts/actions' },
+            { text: 'Extensões', link: '/core-concepts/plugins' },
             {
               text: 'Memórias Fora dos Componentes',
-              link: '/core-concepts/outside-component-usage.html',
+              link: '/core-concepts/outside-component-usage',
             },
           ],
         },
         {
-          text: 'Interpretação no Lado do Servidor (SSR)',
+          text: 'Interpretação no Lado do Servidor',
           items: [
             {
               text: 'Vue e Vite',
@@ -246,7 +212,7 @@ export default defineConfig({
             },
             {
               text: 'Nuxt',
-              link: '/ssr/nuxt.html',
+              link: '/ssr/nuxt',
             },
           ],
         },
@@ -257,31 +223,31 @@ export default defineConfig({
           items: [
             {
               text: 'Guia de Migração da Vuex',
-              link: '/cookbook/migration-vuex.html',
+              link: '/cookbook/migration-vuex',
             },
             {
               text: 'Substituição de Módulo Instantânea',
-              link: '/cookbook/hot-module-replacement.html',
+              link: '/cookbook/hot-module-replacement',
             },
             {
               text: 'Testes',
-              link: '/cookbook/testing.html',
+              link: '/cookbook/testing',
             },
             {
               text: 'Utilização Sem Setup',
-              link: '/cookbook/options-api.html',
+              link: '/cookbook/options-api',
             },
             {
               text: 'Composição de Memórias',
-              link: '/cookbook/composing-stores.html',
+              link: '/cookbook/composing-stores',
             },
             {
               text: 'Guia de Migração da Versão 2',
-              link: '/cookbook/migration-v1-v2.html',
+              link: '/cookbook/migration-v1-v2',
             },
             {
               text: 'Lidando com Funções de Composição',
-              link: '/cookbook/composables.html',
+              link: '/cookbook/composables',
             },
           ],
         },
@@ -292,6 +258,8 @@ export default defineConfig({
   locales: {
     root: { label: 'Português', lang: 'pt-PT' },
     en: { label: 'English', lang: 'en-US', link: 'https://pinia.vuejs.org/' },
-    zh: { label: '简体中文', lang: 'zh-CN', link: 'https://pinia.vuejs.org/zh/' }
+    zh: { label: '简体中文', lang: 'zh-CN', link: 'https://pinia.vuejs.org/zh/' },
+    es: { label: 'Español', lang: 'es-ES', link: 'https://es-pinia.vercel.app/' },
+    ko: { label: '한국어', lang: 'ko-KR', link: 'https://pinia.vuejs.kr/' },
   }
 })
