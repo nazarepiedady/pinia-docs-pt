@@ -1,38 +1,37 @@
 ---
-sidebar: "auto"
-editLinks: false
-sidebarDepth: 3
+editLink: false
 ---
 
-[Documentação da API](../index.md) / @pinia/testing
+[API Documentation](../index.md) / @pinia/testing
 
-# Módulo: @pinia/testing
+# Module: @pinia/testing
 
 ## Interfaces
 
 - [TestingOptions](../interfaces/pinia_testing.TestingOptions.md)
 - [TestingPinia](../interfaces/pinia_testing.TestingPinia.md)
 
-## Funções
+## Functions
 
 ### createTestingPinia
 
 ▸ **createTestingPinia**(`options?`): [`TestingPinia`](../interfaces/pinia_testing.TestingPinia.md)
 
-Cria uma instância de pinia desenhada para testes de unidade que **precisam imitar** a memória. Por padrão, **todas ações são simuladas** e logo não executadas. Isto permite-te testar a unidade da sua memória e componentes separadamente. Tu podes mudar isto com a opção `stubActions`. Se estiveres utilizando a `jest`, elas são substituídas com a `jest.fn()`, de outro modo, tu deves fornecer a tua própria opção `createSpy`.
+Creates a pinia instance designed for unit tests that **requires mocking**
+the stores. By default, **all actions are mocked** and therefore not
+executed. This allows you to unit test your store and components separately.
+You can change this with the `stubActions` option. If you are using jest,
+they are replaced with `jest.fn()`, otherwise, you must provide your own
+`createSpy` option.
 
-#### Parâmetros
+#### Parameters
 
-| Nome | Tipo | Descrição |
+| Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`TestingOptions`](../interfaces/pinia_testing.TestingOptions.md) | opções para configurar a testagem de pinia |
+| `options` | [`TestingOptions`](../interfaces/pinia_testing.TestingOptions.md) | options to configure the testing pinia |
 
-#### Retorna
+#### Returns
 
 [`TestingPinia`](../interfaces/pinia_testing.TestingPinia.md)
 
-uma instância de pinia aumentada
-
-#### Definida em
-
-[packages/testing/src/testing.ts:92](https://github.com/vuejs/pinia/blob/2b998ee/packages/testing/src/testing.ts#L92)
+a augmented pinia instance

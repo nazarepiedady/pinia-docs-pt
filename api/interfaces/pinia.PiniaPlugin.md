@@ -1,34 +1,30 @@
 ---
-sidebar: "auto"
-editLinks: false
-sidebarDepth: 3
+editLink: false
 ---
 
-[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / PiniaPlugin
+[API Documentation](../index.md) / [pinia](../modules/pinia.md) / PiniaPlugin
 
 # Interface: PiniaPlugin
 
 [pinia](../modules/pinia.md).PiniaPlugin
 
-## Invocável
+Plugin to extend every store.
+
+## Callable
 
 ### PiniaPlugin
 
-▸ **PiniaPlugin**(`context`): `void` \| `Partial`<[`PiniaCustomProperties`](pinia.PiniaCustomProperties.md)<`string`, [`StateTree`](../modules/pinia.md#statetree), [`_GettersTree`](../modules/pinia.md#_getterstree)<[`StateTree`](../modules/pinia.md#statetree)\>, [`_ActionsTree`](../modules/pinia.md#_actionstree)\> & `PiniaCustomStateProperties`<[`StateTree`](../modules/pinia.md#statetree)\>\>
+▸ **PiniaPlugin**(`context`): `void` \| `Partial`<[`PiniaCustomProperties`](pinia.PiniaCustomProperties.md)<`string`, [`StateTree`](../modules/pinia.md#statetree), [`_GettersTree`](../modules/pinia.md#_getterstree)<[`StateTree`](../modules/pinia.md#statetree)\>, [`_ActionsTree`](../modules/pinia.md#_actionstree)\> & [`PiniaCustomStateProperties`](pinia.PiniaCustomStateProperties.md)<[`StateTree`](../modules/pinia.md#statetree)\>\>
 
-Extensão para estender toda memória. Retorna um objeto para estender a 
-memória ou não retorna nada.
+Plugin to extend every store. Returns an object to extend the store or
+nothing.
 
-#### Parâmetros
+#### Parameters
 
-| Nome | Tipo | Descrição |
+| Name | Type | Description |
 | :------ | :------ | :------ |
-| `context` | [`PiniaPluginContext`](pinia.PiniaPluginContext.md)<`string`, [`StateTree`](../modules/pinia.md#statetree), [`_GettersTree`](../modules/pinia.md#_getterstree)<[`StateTree`](../modules/pinia.md#statetree)\>, [`_ActionsTree`](../modules/pinia.md#_actionstree)\> | Contexto |
+| `context` | [`PiniaPluginContext`](pinia.PiniaPluginContext.md)<`string`, [`StateTree`](../modules/pinia.md#statetree), [`_GettersTree`](../modules/pinia.md#_getterstree)<[`StateTree`](../modules/pinia.md#statetree)\>, [`_ActionsTree`](../modules/pinia.md#_actionstree)\> | Context |
 
-#### Retorna
+#### Returns
 
-`void` \| `Partial`<[`PiniaCustomProperties`](pinia.PiniaCustomProperties.md)<`string`, [`StateTree`](../modules/pinia.md#statetree), [`_GettersTree`](../modules/pinia.md#_getterstree)<[`StateTree`](../modules/pinia.md#statetree)\>, [`_ActionsTree`](../modules/pinia.md#_actionstree)\> & `PiniaCustomStateProperties`<[`StateTree`](../modules/pinia.md#statetree)\>\>
-
-#### Definida em
-
-[packages/pinia/src/rootStore.ts:140](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/rootStore.ts#L140)
+`void` \| `Partial`<[`PiniaCustomProperties`](pinia.PiniaCustomProperties.md)<`string`, [`StateTree`](../modules/pinia.md#statetree), [`_GettersTree`](../modules/pinia.md#_getterstree)<[`StateTree`](../modules/pinia.md#statetree)\>, [`_ActionsTree`](../modules/pinia.md#_actionstree)\> & [`PiniaCustomStateProperties`](pinia.PiniaCustomStateProperties.md)<[`StateTree`](../modules/pinia.md#statetree)\>\>

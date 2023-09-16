@@ -1,19 +1,17 @@
 ---
-sidebar: "auto"
-editLinks: false
-sidebarDepth: 3
+editLink: false
 ---
 
-[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / PiniaCustomStateProperties
+[API Documentation](../index.md) / [pinia](../modules/pinia.md) / PiniaCustomStateProperties
 
 # Interface: PiniaCustomStateProperties<S\>
 
 [pinia](../modules/pinia.md).PiniaCustomStateProperties
 
-Propriedades que são adicionadas à todo `store.$state` pela `pinia.use()`.
+Properties that are added to every `store.$state` by `pinia.use()`.
 
-## Parâmetros de tipo
+## Type parameters
 
-| Nome | Tipo |
+| Name | Type |
 | :------ | :------ |
 | `S` | extends [`StateTree`](../modules/pinia.md#statetree) = [`StateTree`](../modules/pinia.md#statetree) |

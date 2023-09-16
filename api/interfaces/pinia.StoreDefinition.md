@@ -1,55 +1,47 @@
 ---
-sidebar: "auto"
-editLinks: false
-sidebarDepth: 3
+editLink: false
 ---
 
-[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / StoreDefinition
+[API Documentation](../index.md) / [pinia](../modules/pinia.md) / StoreDefinition
 
 # Interface: StoreDefinition<Id, S, G, A\>
 
 [pinia](../modules/pinia.md).StoreDefinition
 
-## Parâmetros de tipo
+Return type of `defineStore()`. Function that allows instantiating a store.
 
-| Nome | Tipo |
+## Type parameters
+
+| Name | Type |
 | :------ | :------ |
 | `Id` | extends `string` = `string` |
 | `S` | extends [`StateTree`](../modules/pinia.md#statetree) = [`StateTree`](../modules/pinia.md#statetree) |
 | `G` | [`_GettersTree`](../modules/pinia.md#_getterstree)<`S`\> |
 | `A` | [`_ActionsTree`](../modules/pinia.md#_actionstree) |
 
-## Invocável
+## Callable
 
 ### StoreDefinition
 
 ▸ **StoreDefinition**(`pinia?`, `hot?`): [`Store`](../modules/pinia.md#store)<`Id`, `S`, `G`, `A`\>
 
-Retorna uma memória, cria ela se necessário.
+Returns a store, creates it if necessary.
 
-#### Parâmetros
+#### Parameters
 
-| Nome | Tipo | Descrição |
+| Name | Type | Description |
 | :------ | :------ | :------ |
-| `pinia?` | ``null`` \| [`Pinia`](pinia.Pinia.md) | Instância de pinia para recuperar a memória |
-| `hot?` | [`StoreGeneric`](../modules/pinia.md#storegeneric) | substituição de módulo instantânea apenas para desenvolvimento |
+| `pinia?` | ``null`` \| [`Pinia`](pinia.Pinia.md) | Pinia instance to retrieve the store |
+| `hot?` | [`StoreGeneric`](../modules/pinia.md#storegeneric) | dev only hot module replacement |
 
-#### Retorna
+#### Returns
 
 [`Store`](../modules/pinia.md#store)<`Id`, `S`, `G`, `A`\>
 
-#### Definida em
-
-[packages/pinia/src/types.ts:511](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L511)
-
-## Propriedades
+## Properties
 
 ### $id
 
 • **$id**: `Id`
 
-Id da memória. Utilizada pelos auxiliares de delineamento.
-
-#### Definida em
-
-[packages/pinia/src/types.ts:516](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L516)
+Id of the store. Used by map helpers.

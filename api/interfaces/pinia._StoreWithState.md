@@ -1,7 +1,5 @@
 ---
-sidebar: "auto"
-editLinks: false
-sidebarDepth: 3
+editLink: false
 ---
 
 [API Documentation](../index.md) / [pinia](../modules/pinia.md) / \_StoreWithState
@@ -45,7 +43,7 @@ ___
 
 • **$state**: `UnwrapRef`<`S`\> & [`PiniaCustomStateProperties`](pinia.PiniaCustomStateProperties.md)<`S`\>
 
-State of the Store. Setting it will replace the whole state.
+State of the Store. Setting it will internally call `$patch()` to update the state.
 
 ___
 
@@ -70,6 +68,9 @@ that should be displayed in devtools.
 Stops the associated effect scope of the store and remove it from the store
 registry. Plugins can override this method to cleanup any added effects.
 e.g. devtools plugin stops displaying disposed stores from devtools.
+Note this doesn't delete the state of the store, you have to do it manually with
+`delete pinia.state.value[store.$id]` if you want to. If you don't and the
+store is used again, it will reuse the previous state.
 
 #### Returns
 
@@ -94,23 +95,6 @@ once the action finishes or when it fails.
 It also returns a function to remove the callback. Note than when calling
 `store.$onAction()` inside of a component, it will be automatically cleaned
 up when the component gets unmounted unless `detached` is set to true.
-
-**`Example`**
-
-```js
-store.$onAction(({ after, onError }) => {
- // Here you could share variables between all of the hooks as well as
- // setting up watchers and clean them up
- after((resolvedValue) => {
-   // can be used to cleanup side effects
-.  // `resolvedValue` is the value returned by the action, if it's a
-.  // Promise, it will be the resolved value instead of the Promise
- })
- onError((error) => {
-   // can be used to pass up errors
- })
-})
-```
 
 #### Parameters
 
@@ -141,6 +125,12 @@ It also returns a function to remove the callback. Note than when calling
 `store.$onAction()` inside of a component, it will be automatically cleaned
 up when the component gets unmounted unless `detached` is set to true.
 
+##### Returns
+
+`void`
+
+function that removes the watcher
+
 **`Example`**
 
 ```js
@@ -158,11 +148,22 @@ store.$onAction(({ after, onError }) => {
 })
 ```
 
-##### Returns
+**`Example`**
 
-`void`
-
-function that removes the watcher
+```js
+store.$onAction(({ after, onError }) => {
+ // Here you could share variables between all of the hooks as well as
+ // setting up watchers and clean them up
+ after((resolvedValue) => {
+   // can be used to cleanup side effects
+.  // `resolvedValue` is the value returned by the action, if it's a
+.  // Promise, it will be the resolved value instead of the Promise
+ })
+ onError((error) => {
+   // can be used to pass up errors
+ })
+})
+```
 
 ___
 
@@ -198,7 +199,7 @@ to an array. The function passed to `$patch()` **must be synchronous**.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `stateMutator` | `ReturnType`<`F`\> extends `Promise`<`any`\> ? `never` : `F` | function that mutates `state`, cannot be async |
+| `stateMutator` | `ReturnType`<`F`\> extends `Promise`<`any`\> ? `never` : `F` | function that mutates `state`, cannot be asynchronous |
 
 #### Returns
 

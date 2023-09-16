@@ -1,15 +1,14 @@
 ---
-sidebar: "auto"
-editLinks: false
-sidebarDepth: 3
+editLink: false
 ---
 
-[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / MapStoresCustomization
+[API Documentation](../index.md) / [pinia](../modules/pinia.md) / MapStoresCustomization
 
 # Interface: MapStoresCustomization
 
 [pinia](../modules/pinia.md).MapStoresCustomization
 
-Interface para permitir a personalização dos auxiliares de delineamento. Estende esta interface com as seguintes propriedades:
+Interface to allow customizing map helpers. Extend this interface with the
+following properties:
 
-- `suffix`: sequência de caracteres. Afeta o sufixo de `mapStores()`, predefinido para `Store`.
+- `suffix`: string. Affects the suffix of `mapStores()`, defaults to `Store`.

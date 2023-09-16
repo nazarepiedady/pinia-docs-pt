@@ -1,40 +1,34 @@
 ---
-sidebar: "auto"
-editLinks: false
-sidebarDepth: 3
+editLink: false
 ---
 
-[Documentação da API](../index.md) / [pinia](../modules/pinia.md) / StoreProperties
+[API Documentation](../index.md) / [pinia](../modules/pinia.md) / StoreProperties
 
 # Interface: StoreProperties<Id\>
 
 [pinia](../modules/pinia.md).StoreProperties
 
-Propriedades de uma memória.
+Properties of a store.
 
-## Parâmetros de tipo
+## Type parameters
 
-| Nome | Tipo |
+| Name | Type |
 | :------ | :------ |
 | `Id` | extends `string` |
 
-## Hierarquia
+## Hierarchy
 
 - **`StoreProperties`**
 
   ↳ [`_StoreWithState`](pinia._StoreWithState.md)
 
-## Propriedades
+## Properties
 
 ### $id
 
 • **$id**: `Id`
 
-Identificador único da memória
-
-#### Definida em
-
-[packages/pinia/src/types.ts:265](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L265)
+Unique identifier of the store
 
 ___
 
@@ -42,8 +36,6 @@ ___
 
 • **\_customProperties**: `Set`<`string`\>
 
-Utilizada pela extensão da ferramenta do programador para recuperar propriedades adicionadas com as extensões. Removida em produção. Pode ser utilizada pelo utilizador para adicionar chaves de propriedade da memória que deveriam ser exibidas na ferramenta do programador.
-
-#### Definida em
-
-[packages/pinia/src/types.ts:293](https://github.com/vuejs/pinia/blob/2b998ee/packages/pinia/src/types.ts#L293)
+Used by devtools plugin to retrieve properties added with plugins. Removed
+in production. Can be used by the user to add property keys of the store
+that should be displayed in devtools.

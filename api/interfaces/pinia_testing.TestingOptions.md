@@ -1,26 +1,59 @@
 ---
-sidebar: "auto"
-editLinks: false
-sidebarDepth: 3
+editLink: false
 ---
 
-[Documentação da API](../index.md) / [@pinia/testing](../modules/pinia_testing.md) / TestingOptions
+[API Documentation](../index.md) / [@pinia/testing](../modules/pinia_testing.md) / TestingOptions
 
 # Interface: TestingOptions
 
 [@pinia/testing](../modules/pinia_testing.md).TestingOptions
 
-## Propriedades
+## Properties
+
+### createSpy
+
+• `Optional` **createSpy**: (`fn?`: (...`args`: `any`[]) => `any`) => (...`args`: `any`[]) => `any`
+
+#### Type declaration
+
+▸ (`fn?`): (...`args`: `any`[]) => `any`
+
+Function used to create a spy for actions and `$patch()`. Pre-configured
+with `jest.fn` in Jest projects or `vi.fn` in Vitest projects if
+`globals: true` is set.
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `fn?` | (...`args`: `any`[]) => `any` |
+
+##### Returns
+
+`fn`
+
+▸ (`...args`): `any`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `...args` | `any`[] |
+
+##### Returns
+
+`any`
+
+___
 
 ### fakeApp
 
 • `Optional` **fakeApp**: `boolean`
 
-Cria uma aplicação vazia e chama `app.use(pinia)` com a pinia de testes criada. Isto é, permite-te utilizar extensões enquanto estiveres realizando testes unitários visto que as extensões **esperarão a pinia ser instalada no sentido de serem executadas**. Predefinida para `false`.
-
-#### Definida em
-
-[packages/testing/src/testing.ts:57](https://github.com/vuejs/pinia/blob/2b998ee/packages/testing/src/testing.ts#L57)
+Creates an empty App and calls `app.use(pinia)` with the created testing
+pinia. This allows you to use plugins while unit testing stores as
+plugins **will wait for pinia to be installed in order to be executed**.
+Defaults to false.
 
 ___
 
@@ -28,11 +61,8 @@ ___
 
 • `Optional` **initialState**: [`StateTree`](../modules/pinia.md#statetree)
 
-Permite a definição de um estado inicial parcial de todas as tuas memórias. Este estado é aplicado depois de uma memória ser criada, permitindo-te apenas definir algumas propriedades que são obrigatórias no teu teste.
-
-#### Definida em
-
-[packages/testing/src/testing.ts:27](https://github.com/vuejs/pinia/blob/2b998ee/packages/testing/src/testing.ts#L27)
+Allows defining a partial initial state of all your stores. This state gets applied after a store is created,
+allowing you to only set a few properties that are required in your test.
 
 ___
 
@@ -40,11 +70,8 @@ ___
 
 • `Optional` **plugins**: [`PiniaPlugin`](pinia.PiniaPlugin.md)[]
 
-As Extensões podem ser instaladas antes dos testes de extensão. Adiciona quaisquer extensões utilizadas na tua aplicação que será utilizada enquanto estiveres testando.
-
-#### Definida em
-
-[packages/testing/src/testing.ts:33](https://github.com/vuejs/pinia/blob/2b998ee/packages/testing/src/testing.ts#L33)
+Plugins to be installed before the testing plugin. Add any plugins used in
+your application that will be used while testing.
 
 ___
 
@@ -52,11 +79,11 @@ ___
 
 • `Optional` **stubActions**: `boolean`
 
-Quando é definida como `false`, as ações são apenas espiadas, elas continua sendo executadas. Quando é definida como `true`, as ações serão substituídas por espiões, resultando na não execução do código deles. Predefinido como `true`. NOTA: quando estiveres fornecendo `createSpy()`, ela **apenas** tornará o argumento `fn` em `undefined`. Tu continuas a precisar manipular isto em `createSpy()`. 
-
-#### Definida em
-
-[packages/testing/src/testing.ts:42](https://github.com/vuejs/pinia/blob/2b998ee/packages/testing/src/testing.ts#L42)
+When set to false, actions are only spied, but they will still get executed. When
+set to true, actions will be replaced with spies, resulting in their code
+not being executed. Defaults to true. NOTE: when providing `createSpy()`,
+it will **only** make the `fn` argument `undefined`. You still have to
+handle this in `createSpy()`.
 
 ___
 
@@ -64,42 +91,15 @@ ___
 
 • `Optional` **stubPatch**: `boolean`
 
-Quando é definida como `true`, as chamadas de `$patch()` não mudarão o estado. Predefinida como `false`. NOTA: quando estiveres fornecendo `createSpy()`, ela **apenas** tornará o argumento `fn` em `undefined`. Tu continuas a precisar manipular isto em `createSpy()`.
+When set to true, calls to `$patch()` won't change the state. Defaults to
+false. NOTE: when providing `createSpy()`, it will **only** make the `fn`
+argument `undefined`. You still have to handle this in `createSpy()`.
 
-#### Definida em
+___
 
-[packages/testing/src/testing.ts:49](https://github.com/vuejs/pinia/blob/2b998ee/packages/testing/src/testing.ts#L49)
+### stubReset
 
-## Métodos
+• `Optional` **stubReset**: `boolean`
 
-### createSpy
-
-▸ `Optional` **createSpy**(`fn?`): (...`args`: `any`[]) => `any`
-
-Função utilizada para criar um espião para as ações e `$patch()`. Pré-configurado com o `jest.fn()` em projetos utilizando `jest` ou `vi.fn()` em projetos utilizando `vitest`.
-
-#### Parâmetros
-
-| Nome | Tipo |
-| :------ | :------ |
-| `fn?` | (...`args`: `any`[]) => `any` |
-
-#### Retorna
-
-`fn`
-
-▸ (...`args`): `any`
-
-##### Parâmetros
-
-| Nome | Tipo |
-| :------ | :------ |
-| `...args` | `any`[] |
-
-##### Retorna
-
-`any`
-
-#### Definido em
-
-[packages/testing/src/testing.ts:63](https://github.com/vuejs/pinia/blob/2b998ee/packages/testing/src/testing.ts#L63)
+When set to true, calls to `$reset()` won't change the state. Defaults to
+false.
