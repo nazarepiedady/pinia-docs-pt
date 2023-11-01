@@ -7,7 +7,7 @@ titleTemplate: A memória intuitiva para Vue.js
 hero:
   name: Pinia
   text: A memória intuitiva para Vue.js
-  tagline: Tipos Seguros, Extensível, e Modular por padrão. Não notarás a diferença.
+  tagline: Tipos Seguros, Extensível, e Modular por padrão. Não notaremos a diferença.
   image:
     src: /logo.svg
     alt: Pinia
@@ -25,7 +25,7 @@ hero:
       text: Assistir Um Vídeo Introdutório
       link: https://vueschool.io/lessons/introduction-to-pinia?friend=vuerouter&utm_source=pinia&utm_medium=link&utm_campaign=homepage
     - theme: cta vue-mastery
-      text: Receba a Folha de Consulta da Pinia
+      text: Receber a Folha de Consulta da Pinia
       link: https://www.vuemastery.com/pinia?coupon=PINIA-DOCS&via=eduardo
 
 features:
@@ -33,8 +33,8 @@ features:
     details: As memorias são tão familiares quanto os componentes. API desenhada para deixar-te escrever memorias bem organizadas.
   - title: 🔑 Tipo Seguro
     details: Os tipos são inferidos, o que significa que a memoria fornece-te conclusão automática até mesmo na JavaScript.
-  - title: ⚙️ Suporte de Ferramenta do Programador
-    details: Gatilhos de Pinia dentro da ferramenta do programador de Vue para dar-te uma experiência de desenvolvimento aprimorada em ambos Vue 2 e Vue 3.
+  - title: ⚙️ Suporte da Ferramenta de Programação
+    details: Gatilhos da Pinia dentro da ferramenta de programação da Vue para dar-nos uma experiência de desenvolvimento aprimorada em ambas Vue 2 e Vue 3.
   - title: 🔌 Extensível
     details: Reage as mudanças na memória para estender a Pinia com transições, sincronização de armazenamento local, etc.
   - title: 🏗 Modular por padrão
