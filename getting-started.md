@@ -1,10 +1,10 @@
-# Começar {#getting-started}
+# Começar %{#getting-started}%
 
-## Instalação {#installation}
+## Instalação %{#installation}%
 
 <VueMasteryLogoLink for="pinia-cheat-sheet" />
 
-Instale a `pinia` com o teu gestor de pacotes favorito:
+Instalamos a `pinia` com o nosso gestor de pacote favorito:
 
 ```bash
 yarn add pinia
@@ -12,13 +12,13 @@ yarn add pinia
 npm install pinia
 ```
 
-:::tip Dica
-Se a tua aplicação estiver utilizando a Vue 2, tu também precisas instalar a api de composição: `@vue/composition-api`. Se estiveres utilizando a Nuxt, deves seguir [estas instruções](/ssr/nuxt.md).
+:::tip DICA
+Se a nossa aplicação estiver a usar a Vue <2.7, também precisamos instalar a api de composição: `@vue/composition-api`. Se estivermos a usar a Nuxt, devemos seguir [estas instruções](/ssr/nuxt).
 :::
 
-Se estiveres a utilizar a interface de linha de comando da Vue, podes testar esta [**extensão não oficial**](https://github.com/wobsoriano/vue-cli-plugin-pinia).
+Se estivermos a usar a interface da linha de comando da Vue, podemos testar esta [**extensão não oficial**](https://github.com/wobsoriano/vue-cli-plugin-pinia).
 
-Crie uma instância de pinia (a memória de raiz) e passe-a para aplicação como uma extensão:
+Nós criamos uma instância de `pinia`(a memória de raiz) e a passamos à aplicação como uma extensão:
 
 ```js {2,5-6,8}
 import { createApp } from 'vue'
@@ -32,7 +32,7 @@ app.use(pinia)
 app.mount('#app')
 ```
 
-Se estiveres a utilizar a Vue 2, também precisas instalar uma extensão e injetar a `pinia` criada na raiz da aplicação:
+Se estivermos a usar a Vue 2, também precisamos instalar uma extensão e injetar a `pinia` criada na raiz da aplicação:
 
 ```js {1,3-4,12}
 import { createPinia, PiniaVuePlugin } from 'pinia'
@@ -45,21 +45,21 @@ new Vue({
   // outras opções...
   // ...
   // nota que a mesma instância de `pinia` pode ser usada
-  // ao longo de várias aplicações de Vue na mesma página
+  // por várias aplicações de Vue na mesma página
   pinia,
 })
 ```
 
-Isto também adicionará o suporte a ferramenta do programador. Na Vue 3, algumas funcionalidades tais como viagem no tempo e edição ainda não são suportadas porque a `vue-devtools` ainda não expôs as APIs necessárias porém a ferramenta do programador tem mais funcionalidades e a experiência de programação como um todo está muito superior. Na Vue 2, a Pinia utiliza a interface existente para Vuex (e portanto não pode ser utilizada junto dela).
+Isto também adicionará o suporte da ferramenta de programação. Na Vue 3, algumas funcionalidades como as viagens no tempo e edição ainda não são suportadas porque a `vue-devtools` ainda expõe as APIs necessárias mas a ferramenta de programação tem mais funcionalidades e a experiência de programação como um todo é muito superior.
 
-## O Que é Uma Memória? {#what-is-a-store}
+## O que é uma Memória? %{#what-is-a-store}%
 
-Uma Memória (Store) (como a Pinia) é uma entidade segurando o estado e a lógica de negócio que não está atada a sua árvore de Componente. Em outras palavras, **ela recebe o estado global**. É um pouco parecido com um componente que está sempre lá e em que todos podem ler e escrever. Tem **três conceitos**, o [estado (`state`)](./core-concepts/state.md), os [recuperadores (`getters`)](./core-concepts/getters.md) e as [ações (`actions`)](./core-concepts/actions.md) e é seguro assumir que estes conceitos são os equivalentes de `data` (dados), `computed` (computados) e `methods` (métodos) em componentes.
+Uma memória (como a Pinia) é uma entidade segurando o estado e a lógica de negócio que não está vinculada à nossa árvore de componente. Em outras palavras, **hospeda o estado global**. É um pouco como um componente que está sempre lá e para qual todos podem ler ou escrever. Esta tem **três conceitos**, o [estado (ou `state`)](./core-concepts/state), os [recuperadores (ou `getters`)](./core-concepts/getters) e as [ações (ou `actions`)](./core-concepts/actions) e é seguro assumir que estes conceitos são os equivalentes de `data`, `computed` e `methods` nos componentes.
 
-## Quando é Que Eu Deveria Usar Uma Memória? {#when-should-i-use-a-store}
+## Quando é que Eu deveria usar uma Memória? %{#when-should-i-use-a-store}%
 
-Uma memória deve conter dados que podem ser acessados em toda sua aplicação. Isto inclui os dados que são utilizados em várias lugares, por exemplo, informação do Utilizador que é exibida na barra de navegação, como também os dados que precisam ser preservados em todas as páginas, por exemplo, um muito complicado formulário de várias etapas.
+Uma memória deve conter os dados que podem ser acessados por toda nossa aplicação. Isto inclui os dados que são usados em vários lugares, por exemplo, a informação do utilizador que é exibida na barra de navegação, como também os dados que precisam ser preservados através das páginas, por exemplo, um complicado formulário de várias etapas.
 
-Por outro lado, deves evitar de preferência incluir na memória de dados local aquilo que poderia ser hospedado em um componente, por exemplo a visibilidade de um elemento local para uma página.
+Por outro lado, devemos evitar incluir na memória dados locais que poderiam ser hospedados num componente, por exemplo, a visibilidade dum elemento local à uma página.
 
-Nem todas aplicações precisam de acessar a um estado global, mas se as tuas precisarem de uma, a Pinia tornará a sua vida muito mais fácil.
+Nem todas aplicações precisam de acesso à um estado global, mas se as nossas precisarem dum, a Pinia facilitará muito a nossa vida.
