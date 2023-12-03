@@ -93,7 +93,7 @@ export const useSearchFilters = defineStore('search-filters', () => {
 ```
 
 :::warning AVISO
-Não retorne propriedades como `useRoute()` ou `appProvided` (do exemplo acima) já que não pertencem à própria memória e podemos acessá-los diretamente dentro dos componentes com `useRoute()` e `inject('appProvided')`.
+Não retorne propriedades como `route` ou `appProvided` (do exemplo acima) já que não pertencem à própria memória e podemos acessá-los diretamente dentro dos componentes com `useRoute()` e `inject('appProvided')`.
 :::
 
 ## Qual Sintaxe Escolher? %{#what-syntax-should-i-pick}%
