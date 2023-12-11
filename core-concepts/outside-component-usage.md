@@ -1,15 +1,14 @@
-# Utilizando uma memória fora de um componente {#using-a-store-outside-of-a-component}
+# Usando uma Memória fora dum Componente %{#using-a-store-outside-of-a-component}%
 
-As memórias da Pinia dependem da instância de `pinia` para partilhar a mesma instância da memória através de todas chamadas. Na maioria das vezes, isto funciona fora da caixa pela simples chamada da sua função `useStore()`. Por exemplo, em `setup()`, não precisas fazer nada. Porém as coisas são um pouco diferentes fora de um componente.
-Nos bastidores, `useStore()` _injeta_ a instância de `pinia` que entregaste a tua `app`. Isto significa que se a instância de `pinia` não pode ser injetada automaticamente, precisas fornecê-la manualmente à função `useStore()`.
-Tu podes resolver isto de maneiras diferentes dependendo do tipo de aplicação que estiveres escrevendo.
+As memórias da Pinia dependem da instância `pinia` para partilharem a mesma instância de memória em todas as chamadas. Na maioria das vezes, isto funciona fora da caixa basta chamar a função `useStore()`. Por exemplo, na `setup()`, não precisamos fazer mais nada. Porém as coisas são um pouco diferente fora dum componente. Nos bastidores, `useStore()` _injeta_ a instância `pinia` que passamos à nossa `app`. Isto significa que se a instância `pinia` não puder ser automaticamente injetada, temos que fornecê-la manualmente à função `useStore`. Nós podemos solucionar isto de maneira diferente dependendo do tipo de aplicação que estamos a escrever.
 
-## Aplicações de Página Única {#single-page-application}
+## Aplicações de Página Única %{#single-page-application}%
 
-Se não estiveres fazendo nenhuma interpretação no lado do servidor (SSR, sigla em Inglês), qualquer chamada de `useStore()` depois da instalação da extensão pinia com `app.use(pinia)` funcionará: 
+Se não estivermos fazendo nenhuma interpretação do lado do servidor (SSR), qualquer chamada de `useStore` depois de instalarmos a extensão de `pinia` com `app.use(pinia)` funcionará:
 
 ```js
 import { useUserStore } from '@/stores/user'
+import { createPinia } from 'pinia';
 import { createApp } from 'vue'
 import App from './App.vue'
 
@@ -24,9 +23,9 @@ app.use(pinia)
 const userStore = useUserStore()
 ```
 
-A maneira mais fácil de garantir que isto sempre é aplicado é _adiar_ as chamadas de `useStore()` colocando-as dentro de funções que sempre serão executadas depois da `pinia` ser instalada.
+A maneira mais fácil de garantir que isto seja sempre aplicado é _adiar_ as chamadas de `useStore()` colocando-as dentro de funções que sempre serão executadas depois da instalação da `pinia`.
 
-Vamos ver um exemplo de utilização de uma memória dentro de uma sentinela de navegação com o Roteador da Vue (`Vue Router`):
+Vejamos um exemplo de uso duma memória dentro duma guarda de navegação com a Vue Router:
 
 ```js
 import { createRouter } from 'vue-router'
@@ -38,22 +37,22 @@ const router = createRouter({
 const store = useStore()
 
 router.beforeEach((to, from, next) => {
-  // nós desejávamos utilizar a memória aqui
+  // nós desejávamos usar a memória aqui
   if (store.isLoggedIn) next()
   else next('/login')
 })
 
 router.beforeEach((to) => {
-  // ✅ Isto funcionará porque o roteador inicia sua navegação depois
-  // do `router` ser instalado e a `pinia` também será instalada
+  // ✅ Isto funcionará porque o roteador começa sua navegação depois
+  // da instalação do `router` e a `pinia` também será instalada
   const store = useStore()
 
   if (to.meta.requiresAuth && !store.isLoggedIn) return '/login'
 })
 ```
 
-## Aplicações Interpretadas no Lado do Servidor {#ssr-apps}
+## Aplicações da Interpretação do Lado do Servidor %{#ssr-apps}%
 
-Quando estiveres lidando com a Interpretação no Lado do Servidor, terás que passar a instância de `pinia` para `useStore()`. Isto impedi a `pinia` de partilhar o estado global entre diferentes instâncias da aplicação.
+Quando lidarmos com a interpretação do lado do servidor, teremos que passar a instância de `pinia` à `useStore()`. Isto impede a `pinia` de partilhar o estado global entre diferentes instâncias de aplicação.
 
-Há uma secção inteira dedicada a isto na [guia da Interpretação no Lado do Servidor](/ssr/index)
+Existe uma seção inteira dedicada à isto no [guia da Interpretação do Lado do Servidor](/ssr/index), isto é apenas uma curta explicação.
