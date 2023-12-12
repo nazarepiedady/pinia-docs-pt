@@ -17,7 +17,7 @@ import { useData } from 'vitepress'
 const { site } = useData()
 
 const translations = {
-  'pt-PT': 'Assistir uma Aula sobre o Assunto na Vue School',
+  'pt-PT': 'Assistir uma aula sobre o assunto na Vue School',
 }
 
 defineProps<{ href: string; title: string }>()
