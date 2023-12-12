@@ -31,32 +31,19 @@
 <script setup lang="ts">
 import sponsors from './sponsors.json'
 import { computed } from 'vue'
-import type { PropType } from 'vue'
 import { useData } from 'vitepress'
 
-const { isDark } = useData()
-
-const props = defineProps({
-  name: {
-    type: String as PropType<'Gold' | 'Platinum' | 'Silver' | 'Bronze'>,
-    required: true,
-  },
-  size: {
-    type: [Number, String],
-    default: 140,
-  },
-})
-
-function translateToPortuguese(name) {
-  let sponsorsName = {
-    Gold: 'Ouro',
-    Platinum: 'Platina',
-    Silver: 'Prata',
-    Bronze: 'Bronze'
+const props = withDefaults(
+  defineProps<{
+    name: 'Gold' | 'Platinum' | 'Silver' | 'Bronze'
+    size?: number | string
+  }>(),
+  {
+    size: 140,
   }
+)
 
-  return sponsorsName[name]
-}
+const { isDark } = useData()
 
 const list = computed(() =>
   sponsors[props.name.toLowerCase()].map((sponsor) => ({
@@ -64,6 +51,15 @@ const list = computed(() =>
     imgSrc: isDark.value ? sponsor.imgSrcDark : sponsor.imgSrcLight,
   }))
 )
+
+function translateToPortuguese(name) {
+  return {
+    gold: 'Ouro',
+    platinum: 'Platina',
+    silver: 'Prata',
+    bronze: 'Bronze'
+  }[name.toLowerCase()]
+}
 </script>
 
 <style scoped>
@@ -85,7 +81,9 @@ p {
 }
 
 h3 {
-  margin: 0 0 10px;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0.75em 0;
 }
 
 img {
