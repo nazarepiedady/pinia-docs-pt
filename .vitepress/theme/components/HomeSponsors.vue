@@ -8,7 +8,9 @@
       <HomeSponsorsGroup v-if="sponsors.silver.length" name="Silver" size="24" />
 
       <div class="cta">
-        <a class="become-sponsor" href="https://github.com/sponsors/posva">{{ translations[site.lang] || translations.pt }}</a>
+        <a class="become-sponsor" href="https://github.com/sponsors/posva">
+          {{ translations[site.lang] || translations.pt }}
+        </a>
       </div>
     </div>
   </div>
@@ -22,8 +24,8 @@ import { useData } from 'vitepress'
 const { site } = useData()
 
 const translations = {
-  pt: 'Torna-te um patrocinador',
-  'pt-PT': 'Torna-te um Patrocinador!',
+  pt: 'Patrocinar',
+  'pt-PT': 'Patrocinar!',
 }
 </script>
 
