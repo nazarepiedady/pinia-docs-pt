@@ -1,36 +1,25 @@
-//import { h, watchEffect } from 'vue'
-import { Theme /*,useData */ } from 'vitepress'
+import { h } from 'vue'
+import { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-
 import './styles/vars.css'
-// import AsideSponsors from './components/AsideSponsors.vue'
-// import HomeSponsors from './components/HomeSponsors.vue'
+import AsideSponsors from './components/AsideSponsors.vue'
 import VueSchoolLink from './components/VueSchoolLink.vue'
 import VueMasteryLogoLink from './components/VueMasteryLogoLink.vue'
 
 
 const theme: Theme = {
   ...DefaultTheme,
-  // Layout() {
-  //   return h(DefaultTheme.Layout, null, {
-  //     'home-features-after': () => h(HomeSponsors),
-  //     'aside-ads-before': () => h(AsideSponsors),
-  //   })
-  // },
+  Layout() {
+    return h(DefaultTheme.Layout, null, {
+      // 'home-features-after': () => h(HomeSponsors),
+      'aside-ads-before': () => h(AsideSponsors),
+    })
+  },
 
   enhanceApp({ app }) {
     app.component('VueSchoolLink', VueSchoolLink)
     app.component('VueMasteryLogoLink', VueMasteryLogoLink)
   },
-
-  // setup() {
-  //   const { lang } = useData()
-  //   watchEffect(() => {
-  //     if (typeof document !== 'undefined') {
-  //       document.cookie = `nf_lang=${lang.value}; expires=Sun, 1 Jan 2023 00:00:00 UTC; path=/`
-  //     }
-  //   })
-  // },
 }
 
 export default theme
