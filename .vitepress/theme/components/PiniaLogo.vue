@@ -199,12 +199,12 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-// import { useCounter } from '../stores/counter'
+import { useCounter } from '../stores/counter'
 
 const blinking = ref<'open' | 'closed'>('open')
 const talking = ref<'open' | 'closed'>('closed')
 
-//const counter = useCounter()
+const counter = useCounter()
 
 const blinkTimer = 100
 const talkRate = 120
@@ -218,7 +218,7 @@ onMounted(() => {
       if (blinkState % 2) {
         blinking.value = 'closed'
         // counter.n++
-        // counter.$patch({ n: counter.n + 1 })
+        counter.$patch({ n: counter.n + 1 })
         setTimeout(blinkHandler, blinkTimer * 1.7)
       } else if (blinkState < 4) {
         blinking.value = 'open'
