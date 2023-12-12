@@ -2,11 +2,11 @@
 layout: home
 
 title: Pinia
-titleTemplate: A memória intuitiva para Vue.js
+titleTemplate: Memória Intuitiva para Vue.js
 
 hero:
   name: Pinia
-  text: A memória intuitiva para Vue.js
+  text: Memória Intuitiva para Vue.js
   tagline: Tipos Seguros, Extensível, e Modular por padrão. Não notaremos a diferença.
   image:
     src: /logo.svg
@@ -22,10 +22,10 @@ hero:
       text: ' '
       link: https://masteringpinia.com
     - theme: cta vueschool
-      text: Assistir Um Vídeo Introdutório
+      text: Assistir Vídeo Introdutório
       link: https://vueschool.io/lessons/introduction-to-pinia?friend=vuerouter&utm_source=pinia&utm_medium=link&utm_campaign=homepage
     - theme: cta vue-mastery
-      text: Receber a Folha de Consulta da Pinia
+      text: Obter a Folha de Consulta da Pinia
       link: https://www.vuemastery.com/pinia?coupon=PINIA-DOCS&via=eduardo
 
 features:
