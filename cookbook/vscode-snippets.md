@@ -1,8 +1,8 @@
-# VS Code Snippets
+# Trechos de VS Code %{#VS-Code-Snippets}%
 
-These are some snippets that I use in VS Code to make my life easier.
+Existem alguns trechos que usamos no VS Code para tornar a nossa vida muito mais fácil.
 
-Manage user snippets with <kbd>⇧</kbd> <kbd>⌘</kbd> <kbd>P</kbd> / <kbd>⇧</kbd> <kbd>⌃</kbd> <kbd>P</kbd> and then `Snippets: Configure User Snippets`.
+Operamos os trechos do utilizador com <kbd>⇧</kbd> <kbd>⌘</kbd> <kbd>P</kbd> / <kbd>⇧</kbd> <kbd>⌃</kbd> <kbd>P</kbd> e depois `Snippets: Configure User Snippets`:
 
 ```json
 {
