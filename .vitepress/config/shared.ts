@@ -131,10 +131,14 @@ export const sharedConfig = defineConfig({
       text: 'Sugerir mudanças para esta página',
     },
 
-    algolia: {
+    /* algolia: {
       appId: '69Y3N7LHI2',
       apiKey: '45441f4b65a2f80329fd45c7cb371fea',
       indexName: 'pinia',
+    }, */
+
+    search: {
+      provider: 'local',
     },
 
     carbonAds: {
