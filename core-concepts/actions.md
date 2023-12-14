@@ -1,6 +1,11 @@
-# Ações (`actions`) {#actions}
+# Ações %{#Actions}%
 
-As ações são as equivalentes dos [métodos](https://v3.vuejs.org/guide/data-methods.html#methods) em componentes. Elas podem ser definidas com a propriedade `actions` em `defineStore()` e **elas são perfeitas para definir a lógica do negócio**:
+<VueSchoolLink
+  href="https://vueschool.io/lessons/synchronous-and-asynchronous-actions-in-pinia"
+  title="Aprenda tudo sobre as ações na Pinia"
+/>
+
+As ações são as equivalentes dos [métodos](https://pt.vuejs.org/api/options-state#methods) nos componentes. Estas podem ser definidas com a propriedade `actions` na `defineStore()` e **são perfeitas para definir a lógica do negócio**:
 
 ```js
 export const useCounterStore = defineStore('counter', {
@@ -8,7 +13,8 @@ export const useCounterStore = defineStore('counter', {
     count: 0,
   }),
   actions: {
-    // visto que dependemos de `this`, não podemos utilizar uma função em flecha (arrow)
+    // uma vez que dependemos da `this`,
+    // não podemos usar uma função de flecha
     increment() {
       this.count++
     },
@@ -19,7 +25,7 @@ export const useCounterStore = defineStore('counter', {
 })
 ```
 
-Tal como os [recuperadores (`getters`)](./getters.md), as ações tem acesso a _instância da memória inteira_ através de `this` com **suporte total de tipos (e conclusão automática ✨)**. **Ao contrário dos recuperadores, as `ações` podem ser assíncronas**, tu podes `esperar` dentro das ações qualquer chamada de API ou até mesmo outras ações! Cá está um exemplo utilizando [Mande](https://github.com/posva/mande). Nota que a biblioteca que utilizas não importa, contanto que recebas uma `Promessa`, poderias até mesmo utilizar a função `fetch` nativa (no navegador apenas):
+Tal como os [recuperadores](./getters), as ações têm acesso à _instância da memória inteira_ através da `this` com **suporte completo à tipificação (e conclusão automática ✨)**. **Ao contrário dos recuperadores, as `actions` podem ser assíncronas**, podemos `await` dentro das ações qualquer chamada de API ou até mesmo outras ações! Eis um exemplo usando [Mande](https://github.com/posva/mande). Nota que a biblioteca que usamos não importa desde que recebamos uma `Promise`, poderíamos até mesmo usar a função `fetch` nativa (apenas do navegador):
 
 ```js
 import { mande } from 'mande'
@@ -39,7 +45,7 @@ export const useUsers = defineStore('users', {
         showTooltip(`Welcome back ${this.userData.name}!`)
       } catch (error) {
         showTooltip(error)
-        // deixe o componente do formulário exibir o erro
+        // deixar o componente de formulário exibir o erro
         return error
       }
     },
@@ -47,25 +53,26 @@ export const useUsers = defineStore('users', {
 })
 ```
 
-Tu também estás completamente livre para definir quaisquer argumentos que quiseres e retornares qualquer coisa. Quando estiveres a chamar as ações, tudo será automaticamente inferido!
+Nós também estamos completamente livres para definir quaisquer argumentos que quisermos e retornar qualquer coisa. Quando chamarmos as ações, tudo será inferido automaticamente!
 
-As ações são invocadas tal como os métodos:
+As ações são invocadas da mesma maneira que as funções e métodos normais:
 
-```js
-export default defineComponent({
-  setup() {
-    const store = useCounterStore()
-    // chama a ação como um método da memória
-    store.randomizeCounter()
+```vue
+<script setup>
+const store = useCounterStore()
+// chamar a ação como um método da memória
+store.randomizeCounter()
+</script>
 
-    return {}
-  },
-})
+<template>
+  <!-- Mesmo sobre o modelo de marcação -->
+  <button @click="store.randomizeCounter()">Randomize</button>
+</template>
 ```
 
-## Acessando outras ações de memórias {#accessing-other-stores-actions}
+## Acessando Outras Ações da Memória %{#Accessing-other-stores-actions}%
 
-Para utilizar uma outra memória, podes _utilizá-la_ diretamente dentro da _ação_:
+Para usarmos uma outra memória, podemos _usá-la_ diretamente de dentro da _ação_:
 
 ```js
 import { useAuthStore } from './auth-store'
@@ -88,9 +95,14 @@ export const useSettingsStore = defineStore('settings', {
 })
 ```
 
-## Utilização com API de Opções {#usage-with-the-options-api}
+## Uso com a API de Opções %{#Usage-with-the-Options-API}%
 
-Para os seguintes exemplos, podes assumir que a seguinte memória foi criada:
+<VueSchoolLink
+  href="https://vueschool.io/lessons/access-pinia-actions-in-the-options-api"
+  title="Acessar os Recuperadores da Pinia através da API de Opções"
+/>
+
+Para os seguintes exemplos, podemos assumir que a seguinte memória foi criada:
 
 ```js
 // Caminho do Ficheiro de Exemplo:
@@ -110,14 +122,15 @@ export const useCounterStore = defineStore('counter', {
 })
 ```
 
-### Com `setup()` {#with-setup}
+### Usando com a `setup()` %{#With-setup-}%
 
-Apesar de a API de Composição não ser para todos, o gatilho `setup()` pode tornar a utilização da Pinia mais fácil de se trabalhar dentro da API de Opções. Sem a necessidade de funções auxiliares de delinear adicionais!
+Embora a API de Composição não seja para todos, a função gatilho `setup()` pode facilitar o uso da Pinia dentro da API de Opções. Sem a necessidade de funções auxiliares mapeamento adicionais!
 
-```js
-import { useCounterStore } from '../stores/counterStore'
+```vue
+<script>
+import { useCounterStore } from '../stores/counter'
 
-export default {
+export default defineComponent({
   setup() {
     const counterStore = useCounterStore()
 
@@ -129,50 +142,52 @@ export default {
       console.log('New Count:', this.counterStore.count)
     },
   },
-}
+})
+</script>
 ```
 
-### Sem `setup()` {#without-setup}
+### Usando sem `setup()` %{#Without-setup-}%
 
-Se preferirias não utilizar a API de Composição, podes utilizar a auxiliar `mapActions()` para delinear as propriedades de ações como métodos dentro do teu componente:
+Se preferiríamos não usar a API de Composição, podemos usar a auxiliar `mapActions()` para mapear as propriedades das ações como métodos no nosso componente:
 
 ```js
 import { mapActions } from 'pinia'
-import { useCounterStore } from '../stores/counterStore'
+import { useCounterStore } from '../stores/counter'
 
 export default {
   methods: {
     // dar acesso ao `this.increment()` dentro do componente
-    // o mesmo que chamar a partir do `store.increment()`
+    // o mesmo que chamar a partir de `store.increment()`
     ...mapActions(useCounterStore, ['increment'])
-    // o mesmo que acima exceto que regista-o como `this.myOwnName()`
+    // o mesmo que acima exceto que o regista como `this.myOwnName()`
     ...mapActions(useCounterStore, { myOwnName: 'increment' }),
   },
 }
 ```
 
-## Subscrevendo às ações {#subscribing-to-actions}
+## Subscrevendo às Ações %{#Subscribing-to-actions}%
 
-É possível observar as ações e seus resultados com `store.$onActions()`. A função de resposta passada para ela é executada antes da própria ação. O `after` manipula as promessas e permite-te executar uma função depois de resolver a ação. De uma maneira semelhante, o `onError` permite-te executar uma função se a ação lançar ou rejeitar. Estes são úteis para rastrear erros em tempo de execução, parecida com [esta dica na documentação da Vue](https://v3.vuejs.org/guide/tooling/deployment.html#tracking-runtime-errors).
+É possível observar as ações e seus resultados com `store.$onActions()`. A função de resposta passada à esta é executada antes da própria ação. `after` manipula as promessas e permite-nos executar uma função depois da ação resolver-se. Duma maneira semelhante, `onError` permite-nos executar uma função se a ação lançar um erro ou rejeitar-se. Estas são úteis para rastrear os erros durante a execução, semelhante a [esta dica na documentação da Vue](https://pt.vuejs.org/guide/best-practices/production-deployment#tracking-runtime-errors).
 
-Cá está um exemplo que regista antes da execução das ações e depois de elas resolverem ou rejeitarem.
+Eis um exemplo que regista antes de executar as ações e depois de resolverem-se ou rejeitarem-se:
 
 ```js
 const unsubscribe = someStore.$onAction(
   ({
     name, // nome da ação
     store, // instância da memória, o mesmo que `someStore`
-    args, // arranjo de parâmetros passados para a ação
-    after, // aciona depois do retorno ou resolução da ação
-    onError, // aciona se lançar ou rejeitar a ação
+    args, // vetor de parâmetros passados à ação
+    after, // disparar depois do retorno ou resolução da ação
+    onError, // disparar se lançar-se ou rejeitar-se
   }) => {
     // uma variável partilhada para esta chamada de ação especifica
     const startTime = Date.now()
-    // isto acionará antes de uma ação na memória (`store`) ser executada
-    console.log(`Start "${name}" with params [${args.join(', ')}].`)
+    // isto acionará antes duma ação na `store` ser executada
+   console.log(`Start "${name}" with params [${args.join(', ')}].`)
 
-    // isto acionará se a ação for bem-sucedida e depois dela ter sido executada completamente.
-    // ele espera por qualquer retorno prometido
+    // isto acionará se a ação for bem-sucedida e
+    // depois de ser executada completamente.
+    // esta espera por qualquer retorno prometido
     after((result) => {
       console.log(
         `Finished "${name}" after ${
@@ -181,7 +196,8 @@ const unsubscribe = someStore.$onAction(
       )
     })
 
-    // isto acionará se a ação lançar ou retornar uma promessa que rejeita
+    // isto acionará se a ação lançar-se ou
+    // retornar uma promessa que rejeita-se
     onError((error) => {
       console.warn(
         `Failed "${name}" after ${Date.now() - startTime}ms.\nError: ${error}.`
@@ -190,21 +206,18 @@ const unsubscribe = someStore.$onAction(
   }
 )
 
-// remove o ouvinte manualmente
+// remover manualmente o ouvinte
 unsubscribe()
 ```
 
-Por padrão, as _subscrições da ação_ estão presas ao componente onde elas são adicionadas (se a memória está dentro de uma `setup()` do componente). Querendo dizer que, elas serão automaticamente removidas quando o componente for desmontado. Se também quiseres preservá-las depois do componente ser desmontado, passe `true` como segundo argumento para _separar_ a _subscrição da ação_ do componente actual:
+Por padrão, as _subscrições da ação_ estão vinculadas ao componente onde foram adicionadas (se a memória estiver dentro duma `setup()` do componente). Querendo dizer que, serão removidas automaticamente quando o componente for desmontado. Se também quisermos as preservar depois do componente ser desmontado, passamos `true` como segundo argumento para _separar_ a _subscrição da ação_ do componente atual:
 
-```js
-export default {
-  setup() {
-    const someStore = useSomeStore()
+```vue
+<script setup>
+const someStore = useSomeStore()
 
-    // esta subscrição será preservada mesmo depois do componente ser desmontado
-    someStore.$onAction(callback, true)
-
-    // ...
-  },
-}
+// esta subscrição será preservada mesmo depois
+// do componente ser desmontado
+someStore.$onAction(callback, true)
+</script>
 ```
