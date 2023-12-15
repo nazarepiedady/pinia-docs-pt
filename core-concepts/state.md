@@ -1,4 +1,4 @@
-# Estado (`state`) %{#State}%
+# Estado %{#State}%
 
 <VueSchoolLink
   href="https://vueschool.io/lessons/access-state-from-a-pinia-store"
