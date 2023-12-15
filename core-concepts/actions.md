@@ -146,7 +146,7 @@ export default defineComponent({
 </script>
 ```
 
-### Usando sem `setup()` %{#Without-setup-}%
+### Usando sem a `setup()` %{#Without-setup-}%
 
 Se preferiríamos não usar a API de Composição, podemos usar a auxiliar `mapActions()` para mapear as propriedades das ações como métodos no nosso componente:
 
