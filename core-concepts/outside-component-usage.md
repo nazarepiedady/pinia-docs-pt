@@ -1,4 +1,4 @@
-# Usando uma Memória fora dum Componente %{#using-a-store-outside-of-a-component}%
+# Usando uma Memória fora do Componente %{#using-a-store-outside-of-a-component}%
 
 As memórias da Pinia dependem da instância `pinia` para partilharem a mesma instância de memória em todas as chamadas. Na maioria das vezes, isto funciona fora da caixa basta chamar a função `useStore()`. Por exemplo, na `setup()`, não precisamos fazer mais nada. Porém as coisas são um pouco diferente fora dum componente. Nos bastidores, `useStore()` _injeta_ a instância `pinia` que passamos à nossa `app`. Isto significa que se a instância `pinia` não puder ser automaticamente injetada, temos que fornecê-la manualmente à função `useStore`. Nós podemos solucionar isto de maneira diferente dependendo do tipo de aplicação que estamos a escrever.
 
