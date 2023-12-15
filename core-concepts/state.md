@@ -235,7 +235,7 @@ Nós também podemos **definir o estado inicial** da nossa aplicação inteira m
 pinia.state.value = {}
 ```
 
-## Subscrevendo o Estado %{#Subscribing-to-the-state}%
+## Subscrevendo ao Estado %{#Subscribing-to-the-state}%
 
 Nós podemos observar o estado e suas mudanças através do método `$subscribe()` duma memória, semelhante ao [método `subscribe`](https://vuex.vuejs.org/api/#subscribe) da Vuex. A vantagem de usar `$subscribe()` em vez da `watch()` normal é que as _subscrições_ acionarão apenas uma vez após os _remendos_ (por exemplo, quando usamos a versão de função acima):
 
