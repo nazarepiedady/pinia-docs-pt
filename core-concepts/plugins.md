@@ -1,68 +1,70 @@
-# Extensões (`plugins`) {#plugins}
+# Extensões %{#Plugins}%
 
-As memórias da Pinia podem ser completamente estendidas graças a uma API de baixo nível. Cá está uma lista de coisas que podes fazer:
+As memórias da Pinia podem ser completamente estendidas através duma API de baixo nível. Eis uma lista de coisas que podemos fazer:
 
 - Adicionar novas propriedades às memórias
-- Adicionar novas opções quando estiveres definindo memórias
+- Adicionar novas opções quando definimos memórias
 - Adicionar novos métodos às memórias
-- Envolver os métodos existentes
-- Mudar ou até mesmo cancelar ações
-- Implementar efeitos colaterais tipo [Armazenamento Local](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
-- Aplicar **apenas** para memórias especificas
+- Embrulhar os métodos existentes
+- Intercetar ações e seus resultados
+- Implementar efeitos colaterais tais como [Armazenamento Local](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+- Aplicar **apenas** às memórias especificas
 
-As extensões são adicionas à instância de `pinia` com `pinia.use()`. O exemplo mais simples é a adição de uma propriedade estática para todas memórias com retorno de um objeto:
+As extensões são adicionas à instância de `pinia` com `pinia.use()`. O exemplo mais simples é adicionar uma propriedade estática em todas as memórias retornando um objeto:
 
 ```js
 import { createPinia } from 'pinia'
 
-// adiciona uma propriedade com o nome `secret` para toda memória que for criada depois desta extensão ser instalada
-// isto poderia estar em um ficheiro diferente
+// adicionar uma propriedade `secret` em toda
+// memória criada depois desta extensão ser
+// instalada, isto poderia estar
+// num ficheiro diferente
 function SecretPiniaPlugin() {
   return { secret: 'the cake is a lie' }
 }
 
 const pinia = createPinia()
-// entregar a extensão ao pinia
+// atribuir a extensão à pinia
 pinia.use(SecretPiniaPlugin)
 
-// em um outro ficheiro
+// num outro ficheiro
 const store = useStore()
 store.secret // 'the cake is a lie'
 ```
 
-Isto é útil para adicionar objetos globais tais como roteador, modal, gestores de brinde (toast, termo em Inglês).
+Isto é útil para adicionar objetos tais como roteador, modal, ou gestores de brinde.
 
-## Introdução {#introduction}
+## Introdução %{#Introduction}%
 
-Uma extensão de Pinia é uma função que opcionalmente retorna propriedades a serem adicionadas à uma memória. Ela recebe um argumento opcional, um _contexto_:
+Uma extensão de Pinia é uma função que retorna opcionalmente as propriedades a serem adicionadas à uma memória. Esta recebe um argumento opcional, um _contexto_:
 
 ```js
 export function myPiniaPlugin(context) {
-  context.pinia // a pinia criada com `createPinia()`
-  context.app // o aplicação atual criada com `createApp()` (apenas na Vue 3)
-  context.store // a memória que a extensão está aumentando
-  context.options // o objeto de opções definindo a memória passada para `defineStore()`
+  context.pinia // pinia criada com `createPinia()`
+  context.app // aplicação atual criada com `createApp()` (só na Vue 3)
+  context.store // memória manipulada pela extensão
+  context.options // objeto de opções da memória passada a `defineStore()`
   // ...
 }
 ```
 
-Esta função é então passada para `pinia` com `pinia.use()`:
+Esta função é então passada à `pinia` com `pinia.use()`:
 
 ```js
 pinia.use(myPiniaPlugin)
 ```
 
-As extensões apenas são aplicadas às memórias **criadas depois da `pinia` ser passada para a aplicação**, do contrário elas não serão aplicadas.
+As extensão apenas são aplicadas às memórias criadas **depois das próprias extensões, e depois da `pinia` ser passada à aplicação**, de outro modo não serão aplicadas.
 
-## Aumentando uma Memória {#augmenting-a-store}
+## Aumentando uma Memória %{#Augmenting-a-Store}%
 
-Tu podes adicionar propriedades para toda memória ao simplesmente retornar um objeto delas em uma extensão:
+Nós podemos adicionar as propriedades a toda memória simplesmente retornando um objeto destas numa extensão:
 
 ```js
 pinia.use(() => ({ hello: 'world' }))
 ```
 
-Tu podes também definir a propriedade diretamente na `store` mas **se possível utilize a versão que retorna assim elas podem ser automaticamente rastreadas pela ferramenta do programador (devtools, em Inglês)**:
+Nós também podemos definir a propriedade diretamente sobre a `store` mas **se possível usamos a versão de retorno, assim podem ser rastreadas automaticamente pelas ferramentas de programação do navegador**:
 
 ```js
 pinia.use(({ store }) => {
@@ -70,87 +72,97 @@ pinia.use(({ store }) => {
 })
 ```
 
-Qualquer propriedade _retornada_ por uma extensão será automaticamente rastreada pela ferramenta do programador então para tornar `hello` visível na ferramenta do programador, certifique-se de adicioná-lo à `store._customProperties` **apenas no modo de desenvolvimento** se quiseres depurá-la na ferramenta do programador:
+Qualquer propriedade _retornada_ por uma extensão será rastreada automaticamente pelas ferramentas de programação do navegador, então no sentido de tornar `hello` visível nas ferramentas de programação do navegador, devemos certificar-nos de adicioná-la à `store._customProperties` **apenas no modo de desenvolvimento** se quisermos depurá-la nas ferramentas de programação do navegador: 
 
 ```js
-// do exemplo acima
+// a partir do exemplo acima
 pinia.use(({ store }) => {
   store.hello = 'world'
-  // certifique-se de que o teu empacotador manipule isto. o webpack e vite devem fazê-lo por padrão
+  // garantir que o empacotador manipule isto.
+  // a webpack e vite devem fazê-lo por padrão
   if (process.env.NODE_ENV === 'development') {
-    // adiciona quaisquer chaves que definires na memória
+    // adicionar quaisquer chaves que definimos na memória
     store._customProperties.add('hello')
   }
 })
 ```
 
-Nota que toda memória que é envolvida com [`reactive`](https://pt.vuejs.org/api/basic-reactivity#reactive), desembrulha automaticamente qualquer referência (`ref()`, `computed()`, ...) que ela contenha:
+Nota que toda memória é embrulhada com a [`reactive`](https://pt.vuejs.org/api/basic-reactivity#reactive), desembrulhando automaticamente qualquer referência (`ref()`, `computed()`, ...) que esta contiver:
 
 ```js
 const sharedRef = ref('shared')
 pinia.use(({ store }) => {
-  // cada memória tem sua propriedade `hello` individual
+  // cada memória tem sua propriedade `hello`
   store.hello = ref('secret')
-  // ela é desembrulhada automaticamente
+  // é desembrulhada automaticamente
   store.hello // 'secret'
 
-  // todas memórias estão partilhando o valor da propriedade `shared`
+  // todas memórias estão partilhando
+  // o valor da propriedade `shared`
   store.shared = sharedRef
   store.shared // 'shared'
 })
 ```
 
-É por isso que podes acessar todas propriedades computadas sem `.value` e por isto que elas são reativas.
+É por causa disto que podemos acessar todas as propriedades computadas sem `.value` e por isto são reativas.
 
-### Adicionando novo estado {#adding-new-state}
+### Adicionando Novo Estado %{#Adding-new-state}%
 
-Se quiseres adicionar novas propriedades de estado à uma memória ou propriedades que estão destinadas a serem utilizadas durante a hidratação, **terás de adicioná-la em dois lugares**:
+Se quisermos adicionar novas propriedades de estado à uma memória ou às propriedades que estão destinadas a serem usadas durante a hidratação, **precisaremos adicioná-lo em dois lugares**:
 
-- Na `store`, assim podes acessá-la com `store.myState`
-- Na `store.$state`, assim ela pode ser utilizada na ferramenta do programador e, **ser adaptada (serialized, em Inglês) durante a interpretação no lado do servidor**
+- Na `store`, assim podemos acessá-lo com `store.myState`
+- Na `store.$state`, assim pode ser usada nas ferramentas de programação do navegador e, **ser serializada durante a interpretação do lado do servidor**.
 
-Além de que, certamente terás de utilizar uma `ref()` (ou outra API reativa) para partilhar o valor através de acessos diferentes:
+Além de que, certamente precisaremos usar uma `ref()` (ou outra API reativa) para partilhar o valor através de diferentes acessos:
 
 ```js
 import { toRef, ref } from 'vue'
 
 pinia.use(({ store }) => {
-  // para corretamente manipular a SSR, precisamos ter a certeza de que não estamos sobrepondo um valor existente
+  // para manipular corretamente a interpretação do lado servidor,
+  // precisamos garantir que não estamos sobrepondo
+  // um valor existente
   if (!Object.prototype.hasOwnProperty(store.$state, 'hasError')) {
-    // `hasError` é definido dentro da extensão, assim cada memória tem sua propriedade `state` individual
+    // `hasError` é definida dentro da extensão,
+    // assim cada memória tem sua propriedade de estado
     const hasError = ref(false)
-    // a definição da variável em `$state`, permite que ela seja adaptada durante a SSR
+    // definir a variável na `$state`, permite que esta seja
+    // serializada durante a interpretação do lado do servidor
     store.$state.hasError = hasError
   }
-  // podemos transferir a `ref` de `state` para a `store`, desta maneira
-  // ambos acessos: `store.hasError` e `store.$state.hasError` funcionarão
-  // e partilharão a mesma variável
+  // precisamos transferir a `ref` de `state` para a `store`,
+  // desta maneira ambos acessos: `store.hasError` e
+  // `store.$state.hasError` funcionarão e
+  // partilharão a mesma variável
   // Consulte https://pt.vuejs.org/api/reactivity-utilities#toref
   store.hasError = toRef(store.$state, 'hasError')
 
-  // neste caso é melhor não retornar `hasError` visto que será
-  // exibida na secção `state` na ferramenta do programador
-  // de qualquer maneira e se a retornarmos, a ferramenta do programador a exibirá duas vezes
+  // neste caso é melhor não retornar `hasError` visto que
+  // será exibida na seção `state` nas ferramentas de programação
+  // e se a retornarmos, as ferramentas de programação a exibirão
+  // duas vezes.
 })
 ```
 
-Nota que as mudanças de estado ou adições que ocorrem dentro de uma extensão (que inclui a chamada `store.$patch()`) acontecem antes da memória estar ativa e portanto **não aciona quaisquer subscrições**.
+Nota que as mudanças de estado ou adições que ocorrem dentro duma extensão (que inclui chamar `store.$patch()`) acontecem antes da memória estar ativa e portanto **não aciona quaisquer subscrições**.
 
 :::warning AVISO
-Se estiveres utilizando a **Vue 2**, a Pinia está sujeita às [mesmas advertências de reatividade](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats) da  Vue. Precisarás utilizar a `set` da `@vue/composition-api` quando estiveres criando novas propriedades de estado tais como `secret` e `hasError`:
+Se estivermos usando a **Vue 2**, a Pinia está sujeita às [mesmas advertências de reatividade](https://v2.vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats) conforme a Vue. Nós precisaremos usar `Vue.set()` (Vue 2.7) ou `set()` (do `@vue/composition-api` para a Vue <2.7) para quando criarmos as novas propriedades de estado como `secret` e `hasError`:
 
 ```js
 import { set, toRef } from '@vue/composition-api'
 pinia.use(({ store }) => {
-  if (!Object.prototype.hasOwnProperty(store.$state, 'hello')) {
+  if (!Object.prototype.hasOwnProperty(store.$state, 'secret')) {
     const secretRef = ref('secret')
-    // Se o dado está destinado a ser utilizado durante a SSR, deves
-    // defini-la na propriedade `$state` assim ele é adaptado e
-    // recuperado durante a hidratação
+    // Se o dado estiver destinado a ser usado durante a
+    // interpretação do lado do servidor, devemos
+    // defini-lo na propriedade `$state`, assim é
+    // serializado e recuperado durante a hidratação
     set(store.$state, 'secret', secretRef)
   }
-  // defini-a também diretamente na `store`, assim podes acessá-la
-  // de duas maneiras: `store.$state.secret` / `store.secret`
+  // também o definimos diretamente na memória,
+  // assim podemos acessá-lo de duas maneiras:
+  // `store.$state.secret` / `store.secret`
   set(store, 'secret', toRef(store.$state, 'secret'))
   store.secret // 'secret'
 })
@@ -158,25 +170,26 @@ pinia.use(({ store }) => {
 
 :::
 
-#### Redefinindo o estado adicionado nas extensões {#resetting-state-added-in-plugins}
+#### Redefinindo o Estado adicionado nas Extensões %{#Resetting-state-added-in-plugins}%
 
-Por padrão, `$reset()` reiniciará o estado adicionado pelas extensões mas podemos sobrepor ele para também reiniciar o estado que adicionamos:
+Por padrão, `$reset()` reiniciará o estado adicionado pelas extensões mas podemos sobrepor este para reiniciar o estado que adicionamos:
 
 ```js
 import { toRef, ref } from 'vue'
 
 pinia.use(({ store }) => {
-  // this is the same code as above for reference
+  // este é o mesmo código de cima por referência
   if (!Object.prototype.hasOwnProperty(store.$state, 'hasError')) {
     const hasError = ref(false)
     store.$state.hasError = hasError
   }
   store.hasError = toRef(store.$state, 'hasError')
 
- // make sure to set the context (`this`) to the store
+ // temos de nos certificar de definir o
+ // contexto (`this`) à memória
   const originalReset = store.$reset.bind(store)
 
- // override the $reset function
+ // sobrepor a função `$reset`
   return {
     $reset() {
       originalReset()
@@ -186,13 +199,13 @@ pinia.use(({ store }) => {
 })
 ```
 
-## Adicionando novas propriedades externas {#adding-new-external-properties}
+## Adicionando Novas Propriedades Externas %{#Adding-new-external-properties}%
 
-Quando estiveres adicionando propriedades externas, para as instâncias de classe que vêm de outras bibliotecas, ou simplesmente coisas que não são reativas, deves envolver o objeto com `markRaw()` antes de passá-lo ao `pinia`. Cá está um exemplo adicionando o roteador para toda memória:
+Quando adicionamos propriedades externas, as instâncias de classe que vêm de outras bibliotecas, ou simplesmente coisas que não são reativas, devemos embrulhar o objeto com `markRaw()` antes de passá-lo à `pinia`. Eis um exemplo adicionando o roteador à toda memória:
 
 ```js
 import { markRaw } from 'vue'
-// adapta isto com base onde teu roteador está
+// adaptar isto baseado em onde o nosso roteador está
 import { router } from './router'
 
 pinia.use(({ store }) => {
@@ -200,24 +213,24 @@ pinia.use(({ store }) => {
 })
 ```
 
-## Chamando `$subscribe` dentro das extensões {#calling-subscribe-inside-plugins}
+## Chamando `$subscribe` dentro das Extensões %{#Calling-subscribe-inside-plugins}%
 
-Tu também podes utilizar [`store.$subscribe`](./state#subscribing-to-the-state) e [`store.$onAction`](./actions#subscribing-to-actions) dentro de extensões:
+Nós também podemos usar [`store.$subscribe`](./state#Subscribing-to-the-state) e [`store.$onAction`](./actions#Subscribing-to-actions) dentro das extensões:
 
 ```ts
 pinia.use(({ store }) => {
   store.$subscribe(() => {
-    // reage as mudanças da memória (`store`)
+    // reagir às mudanças da memória
   })
   store.$onAction(() => {
-    // reage as ações da memória (`store`)
+    // reagir às ações da memória
   })
 })
 ```
 
-## Adicionando novas opções {#adding-new-options}
+## Adicionando Novas Opções %{#Adding-new-options}%
 
-É possível criar novas opções quando estiveres definindo as memórias para depois as consumires a partir das extensões. Por exemplo, poderias criar uma opção `debounce` que permite-te aplicar o `debounce` à qualquer ação:
+É possível criar novas opções quando definimos as memórias para depois as consumir a partir das extensões. Por exemplo, poderíamos criar uma opção `debounce` que permite-nos reduzir a chamada de qualquer ação:
 
 ```js
 defineStore('search', {
@@ -227,35 +240,36 @@ defineStore('search', {
     },
   },
 
-  // isto depois será lido por uma extensão
+  // esta depois será lida por uma extensão
   debounce: {
-    // aplicar `debounce` a ação `searchContacts` por 300ms
+    // reduzir a chamada da ação `searchContacts` por 300ms
     searchContacts: 300,
   },
 })
 ```
 
-A extensão pode então ler aquela opção para envolver as ações e substituir as originais:
+A extensão depois pode ler esta opção para embrulhar as ações e substituir as originais:
 
 ```js
-// utilize qualquer biblioteca de `debounce`
+// usar qualquer biblioteca de `debounce`
 import debounce from 'lodash/debounce'
 
 pinia.use(({ options, store }) => {
   if (options.debounce) {
     // estamos sobrepondo as ações com as novas
-    return Object.keys(options.debounce).reduce((debouncedActions, action) => {
-      debouncedActions[action] = debounce(
-        store[action],
-        options.debounce[action]
-      )
-      return debouncedActions
+    return Object.keys(options.debounce).reduce(
+      (debouncedActions, action) => {
+        debouncedActions[action] = debounce(
+          store[action],
+          options.debounce[action]
+        )
+        return debouncedActions
     }, {})
   }
 })
 ```
 
-Nota que as opções personalizadas são passadas como terceiro argumento quando estiveres utilizando a sintaxe de `setup`:
+Nota que as opções personalizadas são passadas como terceiro argumento quando escrevemos a sintaxe de configuração (ou `setup`):
 
 ```js
 defineStore(
@@ -264,22 +278,22 @@ defineStore(
     // ...
   },
   {
-    // isto depois será lido por uma extensão
+    // esta depois será lido por uma extensão
     debounce: {
-      // aplicar `debounce` a ação `searchContacts` por 300ms
+      // reduzir a chamada da ação `searchContacts` por 300ms
       searchContacts: 300,
     },
   }
 )
 ```
 
-## TypeScript {#typescript}
+## TypeScript %{#TypeScript}%
 
-Tudo mostrado acima pode ser feito com suporte a tipos, assim já não precisas de utilizar `any` ou `@ts-ignore`.
+Tudo que foi mostrado acima pode ser feito com suporte de tipificação, então nunca mais precisaremos usar `any` ou `@ts-ignore`.
 
-### Tipando as extensões {#typing-plugins}
+### Tipificando as Extensões %{#Typing-plugins}%
 
-Uma extensão de Pinia pode ser tipada como se segue:
+Uma extensão de Pinia pode ser tipificada da seguinte maneira:
 
 ```ts
 import { PiniaPluginContext } from 'pinia'
@@ -289,9 +303,9 @@ export function myPiniaPlugin(context: PiniaPluginContext) {
 }
 ```
 
-### Tipando as novas propriedades da memória {#typing-new-store-properties}
+### Tipificando Novas Propriedades da Memória {#Typing-new-store-properties}
 
-Quando estiveres adicionando novas propriedades à memória, também deves aumentar a interface de `PiniaCustomProperties`.
+Quando adicionamos novas propriedades à memória, também devemos estender a interface `PiniaCustomProperties`:
 
 ```ts
 import 'pinia'
@@ -299,20 +313,22 @@ import type { Router } from 'vue-router'
 
 declare module 'pinia' {
   export interface PiniaCustomProperties {
-    // by using a setter we can allow both strings and refs
+    // usando um definidor podemos permitir ambas
+    // sequências de caracteres e referências
     set hello(value: string | Ref<string>)
     get hello(): string
 
-    // you can define simpler values too
+    // também podemos definir valores mais simples
     simpleNumber: number
 
-    // type the router added by the plugin above (#adding-new-external-properties)
+    // tipificar o roteador adicionado
+    // pela extensão acima (#adding-new-external-properties)
     router: Router
   }
 }
 ```
 
-Isto pode ser então escrito e lido com segurança:
+Isto pode então ser escrito e lido com segurança:
 
 ```ts
 pinia.use(({ store }) => {
@@ -320,18 +336,18 @@ pinia.use(({ store }) => {
   store.hello = ref('Hola')
 
   store.simpleNumber = Math.random()
-  // `@ts-expect-error`: não tipamos isto corretamente
+  // @ts-expect-error: nós não tipificamos isto corretamente
   store.simpleNumber = ref(Math.random())
 })
 ```
 
-A `PiniaCustomProperties` é um tipo genérico que permite-te referenciar propriedades de uma memória. Suponha que o seguinte exemplo onde copiamos em cima das opções iniciais como `$options` (isto só funciona para as memórias baseadas em opções):
+`PiniaCustomProperties` é um tipo genérico que permite-nos referenciar propriedades duma memória. Suponhamos que o seguinte exemplo onde copiamos as opções iniciais como `$options` (isto apenas funcionaria para memórias de opções):
 
 ```ts
 pinia.use(({ options }) => ({ $options: options }))
 ```
 
-Podemos tipar corretamente isto com o uso de 4 tipos genéricos de `PiniaCustomProperties`:
+Nós podemos tipificar isto corretamente usando os 4 tipos genéricos de `PiniaCustomProperties`:
 
 ```ts
 import 'pinia'
@@ -349,18 +365,18 @@ declare module 'pinia' {
 ```
 
 :::tip DICA
-Quanto estiveres estendendo os tipos em genéricos, eles devem ser nomeados **exatamente como estão no código-fonte**. `Id` não pode ser nomeado `id` ou `I`, e `S` não pode ser nomeado `State`. Cá está o que cada letra significa:
+Quando estendemos os tipos em genéricos, estes deve ser nomeados **exatamente como estão no código-fonte**. `Id` não pode ser nomeado `id` ou `I`, e `S` não pode ser nomeado `State`. Eis o que cada letra significa:
 
 - S: State (Estado)
 - G: Getters (Recuperadores)
 - A: Actions (Ações)
-- SS: Setup Store / Store (Memória baseada em Composições / Memória)
+- SS: Setup Store / Store (Memória de Configuração / Memória)
 
 :::
 
-### Tipando o novo estado {#typing-new-state}
+### Tipificando Novo Estado %{#Typing-new-state}%
 
-Quando estiveres adicionando novas propriedades de estado (para ambas, a `store` e `store.$state`), precisas de preferência adicionar o tipo ao `PiniaCustomStateProperties`. Diferentemente de `PiniaCustomProperties`, ela só recebe o `State` genérico:
+Quando adicionamos novas propriedades de estado (à ambas, a `store` e `store.$state`), precisamos adicionar o tipo ao `PiniaCustomStateProperties`. Diferentemente de `PiniaCustomProperties`, este apenas recebe o `State` genérico:
 
 ```ts
 import 'pinia'
@@ -372,40 +388,41 @@ declare module 'pinia' {
 }
 ```
 
-### Tipando novas opções de criação {#typing-new-creation-options}
+### Tipificando Novas Opções de Criação %{#Typing-new-creation-options}%
 
-Quando estiveres criando novas opções para `defineStore()`, deves estender a `DefineStoreOptionsBase`. Diferentemente de `PiniaCustomProperties`, ela só expõem dois tipos genéricos: o tipo `State` e o tipo `Store`, permitindo-te limitar o que pode ser definido. Por exemplo, podes utilizar os nomes das ações:
+Quando criamos novas opções para `defineStore()`, devemos estender o `DefineStoreOptionsBase`. Diferentemente de `PiniaCustomProperties`, apenas expõe dois genéricos: o tipo `State` e o `Store`, permitindo-nos limitar o que pode ser definido. Por exemplo, podemos usar os nomes das ações:
 
 ```ts
 import 'pinia'
 
 declare module 'pinia' {
   export interface DefineStoreOptionsBase<S, Store> {
-    // permite a definição de um número de `ms` para quaisquer das ações
+    // permitir a definição dum número de `ms`
+    // para quaisquer uma das ações
     debounce?: Partial<Record<keyof StoreActions<Store>, number>>
   }
 }
 ```
 
 :::tip DICA
-Há também um tipo `StoreGetters` para extrair os _recuperadores (getters, em Inglês)_ de um tipo `Store`. Também podes estender as opções das _memórias baseadas em composição_ ou _memórias baseadas em opções_ **apenas** estendendo os tipos `DefineStoreOptions` e `DefineSetupStoreOptions` respetivamente.
+Também existe um tipo `StoreGetters` para extrair os _recuperadores_ a partir dum tipo `Store`. Nós também podemos estender as opções das _memórias de configuração_ ou _memórias de opção_ **apenas** estendendo os tipos `DefineStoreOptions` e `DefineSetupStoreOptions` respetivamente.
 :::
 
-## Nuxt.js {#nuxt-js}
+## Nuxt.js %{#Nuxt-js}%
 
-Quando estiveres [utilizando a `pinia` junto da Nuxt](../ssr/nuxt), terás de criar uma [extensão de Nuxt](https://nuxt.com/docs/guide/directory-structure/plugins) primeiro. Isto dar-te-á acesso à instância de `pinia`:
+Quando [usamos a `pinia` em conjunto com a Nuxt](../ssr/nuxt), primeiro precisaremos criar uma [extensão de Nuxt](https://nuxt.com/docs/guide/directory-structure/plugins). Isto dar-nos-á à instância de `pinia`:
 
 ```ts
-// plugins/myPiniaPlugin.js
+// plugins/myPiniaPlugin.ts
 import { PiniaPluginContext } from 'pinia'
 
 function MyPiniaPlugin({ store }: PiniaPluginContext) {
   store.$subscribe((mutation) => {
-    // reage as mudanças da memória
+    // reagir às mudanças da memória
     console.log(`[🍍 ${mutation.storeId}]: ${mutation.type}.`)
   })
 
-  // Nota que isto precisa ser tipado caso estiveres utilizando TypeScript
+  // Nota que isto precisa ser tipificado se usamos TypeScript
   return { creationTime: new Date() }
 }
 
@@ -414,11 +431,11 @@ export default defineNuxtPlugin(({ $pinia }) => {
 })
 ```
 
-Nota que o exemplo acima está utilizando TypeScript, precisas remover as anotações de tipos `PiniaPluginContext` e `Plugin` bem como as importações delas caso estiveres utilizando um ficheiro `.js`.
+Nota que o exemplo acima usa a TypeScript, precisamos remover as anotações de tipo `PiniaPluginContext` e `Plugin` bem como suas importações se usarmos um ficheiro `.js`.
 
-### Nuxt.js 2 {#nuxt-js-2}
+### Nuxt.js 2 %{#Nuxt-js-2}%
 
-Se estivermos a usar a Nuxt.js 2, os tipos são ligeiramente diferentes:
+Se usamos a Nuxt.js 2, os tipos são ligeiramente diferentes:
 
 ```ts
 // plugins/myPiniaPlugin.ts
@@ -427,11 +444,11 @@ import { Plugin } from '@nuxt/types'
 
 function MyPiniaPlugin({ store }: PiniaPluginContext) {
   store.$subscribe((mutation) => {
-    // reage as mudanças da memória
+    // reagir às mudanças da memória
     console.log(`[🍍 ${mutation.storeId}]: ${mutation.type}.`)
   })
 
-  // Nota que isto precisa ser tipado caso estiveres utilizando TypeScript
+  // Nota que isto precisa ser tipificado se usamos TypeScript
   return { creationTime: new Date() }
 }
 
