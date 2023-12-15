@@ -1,4 +1,4 @@
-# Definindo uma Memória (ou, `store`) %{#defining-a-store}%
+# Definindo uma Memória %{#defining-a-store}%
 
 <VueSchoolLink
   href="https://vueschool.io/lessons/define-your-first-pinia-store"
@@ -143,7 +143,7 @@ const doubleValue = computed(() => store.doubleCount)
 </script>
 ```
 
-## Desestruturando a partir duma Memória %{#destructuring-from-a-store}%
+## Desestruturando uma Memória %{#destructuring-from-a-store}%
 
 No sentido de extrair propriedades da memória enquanto preservamos a sua reatividade, precisamos usar a `storeToRefs()`. Esta criará referências para todas as propriedades reativas. Isto é útil quando estamos apenas a usar o estado da memória mas não estamos a chamar nenhuma ação. Nota que podemos desestruturar as ações diretamente da memória já que também estão vinculadas à própria memória:
 
