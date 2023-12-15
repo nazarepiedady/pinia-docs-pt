@@ -70,25 +70,25 @@ export const ptConfig: LocaleSpecificConfig<DefaultTheme.Config> = {
           items: [
             {
               text: 'Que é Pinia?',
-              link: '/introduction.html',
+              link: '/introduction',
             },
             {
               text: 'Começar',
-              link: '/getting-started.html',
+              link: '/getting-started',
             },
           ],
         },
         {
           text: 'Conceitos Principais',
           items: [
-            { text: 'Memória', link: '/core-concepts/' },
-            { text: 'Estado', link: '/core-concepts/state.html' },
-            { text: 'Recuperadores', link: '/core-concepts/getters.html' },
-            { text: 'Ações', link: '/core-concepts/actions.html' },
-            { text: 'Extensões', link: '/core-concepts/plugins.html' },
+            { text: 'Definindo a Memória', link: '/core-concepts/' },
+            { text: 'Estado', link: '/core-concepts/state' },
+            { text: 'Recuperadores', link: '/core-concepts/getters' },
+            { text: 'Ações', link: '/core-concepts/actions' },
+            { text: 'Extensões', link: '/core-concepts/plugins' },
             {
-              text: 'Memórias fora dos Componentes',
-              link: '/core-concepts/outside-component-usage.html',
+              text: 'Memória Fora do Componente',
+              link: '/core-concepts/outside-component-usage',
             },
           ],
         },
@@ -101,7 +101,7 @@ export const ptConfig: LocaleSpecificConfig<DefaultTheme.Config> = {
             },
             {
               text: 'Nuxt.js',
-              link: '/ssr/nuxt.html',
+              link: '/ssr/nuxt',
             },
           ],
         },
@@ -115,35 +115,35 @@ export const ptConfig: LocaleSpecificConfig<DefaultTheme.Config> = {
             },
             {
               text: 'Migração da Vuex ≤4',
-              link: '/cookbook/migration-vuex.html',
+              link: '/cookbook/migration-vuex',
             },
             {
               text: 'Substituição de Módulo Instantânea',
-              link: '/cookbook/hot-module-replacement.html',
+              link: '/cookbook/hot-module-replacement',
             },
             {
               text: 'Testes',
-              link: '/cookbook/testing.html',
+              link: '/cookbook/testing',
             },
             {
               text: 'Uso sem setup()',
-              link: '/cookbook/options-api.html',
+              link: '/cookbook/options-api',
             },
             {
-              text: 'Composição de Memórias',
-              link: '/cookbook/composing-stores.html',
+              text: 'Compondo Memórias',
+              link: '/cookbook/composing-stores',
             },
             {
               text: 'Trechos de VSCode',
-              link: '/cookbook/vscode-snippets.html',
+              link: '/cookbook/vscode-snippets',
             },
             {
               text: 'Migração da v0/v1 à v2',
-              link: '/cookbook/migration-v1-v2.html',
+              link: '/cookbook/migration-v1-v2',
             },
             {
               text: 'Lidando com as Composições',
-              link: '/cookbook/composables.html',
+              link: '/cookbook/composables',
             },
           ],
         },
