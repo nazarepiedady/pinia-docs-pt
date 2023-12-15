@@ -1,6 +1,11 @@
-# Recuperadores (`getters`) {#getters}
+# Recuperadores %{#Getters}%
 
-Os recuperadores são exatamente o equivalente dos [valores computados](https://v3.vuejs.org/guide/reactivity-computed-watchers.html#computed-values) para o estado de uma Memória. Eles podem ser definidos com a propriedade `getters` dentro de `defineStore()`. Eles recebem o `state` como primeiro parâmetro **para encorajar** o uso de uma função em flecha:
+<VueSchoolLink
+  href="https://vueschool.io/lessons/getters-in-pinia"
+  title="Aprenda tudo sobre os recuperadores na Pinia"
+/>
+
+Os recuperadores são exatamente os equivalentes dos [valores computados](https://pt.vuejs.org/guide/essentials/computed) para o estado duma memória. Estes podem ser definidos com a propriedade `getters` na `defineStore()`. Estes recebem o `state` como primeiro parâmetro **para encorajar** o uso da função de flecha:
 
 ```js
 export const useCounterStore = defineStore('counter', {
@@ -13,7 +18,7 @@ export const useCounterStore = defineStore('counter', {
 })
 ```
 
-Na maioria das vezes, os recuperadores apenas dependerão do estado, no entanto, eles podem precisar utilizar outros recuperadores. Por causa disto, nós podemos ter acesso a _instância da memória inteira_ através do `this` quando estivermos definindo uma função regular **porém é necessário definir o tipo do tipo de retorno (na TypeScript)**. Isto por causa de a uma limitação conhecida em TypeScript e que **não afeta os recuperadores definidos com uma função em flecha e nem recuperadores que não estão utilizando `this`**:
+Na maioria das vezes, os recuperadores apenas dependerão do estado, no entanto, podem precisar usar outros recuperadores. Por causa disto, podemos obter acesso à _instância da memória inteira_ através da `this` quando definimos uma função normal **mas é necessário definir o tipo do tipo do retorno (na TypeScript)**. Isto devido a uma limitação conhecida na TypeScript e **não afeta os recuperadores definidos com uma função de flecha nem os recuperadores que não usam `this`**:
 
 ```ts
 export const useCounterStore = defineStore('counter', {
@@ -21,40 +26,36 @@ export const useCounterStore = defineStore('counter', {
     count: 0,
   }),
   getters: {
-    // infere automaticamente o tipo de retorno como um número
+    // infere automaticamente o tipo do retorno como um número
     doubleCount(state) {
       return state.count * 2
     },
-    // o tipo de retorno **deve** ser definido explicitamente
+    // o tipo do retorno **deve** ser definido explicitamente
     doublePlusOne(): number {
-      // conclusão automática e tipos para a memória inteira ✨
+      // conclusão automática e tipificações para a memória inteira ✨
       return this.doubleCount + 1
     },
   },
 })
 ```
 
-A seguir podes acessar o recuperador diretamente na instância da memória:
+Depois podemos acessar o recuperador diretamente sobre a instância da memória:
 
 ```vue
+<script setup>
+import { useCounterStore } from './counterStore'
+
+const store = useCounterStore()
+</script>
+
 <template>
   <p>Double count is {{ store.doubleCount }}</p>
 </template>
-
-<script>
-export default {
-  setup() {
-    const store = useCounterStore()
-
-    return { store }
-  },
-}
-</script>
 ```
 
-## Acessando outros recuperadores {#accessing-other-getters}
+## Acessando outros Recuperadores %{#Accessing-other-getters}%
 
-Tal como com as propriedades computadas, tu podes combinar vários recuperadores. Acessar qualquer outro recuperador através do `this`. Mesmo que não estejas utilizando a TypeScript, podes sugerir os tipos à tua IDE com a [JSDoc](https://jsdoc.app/tags-returns.html):
+Tal como acontece com as propriedades computadas, podemos combinar vários recuperadores. Acessar qualquer outro recuperador através da `this`. Mesmo se estivermos usando a TypeScript, podemos sugerir ao nosso ambiente de desenvolvimento integrado os tipos com a [JSDoc](https://jsdoc.app/tags-returns.html):
 
 ```js
 export const useCounterStore = defineStore('counter', {
@@ -62,10 +63,12 @@ export const useCounterStore = defineStore('counter', {
     count: 0,
   }),
   getters: {
-    // o tipo é inferido automaticamente porque não estamos utilizando o `this`
+    // o tipo é inferido automaticamente porque
+    // não estamos usando a `this`
     doubleCount: (state) => state.count * 2,
-    // aqui precisamos adicionar o tipo nós mesmos (utilizando JSDoc em JavaScript).
-    // Também podemos utilizar isto para documentar o recuperador
+    // Neste precisamos adicionar o tipo nós mesmos
+    // (usando a JSDoc na JavaScript).
+    // Também podemos usar isto para documentar o recuperador
     /**
      * Returns the count value times two plus one.
      *
@@ -79,9 +82,9 @@ export const useCounterStore = defineStore('counter', {
 })
 ```
 
-## Passando argumentos para os recuperadores {#passing-arguments-to-getters}
+## Passando Argumentos aos Recuperadores %{#Passing-arguments-to-getters}%
 
-Nos bastidores os _recuperadores_ são apenas propriedades _computadas_, então não é possível passar quaisquer parâmetros para eles. Contudo, tu podes retornar uma função do _recuperador_ para aceitar quaisquer argumentos:
+Nos bastidores os _recuperadores_ são apenas propriedades _computadas_, então não possível passar quaisquer parâmetros às mesmas. No entanto, podemos retornar uma função do _recuperador_ para aceitar quaisquer argumentos:
 
 ```js
 export const useStore = defineStore('main', {
@@ -93,17 +96,17 @@ export const useStore = defineStore('main', {
 })
 ```
 
-e utilizar no componente:
+e usar no componente:
 
 ```vue
-<script>
-export default {
-  setup() {
-    const store = useStore()
+<script setup>
+import { storeToRefs } from 'pinia'
+import { useUserListStore } from './store'
 
-    return { getUserById: store.getUserById }
-  },
-}
+const userList = useUserListStore()
+const { getUserById } = storeToRefs(userList)
+// nota que precisaremos usar `getUserById.value`
+// para acessar a função dentro do `<script setup>`
 </script>
 
 <template>
@@ -111,7 +114,7 @@ export default {
 </template>
 ```
 
-Nota que quando estiveres fazendo isto, os **recuperadores não são mais cacheados**, eles são simplesmente funções que invocas. No entanto podes cachear alguns resultados dentro do próprio recuperador, o que é incomum mas prova-se ter mais desempenho:
+Nota que quando fazemos isto, os **recuperadores já não são armazenados para consulta imediata**, são simplesmente função invocamos. No entanto, podemos armazenar para consulta imediata alguns resultados dentro do próprio recuperador, que é incomum mas é mais otimizado:
 
 ```js
 export const useStore = defineStore('main', {
@@ -124,9 +127,9 @@ export const useStore = defineStore('main', {
 })
 ```
 
-## Acessando outros recuperadores de memórias {#accessing-other-stores-getters}
+## Acessando Recuperadores das Outras Memórias %{#Accessing-other-stores-getters}%
 
-Para utilizar os outros recuperadores de memória, tu podes _utilizá-los_ diretamente dentro do _recuperador_:
+Para usarmos os recuperadores duma outra memória, podemos _usá-los_ diretamente dentro do _recuperador_:
 
 ```js
 import { useOtherStore } from './other-store'
@@ -144,82 +147,91 @@ export const useStore = defineStore('main', {
 })
 ```
 
-## Utilização com `setup()` {#usage-with-setup}
+## Uso com `setup()` %{#Usage-with-setup-}%
 
-Tu podes acessar diretamente qualquer recuperador como uma propriedade da memória (exatamente como as propriedades de estado):
+Nós podemos acessar diretamente qualquer recuperador como uma propriedade da memória (exatamente como as propriedades de estado):
 
-```js
-export default {
-  setup() {
-    const store = useCounterStore()
+```vue
+<script setup>
+const store = useCounterStore()
 
-    store.count = 3
-    store.doubleCount // 6
-  },
-}
+store.count = 3
+store.doubleCount // 6
+</script>
 ```
 
-## Utilização com a API de Opções {#usage-with-the-options-api}
+## Uso com a API de Opções %{#Usage-with-the-Options-API}%
 
-Para os seguintes exemplos, podes assumir que a seguinte memória foi criada:
+<VueSchoolLink
+  href="https://vueschool.io/lessons/access-pinia-getters-in-the-options-api"
+  title="Acessar os Recuperadores da Pinia através da API de Opções"
+/>
+
+Para os seguintes exemplos, podemos assumir que a seguinte memória foi criada:
 
 ```js
 // Caminho do Ficheiro de Exemplo:
 // ./src/stores/counterStore.js
 
-import { defineStore } from 'pinia',
+import { defineStore } from 'pinia'
 
-const useCounterStore = defineStore('counter', {
+export const useCounterStore = defineStore('counter', {
   state: () => ({
-    count: 0
+    count: 0,
   }),
   getters: {
-    doubleCounter(state) {
+    doubleCount(state) {
       return state.count * 2
-    }
-  }
+    },
+  },
 })
 ```
 
-### Com `setup()` {#with-setup}
+### Usando com a `setup()` %{#With-setup-}%
 
-Apesar de a API de Composição não ser para todos, o gatilho `setup()` pode tornar a Pinia mais fácil de se trabalhar dentro da API de Opções. Sem a necessidade de funções auxiliares de delinear adicionais!
+Embora a API de Composição não seja para todos, a função gatilho `setup()` pode facilitar o uso da Pinia dentro da API de Opções. Sem a necessidade de funções auxiliares mapeamento adicionais!
 
-```js
-import { useCounterStore } from '../stores/counterStore'
+```vue
+<script>
+import { useCounterStore } from '../stores/counter'
 
-export default {
+export default defineComponent({
   setup() {
     const counterStore = useCounterStore()
 
+    // **retornar apenas a memória inteira**
+    // ao invés de desestruturar
     return { counterStore }
   },
   computed: {
     quadrupleCounter() {
-      return this.counterStore.doubleCounter * 2
+      return this.counterStore.doubleCount * 2
     },
   },
-}
+})
+</script>
 ```
 
-### Sem `setup()` {#without-setup}
+### Usando sem a `setup()` %{#Without-setup-}%
 
-Tu podes utilizar a mesma função `mapState()` utilizada na [secção anterior do estado](./state.md#utilização-com-a-api-de-opções) para delinear um caminho até os recuperadores:
+Nós podemos usar a mesma função `mapState` usada na [seção anterior do estado](./state#Usage-with-the-Options-API) para mapear os recuperadores:
 
 ```js
 import { mapState } from 'pinia'
-import { useCounterStore } from '../stores/counterStore'
+import { useCounterStore } from '../stores/counter'
 
 export default {
   computed: {
     // dá acesso ao `this.doubleCounter` dentro do componente
     // o mesmo que ler a partir de `store.doubleCounter`
-    ...mapState(useCounterStore, ['doubleCount'])
-    // o mesmo que acima exceto de regista-o como `this.myOwnName`
+    ...mapState(useCounterStore, ['doubleCount']),
+    // o mesmo que acima exceto que a regista como
+    // `this.myOwnName`
     ...mapState(useCounterStore, {
-      myOwnName: 'doubleCounter',
-      // também podes escrever uma função que recebe acesso à memória
-      double: store => store.doubleCount,
+      myOwnName: 'doubleCount',
+      // também podemos escrever uma função que
+      // recebe o acesso à memória
+      double: (store) => store.doubleCount,
     }),
   },
 }
