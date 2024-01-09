@@ -303,7 +303,7 @@ export function myPiniaPlugin(context: PiniaPluginContext) {
 }
 ```
 
-### Tipificando Novas Propriedades da Memória {#Typing-new-store-properties}
+### Tipificando Novas Propriedades da Memória %{#Typing-new-store-properties}%
 
 Quando adicionamos novas propriedades à memória, também devemos estender a interface `PiniaCustomProperties`:
 
