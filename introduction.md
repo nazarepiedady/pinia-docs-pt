@@ -7,7 +7,7 @@
 
 A Pinia [começou](https://github.com/vuejs/pinia/commit/06aeef54e2cad66696063c62829dac74e15fd19e) como um experimento para redesenhar o que uma memória para Vue se pareceria com a [API de Composição](https://github.com/vuejs/composition-api) por volta de Novembro de 2019. Desde então, os princípios iniciais continuaram os mesmos, exceto que a Pinia funciona para ambas Vue 2 e Vue 3 **e não obriga-nos a usar a API de composição**. A API é a mesma para ambas exceto para a _instalação_ e _interpretação do lado do servidor_, e estas documentações são dirigidas para Vue 3 **com notas sobre a Vue 2** sempre que necessário assim esta pode ser lido pelos utilizadores da Vue 2 e Vue 3!
 
-## Porquê Eu Deveria Usar a Pinia? %{#why-should-i-use-pinia}%
+## Por que Deveria Usar a Pinia? %{#why-should-i-use-pinia}%
 
 A Pinia é uma biblioteca de memória para Vue, permite-nos partilhar um estado entre os componentes ou páginas. Se estivermos familiarizados com a API de Composição, podemos estar a pensar que já podemos partilhar um estado global com uma simples `export const state = reactive({})`. Isto pode ser verdade para aplicações de página única, mas **expõe as nossas aplicações às [vulnerabilidades de segurança](https://pt.vuejs.org/guide/scaling-up/ssr#cross-request-state-pollution)** se esta for interpretada do lado do servidor. Porém mesmo em aplicações de página única pequenas, ganhamos muito a partir do uso da Pinia:
 
