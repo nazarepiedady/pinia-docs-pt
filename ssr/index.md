@@ -59,7 +59,7 @@ onServerPrefetch(async () => {
 
 ## Hidratação do Estado %{#State-hydration}%
 
-Para hidratar o estado inicial, precisamos certificar-nos de que o estado de raiz está incluída em algum lugar no HTML para Pinia pegá-lo mais tarde. Dependendo daquilo que estivermos usando para Interpretação do Lado do Servidor, **devemos escapar o estado por razões de segurança**. Nós recomendamos usar a [`@nuxt/devalue]`(https://github.com/nuxt-contrib/devalue) que é aquela usada pela Nuxt.js:
+Para hidratar o estado inicial, precisamos certificar-nos de que o estado de raiz está incluída em algum lugar no HTML para Pinia pegá-lo mais tarde. Dependendo daquilo que estivermos usando para Interpretação do Lado do Servidor, **devemos escapar o estado por razões de segurança**. Nós recomendamos usar a [`@nuxt/devalue`](https://github.com/nuxt-contrib/devalue) que é aquela usada pela Nuxt.js:
 
 ```js
 import devalue from '@nuxt/devalue'
