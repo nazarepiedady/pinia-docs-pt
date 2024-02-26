@@ -1,6 +1,6 @@
-# Lidando com Constituíveis
+# Lidando com Funções de Composição {#Dealing-with-Composables}
 
-[Constituíveis (Composables, termo em Inglês)](https://vuejs.org/guide/reusability/composables.html#composables) são funções que entregam a API de Composição de Vue para encapsular e reutilizar a lógica estabelecida. Quer escrevas a tua própria, utilizes [bibliotecas externas](https://vueuse.org/) ou faças ambas, tu podes utilizar completamente o poder das Constituíveis nas tuas memórias de `pinia`.
+As [funções de composição](https://pt.vuejs.org/guide/reusability/composables#composables) são funções aproveitam a API de Composição da Vue para encapsular e reutilizar a lógica com estado. Quer escrevamos as nossas próprias bibliotecas, usemos [bibliotecas externas](https://vueuse.org/) ou façamos ambas, podemos usar plenamente o poder das funções de composição nas nossas memórias da pinia.
 
 ## Memórias Baseadas em Opções
 
