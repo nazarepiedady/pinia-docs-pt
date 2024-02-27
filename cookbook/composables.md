@@ -2,9 +2,9 @@
 
 As [funções de composição](https://pt.vuejs.org/guide/reusability/composables#composables) são funções aproveitam a API de Composição da Vue para encapsular e reutilizar a lógica com estado. Quer escrevamos as nossas próprias bibliotecas, usemos [bibliotecas externas](https://vueuse.org/) ou façamos ambas, podemos usar plenamente o poder das funções de composição nas nossas memórias da pinia.
 
-## Memórias Baseadas em Opções
+## Memórias de Opções {#Option-Stores}
 
-Quando estiveres definindo uma memória baseada opções, tu podes chamar uma constituível dentro da propriedade `state`:
+Quando definimos uma memória de opções, podemos chamar função de composição dentro da propriedade `state`:
 
 ```ts
 export const useAuthStore = defineStore('auth', {
@@ -14,16 +14,16 @@ export const useAuthStore = defineStore('auth', {
 })
 ```
 
-Lembre-se de que **só podes retornar estado gravável** (por exemplo, uma `ref()`). Cá está alguns exemplos de constituíveis que podes utilizar:
+Tenha em mente que **só podemos retornar estado gravável** (por exemplo, uma `ref()`). Eis alguns exemplos de funções de composição que podemos usar:
 
 - [`useLocalStorage`](https://vueuse.org/core/useLocalStorage/)
 - [`useAsyncState`](https://vueuse.org/core/useAsyncState/)
 
-Cá está alguns exemplos de constituíveis que não podem ser utilizadas em memórias baseadas em opções (mas podem ser utilizadas com memórias baseadas em composições):
+Eis alguns exemplos de funções de composição que não podem ser usadas em memórias de opções (mas podem ser usadas com as memórias de configuração):
 
 - [`useMediaControls`](https://vueuse.org/core/useMediaControls/): expõe funções
-- [`useMemoryInfo`](https://vueuse.org/core/useMemory/): expõe dados de somente leitura
-- [`useEyeDropper`](https://vueuse.org/core/useEyeDropper/): expõe dados e funções de somente leitura
+- [`useMemoryInfo`](https://vueuse.org/core/useMemory/): expõe dados que só podem ser lidos
+- [`useEyeDropper`](https://vueuse.org/core/useEyeDropper/): expõe dados e funções que só podem ser lidos
 
 ## Memórias Baseadas em Composições
 
