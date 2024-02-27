@@ -25,29 +25,32 @@ Eis alguns exemplos de funções de composição que não podem ser usadas em me
 - [`useMemoryInfo`](https://vueuse.org/core/useMemory/): expõe dados que só podem ser lidos
 - [`useEyeDropper`](https://vueuse.org/core/useEyeDropper/): expõe dados e funções que só podem ser lidos
 
-## Memórias Baseadas em Composições
+## Memórias de Configuração {#Setup-Stores}
 
-Por outro lado, quando estiveres definindo uma memória baseada em composições, tu podes utilizar quase qualquer constituível desde que toda propriedade seja discernida dentro do estado, da ação, ou recuperador:
+Por outro lado, ao definir uma memória de configuração, podemos usar quase qualquer função de composição, uma vez que cada propriedade é discernida por um estado, uma ação ou recuperadora: 
 
 ```ts
 import { defineStore, skipHydrate } from 'pinia'
 import { useMediaControls } from '@vueuse/core'
 
 export const useVideoPlayer = defineStore('video', () => {
-  // não iremos expor este elemento diretamente
+  // não exporemos (retornaremos) este elemento diretamente
   const videoElement = ref<HTMLVideoElement>()
   const src = ref('/data/video.mp4')
   const { playing, volume, currentTime, togglePictureInPicture } =
-    useMediaControls(video, { src })
+    useMediaControls(videoElement, { src })
+
   function loadVideo(element: HTMLVideoElement, src: string) {
     videoElement.value = element
     src.value = src
   }
+
   return {
     src,
     playing,
     volume,
     currentTime,
+
     loadVideo,
     togglePictureInPicture,
   }
