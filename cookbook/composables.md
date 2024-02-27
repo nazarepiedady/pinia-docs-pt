@@ -57,7 +57,11 @@ export const useVideoPlayer = defineStore('video', () => {
 })
 ```
 
-## SSR
+:::warning AVISO
+Diferente do estado normal, `ref<HTMLVideoElement>()` contém uma referência que não é normalizável para o elemento do DOM. É por isso que não a retornamos diretamente. Já que é um estado apenas para o cliente, sabemos que este não será definido no servidor e **sempre** começará como `undefined` no cliente.
+:::
+
+## Interpretação do Lado do Servidor {#SSR}
 
 Quando estiveres lidando com a [Interpretação no Lado do Servidor (SSR, sigla em Inglês)](../ssr/index.md), tu precisas considerar algumas etapas extras para utilizares os constituíveis dentro das tuas memórias.
 
