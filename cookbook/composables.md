@@ -63,9 +63,9 @@ Diferente do estado normal, `ref<HTMLVideoElement>()` contém uma referência qu
 
 ## Interpretação do Lado do Servidor {#SSR}
 
-Quando estiveres lidando com a [Interpretação no Lado do Servidor (SSR, sigla em Inglês)](../ssr/index.md), tu precisas considerar algumas etapas extras para utilizares os constituíveis dentro das tuas memórias.
+Quando lidamos com a [Interpretação do Lado do Servidor](../ssr/index), precisamos de ter em atenção alguns passos adicionais para podermos usar as funções de composição nas nossas memórias.
 
-Nas [Memórias baseadas em Opções](#memórias-baseadas-em-opções), tu precisas definir uma função `hydrate()`. Esta função é chamada quando a memória for instanciada no cliente (o navegador) quando houver um estado inicial disponível no momento em que a memória for criada. A razão de nós precisarmos definir esta função é que em tal cenário, `state()` não é chamada.
+Nas [Memórias de Opções](#Option-Stores), precisamos definir uma função `hydrate()`. Esta função é chamada quando uma memória é instanciada no cliente (o navegador) quando existe um estado inicial disponível no momento em que a memória é criada. A razão pela qual precisamos definir essa função é porque, neste cenário, `state()` não é chamada:
 
 ```ts
 import { defineStore, skipHydrate } from 'pinia'
@@ -75,15 +75,16 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: useLocalStorage('pinia/auth/login', 'bob'),
   }),
+
   hydrate(state, initialState) {
-    // neste caso podemos ignorar completamente o estado inicial
-    // visto que queremos ler o valor a partir do navegador
+    // neste caso, podemos ignorar completamente o estado
+    // inicial, uma vez que queremos ler o valor do navegador
     state.user = useLocalStorage('pinia/auth/login', 'bob')
   },
 })
 ```
 
-Nas [Memórias baseadas em Composições](#memórias-baseadas-em-composições), tu precisas utilizar um auxiliar com o nome `skipHydrate()` em qualquer propriedade de estado que não deveria ser buscada no estado inicial. Diferentemente das memórias baseadas em opções, as memórias baseadas em composições só não podem _ignorar a chamada de `state()`_, então nós marcamos as propriedades que não podem ser hidratadas com `skipHydrate()`. Nota que isto só se aplica às propriedades reativas graváveis:
+Nas [Memórias de Configuração](#Setup-Stores), precisamos usar uma auxiliar chamada `skipHydrate()` em qualquer propriedade de estado que não deva ser retirada do estado inicial. Diferentemente das memórias de opções, as memórias de configuração não podem simplesmente _pular a chamada `state()`_, então marcamos as propriedades que não podem ser hidratadas com `skipHydrate()`. Nota que isto só se aplica as propriedades reativas graváveis:
 
 ```ts
 import { defineStore, skipHydrate } from 'pinia'
@@ -95,8 +96,8 @@ export const useColorStore = defineStore('colors', () => {
   // ...
   return {
     lastColor: skipHydrate(lastColor), // Ref<string>
-    open, // Função
-    isSupported, // booleano (não sequer é reativo)
+    open, // Function
+    isSupported, // boolean (nem sequer reativo)
   }
 })
 ```
