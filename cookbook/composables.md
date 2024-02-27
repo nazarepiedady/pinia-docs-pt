@@ -1,8 +1,8 @@
-# Lidando com Funções de Composição {#Dealing-with-Composables}
+# Lidando com Funções de Composição %{#Dealing-with-Composables}%
 
 As [funções de composição](https://pt.vuejs.org/guide/reusability/composables#composables) são funções aproveitam a API de Composição da Vue para encapsular e reutilizar a lógica com estado. Quer escrevamos as nossas próprias bibliotecas, usemos [bibliotecas externas](https://vueuse.org/) ou façamos ambas, podemos usar plenamente o poder das funções de composição nas nossas memórias da pinia.
 
-## Memórias de Opções {#Option-Stores}
+## Memórias de Opções %{#Option-Stores}%
 
 Quando definimos uma memória de opções, podemos chamar função de composição dentro da propriedade `state`:
 
@@ -25,7 +25,7 @@ Eis alguns exemplos de funções de composição que não podem ser usadas em me
 - [`useMemoryInfo`](https://vueuse.org/core/useMemory/): expõe dados que só podem ser lidos
 - [`useEyeDropper`](https://vueuse.org/core/useEyeDropper/): expõe dados e funções que só podem ser lidos
 
-## Memórias de Configuração {#Setup-Stores}
+## Memórias de Configuração %{#Setup-Stores}%
 
 Por outro lado, ao definir uma memória de configuração, podemos usar quase qualquer função de composição, uma vez que cada propriedade é discernida por um estado, uma ação ou recuperadora: 
 
@@ -61,7 +61,7 @@ export const useVideoPlayer = defineStore('video', () => {
 Diferente do estado normal, `ref<HTMLVideoElement>()` contém uma referência que não é normalizável para o elemento do DOM. É por isso que não a retornamos diretamente. Já que é um estado apenas para o cliente, sabemos que este não será definido no servidor e **sempre** começará como `undefined` no cliente.
 :::
 
-## Interpretação do Lado do Servidor {#SSR}
+## Interpretação do Lado do Servidor %{#SSR}%
 
 Quando lidamos com a [Interpretação do Lado do Servidor](../ssr/index), precisamos de ter em atenção alguns passos adicionais para podermos usar as funções de composição nas nossas memórias.
 
