@@ -1,4 +1,4 @@
-# Substituição de Módulo Instantânea {#HMR-Hot-Module-Replacement-}
+# Substituição de Módulo Instantânea %{#HMR-Hot-Module-Replacement-}%
 
 A Pinia suporta a substituição de módulo instantânea para podermos editar as nossas memórias e interagir com estas diretamente na nossa aplicação sem recarregar a página, permitindo-nos manter o estado existente, adicionar, ou mesmo remover estado, ações e recuperadores.
 
