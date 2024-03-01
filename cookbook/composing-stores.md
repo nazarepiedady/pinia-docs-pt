@@ -1,18 +1,20 @@
-# Compondo Memórias
+# Compondo Memórias %{#Composing-Stores}%
 
-A composição de memórias tem haver com memórias que se utilizam umas as outras, e isto é suportado na Pinia. Há uma regra à seguir:
+A composição de memórias consiste em ter memórias que se utilizam umas às outras, e isto é suportado na Pinia. Existe uma regra a seguir:
 
-Se **duas ou mais memórias se utilizarem uma à outra**, elas não podem criar um desvio infinito por meio dos _recuperadores (`getters`)_ ou _ações (`actions`)_. Elas não podem **ambas** diretamente ler o estado de uma da outra em suas funções de configuração:
+Se **duas ou mais memórias se utilizarem mutuamente**, não podem criar um ciclo infinito através de _recuperadores (`getters`)_ ou _ações (`actions`)_. Não podem **ambas** ler diretamente o estado uma da outra na sua função de configuração:
 
 ```js
 const useX = defineStore('x', () => {
   const y = useY()
 
-  // ❌ Isto não é possível porque `y` também tenta ler `x.name`
+  // ❌ Isto não é possível porque
+  // `y` também tenta ler `x.name`
   y.name
 
   function doSomething() {
-    // ✅ Leia as propriedades de `y` em computadas (`computed`) ou ações (`actions`)
+    // ✅ Ler propriedades de `y` em
+    // computadas (`computed`) ou ações (`actions`)
     const yName = y.name
     // ...
   }
@@ -25,11 +27,13 @@ const useX = defineStore('x', () => {
 const useY = defineStore('y', () => {
   const x = useX()
 
-  // ❌ Isto não é possível porque `x` também tenta ler `y.name`
+  // ❌ Isto não é possível porque
+  // `x` também tenta ler `y.name`
   x.name
 
   function doSomething() {
-    // ✅ Leia as propriedades de `x` em computadas (`computed`) ou ações (`actions`)
+    // ✅ Ler propriedades de `x` em
+    // computadas (`computed`) ou ações (`actions`)
     const xName = x.name
     // ...
   }
