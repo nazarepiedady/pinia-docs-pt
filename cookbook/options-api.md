@@ -55,24 +55,24 @@ setMapStoreSuffix('_store')
 export const pinia = createPinia()
 ```
 
-## TypeScript
+## TypeScript %{#TypeScript}%
 
-Por padrão, todos auxiliares de delinear (mapa, em outras palavras) suportam a conclusão automática e tu não precisas fazer nada. Se chamares `setMapStoreSuffix()` para mudar o sufixo `"Store"`, precisarás também adicioná-lo em algum lugar em um ficheiro TypeScript ou no teu ficheiro `global.d.ts`. O lugar mais conveniente seria o mesmo lugar onde tu chamas `setMapStoreSuffix()`:
+Por padrão, todos os auxiliares de mapas suportam o conclusão automática da escrita de código e não precisamos de fazer nada. Se chamarmos `setMapStoreSuffix()` para alterar o sufixo `"Store"`, precisaremos também adicioná-lo em algum lugar num ficheiro de TypeScript ou no nosso ficheiro `global.d.ts`. O local mais conveniente seria o mesmo local onde chamamos `setMapStoreSuffix()`:
 
 ```ts
 import { createPinia, setMapStoreSuffix } from 'pinia'
 
-setMapStoreSuffix('') // remova completamente o sufixo
+setMapStoreSuffix('') // remover completamente o sufixo
 export const pinia = createPinia()
 
 declare module 'pinia' {
   export interface MapStoresCustomization {
-    // define-a para o mesmo valor que o de cima
+    // definir o mesmo valor que o anterior
     suffix: ''
   }
 }
 ```
 
-:::warning
-Se estiveres utilizando um ficheiro de declaração de TypeScript (tipo `global.d.ts`), certifique-te de `importar 'pinia'` no inicio dele para expor todos tipos existentes.
+:::warning AVISO
+Se estivermos a usar um ficheiro de declaração da TypeScript (como `global.d.ts`), temos de nos certificar de importarmos `'pinia'` no topo do ficheiro para expor todos os tipos existentes.
 :::
