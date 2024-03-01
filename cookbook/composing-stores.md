@@ -88,7 +88,7 @@ export const useCartStore = defineStore('cart', {
 })
 ```
 
-## Ações Partilhadas
+## Ações Partilhadas %{#Shared-Actions}%
 
 O mesmo se aplica às _ações_:
 
@@ -103,7 +103,7 @@ export const useCartStore = defineStore('cart', {
 
       try {
         await apiOrderCart(user.token, this.items)
-        // um outra ação
+        // outra ação
         this.emptyCart()
       } catch (err) {
         displayError(err)
@@ -113,3 +113,28 @@ export const useCartStore = defineStore('cart', {
 })
 ```
 
+Uma vez que as ações podem ser assíncronas, temos de nos certificar que **todas as nossas chamadas de `useStore()`** aparecem antes de qualquer `await`. Caso contrário, isto poderia levar à utilização da instância errada de pinia _nas aplicações da interpretação do lado do servidor_:
+
+```js{7-8,11-13}
+import { defineStore } from 'pinia'
+import { useUserStore } from './user'
+
+export const useCartStore = defineStore('cart', {
+  actions: {
+    async orderCart() {
+      // ✅ chamar no topo da ação antes de qualquer `await`
+      const user = useUserStore()
+
+      try {
+        await apiOrderCart(user.token, this.items)
+        // ❌ chamada após uma instrução `await`
+        const otherStore = useOtherStore()
+        // outra ação
+        this.emptyCart()
+      } catch (err) {
+        displayError(err)
+      }
+    },
+  },
+})
+```
