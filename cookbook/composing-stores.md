@@ -44,20 +44,21 @@ const useY = defineStore('y', () => {
 })
 ```
 
-## Memórias Encaixadas
+## Memórias Encaixadas %{#Nested-Stores}%
 
-Nota que se uma memória utilizar uma outra memória, podes importar e chamar a função `useStore()` diretamente de dentro das _ações_ e _recuperadores_. A seguir podes interagir com a memória tal como farias de dentro de um componente de Vue. Consulte [Recuperadores Partilhados](#recuperadores-partilhados) e [Ações Partilhadas](#ações-partilhadas).
+Nota que se uma memória utiliza outra memória, podemos importar e chamar diretamente a função `useStore()` dentro das _ações (`actions`)_ e _recuperadores (`getters`)_. Depois, podemos interagir com a memória tal como a faríamos num componente de Vue. Consultar os [Recuperadores Partilhados](#Shared-Getters) e as [Ações Partilhadas](#Shared-Actions).
 
-Quando isto vem para _memórias baseadas em composição_, podes simplesmente utilizar uma das memórias **no inicio** da função de memória: 
+Quando se trata de _memórias de configuração_, podemos simplesmente usar uma das memórias **no topo** da função da memória:
 
 ```ts
 import { useUserStore } from './user'
 
 export const useCartStore = defineStore('cart', () => {
   const user = useUserStore()
+  const list = ref([])
 
   const summary = computed(() => {
-    return `Hi ${user.name}, you have ${state.list.length} items in your cart. It costs ${state.price}.`
+    return `Hi ${user.name}, you have ${list.value.length} items in your cart. It costs ${price.value}.`
   })
 
   function purchase() {
