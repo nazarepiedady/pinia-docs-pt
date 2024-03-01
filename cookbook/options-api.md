@@ -1,12 +1,12 @@
-# Utilização sem a `setup()`
+# Uso sem `setup` %{#Usage-without-setup-}%
 
-A pinia pode ser utilizada mesmo que não estejas utilizando a API de composição (se estiveres utilizando a Vue 2, mas ainda precisas instalar a extensão `@vue/composition-api`). Embora recomendamos-te dar uma chance a API de Composição e aprende-la, pode ainda não ser o teu momento e da tua equipa, podes estar em processo de migração de uma aplicação, ou qualquer outra razão. Existem algumas funções:
+A Pinia pode ser usada mesmo se não estivermos usando a API de composição (se estivermos usando a Vue <2.7, ainda precisamos instalar a extensão `@vue/composition-api`). Embora recomendemos que os programadores experimentem e aprendam a API de composição, pode não ser ainda a altura certa para alguns e para a sua equipa, alguns podem estar no processo de migração duma aplicação, ou qualquer outro motivo. Existem algumas funções:
 
-- [mapStores](#dando-acesso-à-memória-inteira)
-- [mapState](../core-concepts/state.md#utilização-com-a-api-de-opções)
-- [mapWritableState](../core-concepts/state.md#estado-modificável)
-- ⚠️ [mapGetters](../core-concepts/getters.md#sem-a-setup) (apenas por conveniência de migração, utilize de preferência a `mapState()`)
-- [mapActions](../core-concepts/actions.md#sem-a-setup)
+- [`mapStores`](#Giving-access-to-the-whole-store)
+- [`mapState`](../core-concepts/state#Usage-with-the-Options-API)
+- [`mapWritableState`](../core-concepts/state#Modifiable-state)
+- ⚠️ [`mapGetters`](../core-concepts/getters#Without-setup-) (apenas por conveniência de migração, recomendamos usar a `mapState()`)
+- [`mapActions`](../core-concepts/actions#Without-setup-)
 
 ## Dando acesso à memória inteira
 
