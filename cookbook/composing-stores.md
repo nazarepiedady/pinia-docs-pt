@@ -69,9 +69,9 @@ export const useCartStore = defineStore('cart', () => {
 })
 ```
 
-## Recuperadores Partilhados
+## Recuperadores Partilhados %{#Shared-Getters}%
 
-Tu podes chamar simplesmente `useOtherStore()` dentro de um _recuperador_:
+Nós podemos simplesmente chamar `useOtherStore()` dentro duma _recuperadora_:
 
 ```js
 import { defineStore } from 'pinia'
