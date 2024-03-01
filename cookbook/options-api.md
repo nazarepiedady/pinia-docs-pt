@@ -8,14 +8,14 @@ A Pinia pode ser usada mesmo se não estivermos usando a API de composição (se
 - ⚠️ [`mapGetters`](../core-concepts/getters#Without-setup-) (apenas por conveniência de migração, recomendamos usar a `mapState()`)
 - [`mapActions`](../core-concepts/actions#Without-setup-)
 
-## Dando acesso à memória inteira
+## Dar Acesso a Toda a Memória %{#Giving-access-to-the-whole-store}%
 
-Se precisares acessar tudo da memória, pode ser demasiado ter que delinear cada propriedade da memória... No lugar disto podes ter acesso à memória inteira com `mapStores()`:
+Se precisarmos de aceder a praticamente tudo a partir da memória, poderá ser demasiado complicado mapear todas as propriedades da memória... Em vez disso, podemos obter acesso a toda a memória com `mapStores()`:
 
 ```js
 import { mapStores } from 'pinia'
 
-// dada duas memórias com os seguintes ids
+// dadas duas memórias com os seguintes identificadores
 const useUserStore = defineStore('user', {
   // ...
 })
@@ -25,15 +25,14 @@ const useCartStore = defineStore('cart', {
 
 export default {
   computed: {
-    // repare que não estamos passando um arranjo,
-    // apenas uma memória depois de outra
-    // cada memória estará acessível como sua `id + 'Store'`
+    // nota que não passamos um vetor, apenas uma memória após outra
+    // cada memória será acessível como o seu identificador + 'Store'
     ...mapStores(useCartStore, useUserStore)
   },
 
   methods: {
     async buyStuff() {
-      // utilize-os em qualquer lugar!
+      // usá-las em qualquer lugar!
       if (this.userStore.isAuthenticated()) {
         await this.cartStore.buy()
         this.$router.push('/purchased')
@@ -43,14 +42,15 @@ export default {
 }
 ```
 
-Por padrão, a Pinia adicionará o sufixo `"Store"` ao `id` de cada memória. Tu podes personalizar este comportamento chamando o `setMapStoreSuffix()`:
+Por padrão, a Pinia adicionará o sufixo `"Store"` ao `id` de cada memória. Podemos personalizar este comportamento chamando a função `setMapStoreSuffix()`:
 
 ```js
 import { createPinia, setMapStoreSuffix } from 'pinia'
 
-// remova completamente o sufixo: `this.user`, `this.cart`
+// remover completamente o sufixo: `this.user`, `this.cart`
 setMapStoreSuffix('')
-// `this.user_store`, `this.cart_store` (está bem, eu não o julgo)
+// `this.user_store`, `this.cart_store`
+// (está tudo bem, não julgaremos ninguém)
 setMapStoreSuffix('_store')
 export const pinia = createPinia()
 ```
