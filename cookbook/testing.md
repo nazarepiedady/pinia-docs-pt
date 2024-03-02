@@ -1,23 +1,12 @@
-# Testando memórias
+# Testando Memórias %{#Testing-stores}%
 
-As memórias irão, por padrão, ser utilizadas em vários lugares e podem tornar a testagem muito mais difíceis do deveriam ser. Felizmente, este não precisa ser o caso. Nós precisamos tomar cuidado com três coisas quando estivermos testando as memórias:
+As memórias, por padrão, serão usados em vários lugares e podem tornar os testes muito mais difíceis do que deveriam ser. Felizmente, este não precisa ser o caso. Nós precisamos tomar cuidado com três coisas quando testamos as memórias:
 
-- A instância de `pinia`: As memórias não podem funcionar sem isto
-- `actions`: na maioria das vezes, elas contêm a lógica mais complexa de nossas memórias. Não seria bom se elas fossem simuladas por padrão?
-- Extensões: Se dependes de extensões, tu também terás de instalá-los para os testes.
+- A instância da `pinia`: As memórias não podem funcionar sem esta
+- `actions`: na maioria das vezes, estas contém a lógica mais complexa das nossas memórias. Não seria bom se estas fossem simuladas por padrão?
+- Extensões: Se dependemos de extensões, também poderemos instalá-las para testes.
 
-Dependendo do quê ou como estás testando, nós precisamos tomar cuidado com estes três de maneira diferente:
-
-- [Testando memórias](#testando-memórias)
-  - [Testagem unitária de uma memória](#testagem-unitária-de-uma-memória)
-  - [Testagem unitária de componentes](#testagem-unitária-de-componentes)
-    - [Estado Inicial](#estado-inicial)
-    - [Personalizando comportamento das ações](#personalizando-o-comportamento-das-ações)
-    - [Especificando a função createSpy](#especificando-a-função-createspy)
-    - [Simulando recuperadores](#simulando-recuperadores)
-    - [Extensões de Pinia](#extensões-de-pinia)
-  - [Testes E2E](#testes-e2e)
-  - [Testes unitário de componentes (Vue 2)](#teste-unitários-em-componentes-vue-2)
+Dependendo do quê ou como testamos, precisamos tomar cuidado com estas três coisas de maneira diferentes.
 
 ## Testagem unitária de uma memória
 
