@@ -187,15 +187,15 @@ createTestingPinia({
 
 Nós podemos encontrar mais exemplos nos [testes do pacote de testes](https://github.com/vuejs/pinia/blob/v2/packages/testing/src/testing.spec.ts).
 
-### Simulando recuperadores
+### Simulação dos Recuperadores %{#Mocking-getters}%
 
-Por padrão, qualquer recuperador será computado como a utilização regular, mas podes automaticamente forçar um valor pela definição do recuperador para qualquer coisa que quiseres:  
+Por padrão, qualquer recuperador será computado como um uso normal, mas podemos forçar manualmente um valor definindo o recuperador para o que quisermos:
 
 ```ts
 import { defineStore } from 'pinia'
 import { createTestingPinia } from '@pinia/testing'
 
-const useCounter = defineStore('counter', {
+const useCounterStore = defineStore('counter', {
   state: () => ({ n: 1 }),
   getters: {
     double: (state) => state.n * 2,
@@ -203,11 +203,11 @@ const useCounter = defineStore('counter', {
 })
 
 const pinia = createTestingPinia()
-const counter = useCounter(pinia)
+const counter = useCounterStore(pinia)
 
-counter.double = 3 // 🪄 os recuperadores são apenas graváveis em testes 
+counter.double = 3 // 🪄 os recuperadores só são graváveis nos testes
 
-// define para `não definido` para reiniciar o comportamento padrão
+// definir como `undefined` para repor o comportamento predefinido
 // @ts-expect-error: normalmente é um número
 counter.double = undefined
 counter.double // 2 (=1 x 2)
