@@ -59,21 +59,24 @@ beforeEach(() => {
 })
 ```
 
-## Testagem unitária de componentes
+## Teste Unitário de Componentes %{#Unit-testing-components}%
 
-Isto pode ser alcançado com `createTestingPinia()`, que retorna uma instância de pinia desenhada para ajudar a realizar testes unitários em componentes.
+Isto pode ser alcançado com `createTestingPinia()`, que retorna uma instância de `pinia` desenhada auxiliar nos testes unitários de componentes.
 
-Comece por instalar `@pinia/testing`:
+Começamos por instalar `@pinia/testing`:
 
 ```shell
 npm i -D @pinia/testing
 ```
 
-E certifique-te de criar uma instância de pinia de testes em seus testes quando estiveres montando um componente:
+E precisamos de certificar-nos de que criamos uma instância de `pinia` de testes nos nossos testes quando montarmos um componente:
 
 ```js
 import { mount } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
+// importar qualquer memória com a qual
+// queremos interagir nos testes
+import { useSomeStore } from '@/stores/myStore'
 
 const wrapper = mount(Counter, {
   global: {
@@ -81,23 +84,24 @@ const wrapper = mount(Counter, {
   },
 })
 
-const store = useSomeStore() // utiliza a pinia de testes
+const store = useSomeStore() // usa a pinia de teste!
 
-// o estado pode ser diretamente manipulado
+// o estado pode ser manipulado diretamente
 store.name = 'my new name'
-// pode também ser feito através do remendo
+// também pode ser feito através do remendo
 store.$patch({ name: 'new name' })
 expect(store.name).toBe('new name')
 
-// ações são bloqueadas por padrão, significando que elas não executam seu código por padrão.
-// Veja abaixo como personalizar este comportamento.
+// As ações são esboçadas por padrão, o que significa
+// que não executam o seu código por padrão.
+// Consultar abaixo para personalizar este comportamento.
 store.someAction()
 
 expect(store.someAction).toHaveBeenCalledTimes(1)
 expect(store.someAction).toHaveBeenLastCalledWith()
 ```
 
-Nota que se estiveres utilizando a Vue 2, a biblioteca `@vue/test-utils` requer um [configuração ligeiramente diferente](#teste-unitários-em-componentes-vue-2).
+Por favor, note que se estivermos usando a Vue 2, `@vue/test-utils` requer uma [configuração ligeiramente diferente](#Unit-test-components-Vue-2-).
 
 ### Estado Inicial
 
