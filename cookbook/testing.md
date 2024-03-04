@@ -213,15 +213,15 @@ counter.double = undefined
 counter.double // 2 (=1 x 2)
 ```
 
-### Extensões de Pinia
+### Extensões da Pinia %{#Pinia-Plugins}%
 
-Se tiveres quaisquer extensões de pinia, certifique-se de passá-los quando estiveres chamando a `createTestinPinia()` assim elas são propriamente aplicadas. **Não adicione-os com `testingPinia.use(MyPlugin)`** como farias com uma pinia regular:
+Se tivermos alguma extensão de pinia, precisamos de certificar-nos de passá-los ao chamar `createTestingPinia()` para que ela seja aplicada corretamente. **Não podemos adicioná-los com `testingPinia.use(MyPlugin)`** como faríamos com uma pinia normal:
 
 ```js
 import { createTestingPinia } from '@pinia/testing'
 import { somePlugin } from '../src/stores/plugin'
 
-// dentro de algum teste
+// dentro dum teste
 const wrapper = mount(Counter, {
   global: {
     plugins: [
