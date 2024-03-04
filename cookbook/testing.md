@@ -136,11 +136,11 @@ const store = useSomeStore() // usa a pinia de teste!
 store.n // 20
 ```
 
-### Personalizando o comportamento das ações
+### Personalização do Comportamento das Ações %{#Customizing-behavior-of-actions}%
 
-`createTestingPinia` apaga todas ações da memória a menos que seja dito o contrário. Isto permite-te testar seus componentes e memórias separadamente.
+A `createTestingPinia` elimina todas as ações da memória, a menos que seja dito o contrário. Isto nos permite testes os nossos componentes e memórias separadamente.
 
-Se quiseres reverter este comportamento e executar normalmente as tuas ações durante os testes, especifique `stubActions: false` quando estiveres chamando a `createTestingPinia`:
+Se quisermos reverter este comportamento e executar normalmente nossas ações durante os testes, especifique `stubActions: false` ao chamar `createTestingPinia`:
 
 ```js
 const wrapper = mount(Counter, {
@@ -151,10 +151,12 @@ const wrapper = mount(Counter, {
 
 const store = useSomeStore()
 
-// Agora esta chamada EXECUTARÁ a implementação definida pela memória
+// Agora esta chamada EXECUTARÁ a
+// implementação definida pela memória
 store.someAction()
 
-// ...mas ela continua envolvida com um espião (`spy`), assim podes inspecionar as chamadas
+// ...mas continua a ser envolvido por um espião,
+// pelo que podemos inspecionar as chamadas.
 expect(store.someAction).toHaveBeenCalledTimes(1)
 ```
 
