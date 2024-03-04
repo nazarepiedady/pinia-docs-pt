@@ -1,12 +1,12 @@
 # Testando Memórias %{#Testing-stores}%
 
-As memórias, por padrão, serão usados em vários lugares e podem tornar os testes muito mais difíceis do que deveriam ser. Felizmente, este não precisa ser o caso. Nós precisamos tomar cuidado com três coisas quando testamos as memórias:
+As memórias serão, por padrão, usadas em muitos lugares e podem tornar os testes muito mais difíceis do que deveriam. Felizmente, esse não precisa ser o caso. Nós precisamos cuidar de três ao testar memórias:
 
 - A instância da `pinia`: As memórias não podem funcionar sem esta
-- `actions`: na maioria das vezes, estas contém a lógica mais complexa das nossas memórias. Não seria bom se estas fossem simuladas por padrão?
-- Extensões: Se dependemos de extensões, também poderemos instalá-las para testes.
+- `actions`: na maioria das vezes, estas contém a lógica mais complexa das nossas memórias. Não seria bom se fossem simuladas por padrão?
+- Extensões: Se dependermos de extensões, também teremos de os instalar para os testes.
 
-Dependendo do quê ou como testamos, precisamos tomar cuidado com estas três coisas de maneira diferentes.
+Dependendo do que ou como testamos, temos de tratar estes três aspetos de maneira diferente.
 
 ## Testagem unitária de uma memória
 
