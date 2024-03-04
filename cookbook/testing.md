@@ -8,48 +8,49 @@ As memórias serão, por padrão, usadas em muitos lugares e podem tornar os tes
 
 Dependendo do que ou como testamos, temos de tratar estes três aspetos de maneira diferente.
 
-## Testagem unitária de uma memória
+## Teste Unitário duma Memória %{#Unit-testing-a-store}%
 
-Para fazer teste unitário em uma memória, a parte mais importante é a criação de uma instância de `pinia`:
+Para testar a unidade duma memória, a parte mais importante é criar uma instância de pinia:
 
 ```js
-// counterStore.spec.ts
+// stores/counter.spec.ts
 import { setActivePinia, createPinia } from 'pinia'
-import { useCounter } from '../src/stores/counter'
+import { useCounterStore } from '../src/stores/counter'
 
 describe('Counter Store', () => {
   beforeEach(() => {
-    // cria um nova instância de pinia e torna-a ativa assim será automaticamente
-    // capturada por qualquer chamada de `useStore()` sem ter de passá-la para ela:
+    // cria uma nova pinia e torna-a ativa, para ser
+    // automaticamente apanhada por qualquer chamada
+    // de `useStore()` sem ter que a passar para ela:
     // `useStore(pinia)`
     setActivePinia(createPinia())
   })
 
   it('increments', () => {
-    const counter = useCounter()
+    const counter = useCounterStore()
     expect(counter.n).toBe(0)
     counter.increment()
     expect(counter.n).toBe(1)
   })
 
   it('increments by amount', () => {
-    const counter = useCounter()
+    const counter = useCounterStore()
     counter.increment(10)
     expect(counter.n).toBe(10)
   })
 })
 ```
 
-Se tiveres quaisquer extensões de memória, há uma coisa importante a saber: **extensões não serão utilizadas até que a `pinia` esteja instalada em uma Aplicação**. Isto pode ser solucionado pela criação de uma Aplicação vazia ou falsificar uma:
+Se tivermos alguma extensão de memória, existe uma coisa importante a saber: **as extensões não serão usadas até a `pinia` ser instalada numa aplicação**. Isto pode ser solucionado criando uma aplicação vazia ou uma aplicação falsa:
 
 ```js
 import { setActivePinia, createPinia } from 'pinia'
 import { createApp } from 'vue'
 import { somePlugin } from '../src/stores/plugin'
 
-// o mesmo código de cima...
+// o mesmo código que o anterior...
 
-// não precisas criar uma aplicação por teste
+// não precisamos de criar uma aplicação por teste
 const app = createApp({})
 beforeEach(() => {
   const pinia = createPinia().use(somePlugin)
