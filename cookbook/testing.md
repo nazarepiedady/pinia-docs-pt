@@ -234,9 +234,9 @@ const wrapper = mount(Counter, {
 })
 ```
 
-## Testes E2E
+## Testes de Ponta-a-Ponta %{#E2E-tests}%
 
-Quando se trata da pinia, não precisas mudar nada para testes `e2e`, este é o objetivo dos testes `e2e`! Poderias talvez testar requisições HTTP, mas desta maneira fora do âmbito deste guia 😄.
+Quando se trata da Pinia, não precisamos de mudar nada para os testes de ponta-a-ponta, é esse o objetivo destes testes! podíamos talvez testar as requisições do protocolo de transferência de hipertexto, mas isto está muito para além do âmbito deste guia 😄.
 
 ## Teste unitário de componentes (Vue 2)
 
