@@ -238,9 +238,9 @@ const wrapper = mount(Counter, {
 
 Quando se trata da Pinia, não precisamos de mudar nada para os testes de ponta-a-ponta, é esse o objetivo destes testes! podíamos talvez testar as requisições do protocolo de transferência de hipertexto, mas isto está muito para além do âmbito deste guia 😄.
 
-## Teste unitário de componentes (Vue 2)
+## Testes Unitários de Componentes (Vue 2) %{#Unit-test-components-Vue-2-}%
 
-Quando estiveres utilizando a [Vue Test Utils 1](https://v1.test-utils.vuejs.org/), instale a Pinia em um `localVue`:
+Ao usar a [Vue Test Utils 1](https://v1.test-utils.vuejs.org/), instalamos a Pinia em um `localVue`:
 
 ```js
 import { PiniaVuePlugin } from 'pinia'
@@ -255,5 +255,5 @@ const wrapper = mount(Counter, {
   pinia: createTestingPinia(),
 })
 
-const store = useSomeStore() // utiliza a pinia de testes!
+const store = useSomeStore() // usa a pinia de teste!
 ```
