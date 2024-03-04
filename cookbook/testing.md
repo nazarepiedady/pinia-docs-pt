@@ -103,9 +103,9 @@ expect(store.someAction).toHaveBeenLastCalledWith()
 
 Por favor, note que se estivermos usando a Vue 2, `@vue/test-utils` requer uma [configuração ligeiramente diferente](#Unit-test-components-Vue-2-).
 
-### Estado Inicial
+### Estado Inicial %{#Initial-State}%
 
-Tu podes definir o estado initial de **todas as tuas memórias** quando estiveres criando uma instância de testes de pinia ao passar um objeto `initialState`. Este objeto será utilizado pela instância de testes de pinia para _remendar_ as memórias quando elas forem criadas. Vamos dizer que queres inicializar o estado desta memória:
+Nós podemos definir o estado inicial de **todas as nossas memórias** ao criarmos uma instância de `pinia` de teste, passando um objeto `initialState`. Este objeto será usado pela pinia de teste para _remendar_ as memórias quando elas forem criadas. Digamos que queremos inicializar o estado desta memória:
 
 ```ts
 import { defineStore } from 'pinia'
@@ -116,23 +116,23 @@ const useCounterStore = defineStore('counter', {
 })
 ```
 
-Visto que a memória foi nomeada _"counter"_, tu precisas adicionar um objeto correspondente ao `initialState`:
+Uma vez que a memória tem o nome _"counter"_, precisamos adicionar um objeto correspondente a `initialState`:
 
 ```ts
-// algum lugar no seu teste
+// Em algum lugar no nosso teste
 const wrapper = mount(Counter, {
   global: {
     plugins: [
       createTestingPinia({
         initialState: {
-          counter: { n: 20 }, // inicia o `counter` em 20 no lugar de 0
+          counter: { n: 20 }, // iniciar o contador a 20 em vez de 0
         },
       }),
     ],
   },
 })
 
-const store = useSomeStore() // utiliza a instância de testes de pinia!
+const store = useSomeStore() // usa a pinia de teste!
 store.n // 20
 ```
 
