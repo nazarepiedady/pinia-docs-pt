@@ -160,19 +160,32 @@ store.someAction()
 expect(store.someAction).toHaveBeenCalledTimes(1)
 ```
 
-### Especificando a função createSpy
+### Especificação da função `createSpy` %{#Specifying-the-createSpy-function}%
 
-Quando estiveres utilizando a Jest, ou a Vitest com `globals: true`, a `createTestingPinia` bate automaticamente as ações utilizando a função espião (`spy`) baseada na abstração de teste existente (`jest.fn` ou `vitest.fn`). Se estas utilizando uma abstração diferente, precisarás fornecer uma opção [`createSpy`](/api/interfaces/pinia_testing.TestingOptions.md#createspy):
+Ao usar a Jest, ou Vitest com a `globals: true`, a `createTestingPinia` esboça automaticamente as ações usando a função espia baseada na abstração de teste existente (`jest.fn` ou `vitest.fn`). Se não estivermos usando `globals: true` ou usando uma abstração diferente, precisamos fornecer uma opção [`createSpy`](/api/interfaces/pinia_testing.TestingOptions#createspy):
 
-```js
-import sinon from 'sinon'
+::: code-group
+
+```ts [vitest]
+// NOTA: não é necessário com `globals: true`
+import { vi } from 'vitest'
 
 createTestingPinia({
-  createSpy: sinon.spy, / utiliza o espião do `sinon` para envolver as ações
+  createSpy: vi.fn,
 })
 ```
 
-Tu podes encontrar mais exemplos nos [testes do pacote de testes](https://github.com/vuejs/pinia/blob/v2/packages/testing/src/testing.spec.ts).
+```ts [sinon]
+import sinon from 'sinon'
+
+createTestingPinia({
+  createSpy: sinon.spy,
+})
+```
+
+:::
+
+Nós podemos encontrar mais exemplos nos [testes do pacote de testes](https://github.com/vuejs/pinia/blob/v2/packages/testing/src/testing.spec.ts).
 
 ### Simulando recuperadores
 
