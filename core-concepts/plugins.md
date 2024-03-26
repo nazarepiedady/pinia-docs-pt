@@ -138,7 +138,7 @@ pinia.use(({ store }) => {
   store.hasError = toRef(store.$state, 'hasError')
 
   // neste caso é melhor não retornar `hasError` visto que
-  // será exibida na seção `state` nas ferramentas de programação
+  // será exibida na secção `state` nas ferramentas de programação
   // e se a retornarmos, as ferramentas de programação a exibirão
   // duas vezes.
 })
@@ -185,16 +185,16 @@ pinia.use(({ store }) => {
   }
   store.hasError = toRef(store.$state, 'hasError')
 
- // temos de nos certificar de definir o
- // contexto (`this`) à memória
+  // temos de nos certificar de definir o
+  // contexto (`this`) à memória
   const originalReset = store.$reset.bind(store)
 
- // sobrepor a função `$reset`
+  // sobrepor a função `$reset`
   return {
     $reset() {
       originalReset()
       store.hasError = false
-    }
+    },
   }
 })
 ```
@@ -412,7 +412,7 @@ Também existe um tipo `StoreGetters` para extrair os _recuperadores_ a partir d
 
 Quando [usamos a `pinia` em conjunto com a Nuxt](../ssr/nuxt), primeiro precisaremos criar uma [extensão de Nuxt](https://nuxt.com/docs/guide/directory-structure/plugins). Isto dar-nos-á à instância de `pinia`:
 
-```ts
+```ts{14-16}
 // plugins/myPiniaPlugin.ts
 import { PiniaPluginContext } from 'pinia'
 
@@ -431,13 +431,17 @@ export default defineNuxtPlugin(({ $pinia }) => {
 })
 ```
 
-Nota que o exemplo acima usa a TypeScript, precisamos remover as anotações de tipo `PiniaPluginContext` e `Plugin` bem como suas importações se usarmos um ficheiro `.js`.
+:::info INFORMAÇÃO
+
+O exemplo acima estiver usando a TypeScript, precisamos remover as anotações de tipo `PiniaPluginContext` e `Plugin` bem como as suas importações se usarmos um ficheiro `.js`.
+
+:::
 
 ### Nuxt.js 2 %{#Nuxt-js-2}%
 
-Se usamos a Nuxt.js 2, os tipos são ligeiramente diferentes:
+Se usarmos a Nuxt.js 2, os tipos são ligeiramente diferentes:
 
-```ts
+```ts{3,15-17}
 // plugins/myPiniaPlugin.ts
 import { PiniaPluginContext } from 'pinia'
 import { Plugin } from '@nuxt/types'
